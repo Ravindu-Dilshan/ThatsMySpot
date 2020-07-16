@@ -36,30 +36,37 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid mb-5">
+        <div class="container-fluid">
 
           <div class="m-auto">
               <div class="m-auto">
-                <div class="px-0 py-5 my-5">
+                <div class="px-0 pb-4">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Welcome</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Register</h1>
                   </div>
                   <form class="user">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Email Address">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="" placeholder="Password">
+                      <input type="text" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Name">
                     </div>
                     <div class="form-group">
+                      <input type="number" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Telephone number">
                     </div>
-                    <a href="login.php" class="btn btn-primary btn-user btn-block">
-                      Login
+                    <div class="form-group">
+                      <textarea type="long text" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Address..."></textarea>
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="form-control form-control-user" id="" placeholder="Enter Password">
+                    </div>
+                    <a href="register.php" class="btn btn-primary btn-user btn-block">
+                        Register
                     </a>
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="register.php">Create an Account!</a>
+                    <a class="small" href="login.php">Have an Account !</a>
                   </div>
                 </div>
               </div>
@@ -68,6 +75,7 @@
 
         </div>
         <!-- /.container-fluid -->
+
       </div>
       <!-- End of Main Content -->
 
