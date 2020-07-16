@@ -32,7 +32,7 @@
       <div id="content">
 
         <!-- Topbar -->
-        <?php include("topbar.php")?>
+        
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
@@ -40,7 +40,7 @@
 
           <div class="m-auto">
               <div class="m-auto">
-                <div class="px-0 pb-4">
+                <div class="px-0 pb-4 mt-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Register</h1>
                   </div>

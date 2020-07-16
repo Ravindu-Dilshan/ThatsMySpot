@@ -32,7 +32,7 @@
       <div id="content">
 
         <!-- Topbar -->
-        <?php include("topbar.php")?>
+        
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
