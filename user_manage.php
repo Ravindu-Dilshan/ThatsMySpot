@@ -230,7 +230,7 @@ else{
                                 placeholder="Enter Telephone...">
                         </div>
                         <div class="form-group">
-                            <label for="update-typeUser ml-4">Type</label>
+                            <label for="typeUser ml-4">Type</label>
                             <select id="update-typeUser" name="txtTypeUser" class="form-control">
                                 <option>Customer</option>
                                 <option>Manager</option>
@@ -301,41 +301,43 @@ else{
                 <!--/.Content-->
             </div>
         </div>
-        <!-- Bootstrap core JavaScript-->
+    </div>
+    <!-- Bootstrap core JavaScript-->
 
-        <script src="utils/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="utils/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="utils/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="utils/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin-2.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
 
-        <!-- Page level plugins -->
-        <script src="utils/datatables/jquery.dataTables.min.js"></script>
-        <script src="utils/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Page level plugins -->
+    <script src="utils/datatables/jquery.dataTables.min.js"></script>
+    <script src="utils/datatables/dataTables.bootstrap4.min.js"></script>
 
-        <!-- Page level custom scripts -->
-        <script src="js/demo/datatables-demo.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
 
-        <script type="text/javascript">
-        $('.userTable tbody').on('click', '#btnViewUser', function() {
-            var currow = $(this).closest('tr');
-            var id = currow.find('td:eq(0)').text();
-            var name = currow.find('td:eq(1)').text();
-            var email = currow.find('td:eq(2)').text();
-            var telephone = currow.find('td:eq(3)').text();
-            var type = currow.find('td:eq(4)').text();
+    <script type="text/javascript">
+    $('.userTable tbody').on('click', '#btnViewUser', function() {
+        var currow = $(this).closest('tr');
+        var id = currow.find('td:eq(0)').text();
+        var name = currow.find('td:eq(1)').text();
+        var email = currow.find('td:eq(2)').text();
+        var telephone = currow.find('td:eq(3)').text();
+        var type = currow.find('td:eq(4)').text();
 
-            $('#update-idUser').val(id);
-            $('#update-nameUser').val(name);
-            $('#update-emailUser').val(email);
-            $('#update-telephoneUser').val(telephone);
-            $('#update-typeUser').val(type);
-            //$('#userUpdateModal').modal('show');
+        $('#update-idUser').val(id);
+        $('#update-nameUser').val(name);
+        $('#update-emailUser').val(email);
+        $('#update-telephoneUser').val(telephone);
+        //$('#update-typeUser select').val(type);
+        $("#update-typeUser option[value="+type+"]").attr('selected', 'selected');
+        //$('#userUpdateModal').modal('show');
 
-        })
-        </script>
+    })
+    </script>
 
 </body>
 
