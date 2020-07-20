@@ -8,14 +8,16 @@ class User extends Database
 	private  $emailUser;
 	private  $passwordUser;
 	private  $accessUser;
+	private  $telephone;
 
-	public function __construct($UID,$nameUser,$emailUser,$passwordUser,$accessUser)
+	public function __construct($UID,$nameUser,$emailUser,$passwordUser,$telephone,$accessUser)
 	{
 		$this->UID = $UID;
 		$this->nameUser = $nameUser;
 		$this->emailUser = $emailUser;
 		$this->passwordUser = $passwordUser;
 		$this->accessUser = $accessUser;
+		$this->telephone = $telephone;
 	}
 	
 	/**
@@ -99,6 +101,26 @@ class User extends Database
 	}
 
 	/**
+	 * Get the value of telephone
+	 */ 
+	public function getTelephone()
+	{
+		return $this->telephone;
+	}
+
+	/**
+	 * Set the value of telephone
+	 *
+	 * @return  self
+	 */ 
+	public function setTelephone($telephone)
+	{
+		$this->telephone = $telephone;
+
+		return $this;
+	}
+
+	/**
 	 * Get the value of accessUser
 	 */ 
 	public function getAccessUser()
@@ -152,16 +174,16 @@ class User extends Database
 		
 	}
 
-	private function getUserByName($user,$email)
+	private function getUserByEmail()
 	{
 		$connection = $this -> DBconnect();
-		$sql = "SELECT * FROM user WHERE nameUser = ? OR email = ?";
+		$sql = "SELECT * FROM user WHERE  emailUser = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
 			return -1;
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'ss',$user,$email);
+			mysqli_stmt_bind_param($stmt,'s',$this ->emailUser);
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_store_result($stmt);
 			$result = mysqli_stmt_num_rows($stmt);
@@ -193,51 +215,58 @@ class User extends Database
 	public function addUser()
 	{
 		$connection = $this -> DBconnect();
-		$user = $this -> User();
-		$sql = "INSERT INTO `user`(`nameUser`, `emailUser`, `passwordUser`, `accessUser`) VALUES (?,?,?,?)";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-				return -1;
+		$sql = "INSERT INTO `user`(`nameUser`, `emailUser`, `passwordUser`, `telephoneUser`, `accessUser`) VALUES (?,?,?,?,?)";
+		$stmt = mysqli_stmt_init($connection); 
+		$check = $this->getUserByEmail();
+		if($check==1){
+			return $this -> messages(3);
+		}
+		elseif($check== -1){
+			return $this -> messages(-1);
+		}
+		elseif(!mysqli_stmt_prepare($stmt,$sql)){
+				return $this -> messages(-1);
 		}
 		else{
 			$hashPass = password_hash($this ->passwordUser,PASSWORD_BCRYPT);
 			$type = 'user';
-			mysqli_stmt_bind_param($stmt,'sssss',$this ->nameUser,$this ->emailUser,$this ->passwodUser,$this ->accessUser);
+			mysqli_stmt_bind_param($stmt,'sssss',$this ->nameUser,$this ->emailUser, $hashPass ,$this ->telephone,$this ->accessUser);
 			mysqli_stmt_execute($stmt);
-			return 1;
+			return $this ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
 
 
-	public function updateUser($id,$name,$address,$email,$type)
+	public function updateUser()
 	{
 		$connection = $this -> DBconnect();
-		$sql = "UPDATE `user` SET `nameUser`=?,`email`=?,`address`=?, type=? WHERE idUser = ?";
+		$sql = "UPDATE `user` SET `nameUser`=?,`emailUser`=?,`telephoneUser`=?, accessUser=? WHERE `UID` = ?";
 		$stmt = mysqli_stmt_init($connection);
+		$check = $this->getUserByEmail();
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
+			return $this ->messages(-1);
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'sssss',$name,$email,$address,$type,$id);
+			mysqli_stmt_bind_param($stmt,'sssss',$this ->nameUser,$this ->emailUser ,$this ->telephone,$this ->accessUser,$this ->UID);
 			mysqli_stmt_execute($stmt);
-			return 1;
+			return $this ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
 
-	public function deleteUser($id)
+	public function deleteUser()
 	{
 		$connection = $this -> DBconnect();
-		$sql = "DELETE FROM `user` WHERE idUser = ?";
+		$sql = "DELETE FROM `user` WHERE `UID` = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
+			return $this ->messages(1);
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'s',$id);
+			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
 			mysqli_stmt_execute($stmt);
-			return 1;
+			return $this ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
@@ -329,6 +358,8 @@ class User extends Database
 		}
 		mysqli_stmt_close($stmt);
 	}
+	
+
 	
 }
  ?>

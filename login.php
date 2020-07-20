@@ -84,7 +84,7 @@
                       </div>
                     </div>
                     <button class="btn btn-primary btn-user btn-block" id="btnLogin" name="btnLogin">Login</button>
-                    <div class="alert text-dark shadow float-right w-100 text-center mt-3" role="alert" id="result">Please Enter a Username</div>
+                    <div class="alert text-dark shadow float-right w-100 text-center mt-3" role="alert" id="result"></div>
                   </form>
                   <hr>
                   <div class="text-center">

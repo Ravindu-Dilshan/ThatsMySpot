@@ -24,7 +24,7 @@ class Database
 				return 'Success2';
 				break;
 			case 3:
-				return 'Success3';
+				return 'Email in Use';
 				break;
 			case 0:
 				return 'Incorrect Username or Password';

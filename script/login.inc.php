@@ -4,7 +4,7 @@ if(isset($_GET['btnLogin']))
 {
   $email =$_POST['txtEmail'];
   $pw = $_POST['txtPassword'];
-  $user = new User(null,null,$email,$pw,null);
+  $user = new User(null,null,$email,$pw,null,null);
   $user->setEmailUser($email);
   $user->setPasswordUser($pw);
   $login = $user->login();

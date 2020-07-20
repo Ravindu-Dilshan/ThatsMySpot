@@ -1,96 +1,70 @@
 <?php
-require_once('user.inc.php');
-if(isset($_POST['btnUpdate']))
+require_once('class/user.cls.php');
+if(isset($_GET['btnUpdateUser']))
 {
   $name =$_POST['txtName'];
   $email = $_POST['txtEmail'];
-  $address =$_POST['txtAddress'];
-  $id = $_POST['txtIdUser'];
-  $type = $_POST['type'];
+  $tele =$_POST['txtTelephone'];
+  $id = $_POST['txtUID'];
+  $access = $_POST['txtTypeUser'];
   if (empty($name)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter a Username</div>';
+    echo 'Please Enter a Username';
     exit();
   }
   elseif (empty($email)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter a Email</div>';
+    echo 'Please Enter a Email';
     exit();
   }
-  elseif (empty($address)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter a Address</div>';
+  elseif (empty($tele)) {
+    echo 'Please Enter a Address';
     exit();
   }
   else{
-    $user = new User();
-    $update = $user->updateUser($id,$name,$address,$email,$type);
-    if($update==1){
-      echo '<script>alert("Succsessfully Updated");</script>';
-      echo '<script>window.location = window.location</script>';
-      exit();
-    }
-    else{
-      echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Something went wrong</div>';
-      exit();
-    }
+    $user = new User($id,$name,$email,null, $tele,$access);
+    $update = $user->updateUser();
+    echo $update;
   }
 }
 
-if(isset($_POST['btnAddUser']))
+elseif(isset($_GET['btnAddUser']))
 {
   $name =$_POST['txtName'];
   $email = $_POST['txtEmail'];
-  $address =$_POST['txtAddress'];
-  $pass = $_POST['txtPassword'];
+  $tele =$_POST['txtTelephone'];
+  $code = $_POST['txtPassword'];
+  $access = $_POST['txtTypeUser'];
   if (empty($name)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter a Username</div>';
+    echo 'Please Enter a Username';
     exit();
   }
   elseif (empty($email)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter a Email</div>';
+    echo 'Please Enter a Email';
     exit();
   }
-  elseif (empty($address)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter a Address</div>';
+  elseif (empty($tele)) {
+    echo 'Please Enter a Telephone Number';
     exit();
   }
-  elseif (empty($pass)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter a Password</div>';
+  elseif (empty($code)) {
+    echo 'Please Enter a Password';
     exit();
   }
   else{
-    $user = new User($name,$email,$password,$access);
+    $user = new User(null,$name,$email,$code, $tele,$access);
     $add = $user->addUser();
-    if($add==1){
-      echo '<script>alert("Succsessfully Added");</script>';
-      echo '<script>window.location = window.location</script>';
-      exit();
-    }
-    elseif ($add==2) {
-      echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Username or Email already in use</div>';
-      exit();
-    }
-    else{
-      echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Something went wrong</div>';
-      exit();
-    }
+    echo $add;
   }
 }
 
-if(isset($_GET['btnDelete']))
+elseif(isset($_GET['btnDelete']))
 {
   $id =$_GET['id'];
-  $user = new User();
-  $delete = $user->deleteUser($id);
-  if($delete==1){
-    echo '<script>window.location = "../admin/admin.php?page=users.php"</script>';
-    exit();
-  }
-  else{
-      echo '<script>window.location = "../admin/admin.php?page=users.php&delError"</script>';
-      exit();
-  }
+  $user = new User($id,null,null,null,null,null);
+  $delete = $user->deleteUser();
+  echo '<script>window.location = "../user_manage.php?'.$delete.'"</script>';
 }
 
-if(isset($_GET['btnDeletePro']))
+elseif(isset($_GET['btnDeletePro']))
 {
   $id =$_GET['id'];
   $user = new User();
@@ -110,7 +84,7 @@ if(isset($_GET['btnDeletePro']))
   }
 }
 
-if(isset($_POST['btnUpdatePro']))
+elseif(isset($_POST['btnUpdatePro']))
 {
   $id = $_POST['txtid'];
   $name = $_POST['txtName'];
@@ -143,7 +117,7 @@ if(isset($_POST['btnUpdatePro']))
 }
 
 
- if(isset($_POST['btnPassword']))
+elseif(isset($_POST['btnPassword']))
 {
   $id =$_POST['txtId'];
   $oPW = $_POST['oldPw'];
