@@ -63,7 +63,7 @@ elseif(isset($_GET['btnDelete']))
   $delete = $user->deleteUser();
   echo '<script>window.location = "../user_manage.php?'.$delete.'"</script>';
 }
-
+/*
 elseif(isset($_GET['btnDeletePro']))
 {
   $id =$_GET['id'];
@@ -157,7 +157,7 @@ elseif(isset($_POST['btnPassword']))
         exit();
       }
   }
-}
+}*/
 else{
   echo '<script>window.location = window.location+"?msg=errorLog"</script>';
   exit();

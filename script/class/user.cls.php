@@ -155,9 +155,13 @@ class User extends Database
 			if($row = mysqli_fetch_assoc($result)){
 				$pwCheck = password_verify($this->passwordUser,$row['passwordUser']);
 				if ($pwCheck == true) {
-					//session_start();
-					//$_SESSION['ID'] = $row['idUser'];
-					//$_SESSION['TYPE'] = $row['type'];
+					session_start();
+					$user = array( 'UID' => $row['UID'],
+					 'NAME' => $row['nameUser'],
+					 'EMAIL' => $row['emailUser'],
+					 'ACESS' => $row['accessUser']);
+					$_SESSION['loggedUser'] = $user;
+					//$_SESSION['TYPE'] = $row['accessUser'];
 					return $this -> messages(1);
 				}
 				elseif ($pwCheck == false) {
@@ -270,7 +274,7 @@ class User extends Database
 		}
 		mysqli_stmt_close($stmt);
 	}
-
+/*
 	public function getProfile($id)
 	{
 		$connection = $this -> DBconnect();
@@ -358,7 +362,7 @@ class User extends Database
 		}
 		mysqli_stmt_close($stmt);
 	}
-	
+	*/
 
 	
 }
