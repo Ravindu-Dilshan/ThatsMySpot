@@ -21,7 +21,7 @@ class Database
 				return 'Success';
 			  	break;
 			case 2:
-				return 'Success2';
+				return 'Vehicel Already Registered';
 				break;
 			case 3:
 				return 'Email in Use';
