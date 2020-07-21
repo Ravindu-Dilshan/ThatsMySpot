@@ -189,7 +189,7 @@ class Place extends Database
 			return $this ->messages(-1);
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'sssss',$this ->namePlace,$this ->latitude, $longtitude ,$this ->available,$this ->current);
+			mysqli_stmt_bind_param($stmt,'sssss',$this ->namePlace,$this ->latitude, $this ->longtitude ,$this ->available,$this ->current);
 			mysqli_stmt_execute($stmt);
 			return $this ->messages(1);
 		}
@@ -206,7 +206,7 @@ class Place extends Database
 			return $this ->messages(-1);
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'ssss',$this ->namePlace,$this ->latitude, $longtitude ,$this ->available,$this ->current,$this ->PID);
+			mysqli_stmt_bind_param($stmt,'ssssss',$this ->namePlace,$this ->latitude, $this ->longtitude ,$this ->available,$this ->current,$this ->PID);
 			mysqli_stmt_execute($stmt);
 			return $this ->messages(1);
 		}

@@ -29,7 +29,6 @@
         $('#addPlaceform').submit(function(e) {
             e.preventDefault();
             var values = $(this).serialize();
-
             $.ajax({
                 type: "POST",
                 url: 'script/place.inc.php?btnAddPlace',
@@ -50,7 +49,7 @@
 
         $('#updatePlaceform').submit(function(e) {
             e.preventDefault();
-            var values = $(this).serialize();;
+            var values = $(this).serialize();
             $.ajax({
                 type: "POST",
                 url: 'script/place.inc.php?btnUpdatePlace',
@@ -158,7 +157,7 @@ $none = "";
                 <div>
                     <div class="col-md-4">
                         <button type="button" class="btn btn-primary waves-effect btn-block col-md-4 ml-md-5"
-                            data-toggle="modal" data-target="#addPlaceModal">Add new user</button>
+                            data-toggle="modal" data-target="#addPlaceModal">Add new Place</button>
                     </div>
                 </div>
             </div>
@@ -183,7 +182,7 @@ $none = "";
             <div class="modal-content">
                 <!--Header-->
                 <div class="text-center bg-primary py-2">
-                    <h1 class="h4 text-gray-900 my-4">ADD NEW USER</h1>
+                    <h1 class="h4 text-gray-900 my-4">ADD NEW PLACE</h1>
                 </div>
 
                 <!--Body-->
@@ -194,24 +193,16 @@ $none = "";
                                 placeholder="Enter Placename...">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" id="txtEmail" name="txtEmail"
-                                placeholder="Enter Email...">
+                            <input type="number" class="form-control" id="txtLat" name="txtLat"
+                                placeholder="Enter Latitude...(Decimal)" step="0.0000000001">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="txtPassword" name="txtPassword"
-                                placeholder="Enter Password...">
+                            <input type="number" class="form-control" id="txtLong" name="txtLong"
+                                placeholder="Enter Longtitude...(Decimal)" step="0.0000000001">
                         </div>
                         <div class="form-group">
-                            <input type="number" class="form-control" id="txtTelephone" name="txtTelephone"
-                                placeholder="Enter Telephone...">
-                        </div>
-                        <div class="form-group">
-                            <label for="typeUser ml-4">Type</label>
-                            <select id="update-typeUser" name="txtTypeUser" class="form-control">
-                                <option>Customer</option>
-                                <option>Manager</option>
-                                <option>Admin</option>
-                            </select>
+                            <input type="number" class="form-control" id="txtAvailable" name="txtAvailable"
+                                placeholder="Enter Parking Spot Count...">
                         </div>
                         <button class="btn btn-primary btn-user btn-block col-md-6 m-auto">Add New</button>
                         <div class="alert text-dark shadow float-right w-100 text-center mt-3" role="alert"
@@ -239,36 +230,38 @@ $none = "";
                 <div class="modal-body">
                     <form action="" method="post" id="updatePlaceform">
                         <div class="form-group">
-                            <label>User ID</label>
-                            <input type="text" class="form-control" id="update-idUser" name="txtUID" readonly>
+                            <label>Place ID</label>
+                            <input type="text" class="form-control" id="update-idPlace" name="txtPID" readonly>
                         </div>
 
                         <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" class="form-control" id="update-nameUser" name="txtName">
+                            <label>Name</label>
+                            <input type="text" class="form-control" id="update-namePlace" name="txtName">
                         </div>
 
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" class="form-control" id="update-emailUser" name="txtEmail">
+                            <label>Latitude</label>
+                            <input type="number" class="form-control" id="update-Latitude" name="txtLat" step="0.0000000001">
                         </div>
 
                         <div class="form-group">
-                            <label>Telephone</label>
-                            <input type="number" class="form-control" id="update-telephoneUser" name="txtTelephone">
+                            <label>Longtitude</label>
+                            <input type="number" class="form-control" id="update-Longtitude" name="txtLong" step="0.0000000001">
                         </div>
 
                         <div class="form-group">
-                            <label for="update-typeUser">Type</label>
-                            <select id="update-typeUser" name="txtTypeUser" class="form-control">
-                                <option value="Customer">Customer</option>
-                                <option value="Manager">Manager</option>
-                                <option value="Admin">Admin</option>
-                            </select>
+                            <label>Available Spots</label>
+                            <input type="text" class="form-control" id="update-Available" name="txtAvailable">
                         </div>
+
+                        <div class="form-group">
+                            <label>Spots in use</label>
+                            <input type="text" class="form-control" id="update-current" name="txtCurrent" readonly>
+                        </div>
+
                         <div id="updateUser-error-message"></div>
                         <!--Footer-->
-                        <button class="btn btn-primary btn-user btn-block col-md-6 m-auto" id="btnUpdateUser"
+                        <button class="btn btn-primary btn-user btn-block col-md-6 m-auto" id="btnUpdatePlace"
                             name="btnLogin">Update</button>
                         <div class="alert text-dark shadow float-right w-100 text-center mt-3" role="alert"
                             id="result2">
@@ -300,14 +293,16 @@ $none = "";
         var currow = $(this).closest('tr');
         var id = currow.find('td:eq(0)').text();
         var name = currow.find('td:eq(1)').text();
-        var email = currow.find('td:eq(2)').text();
-        var telephone = currow.find('td:eq(3)').text();
-        var type = currow.find('td:eq(4)').text();
-
-        $('#update-idUser').val(id);
-        $('#update-nameUser').val(name);
-        $('#update-emailUser').val(email);
-        $('#update-telephoneUser').val(telephone);
+        var lat = currow.find('td:eq(2)').text();
+        var long = currow.find('td:eq(3)').text();
+        var available = currow.find('td:eq(4)').text().split("/");
+        
+        $('#update-idPlace').val(id);
+        $('#update-namePlace').val(name);
+        $('#update-Latitude').val(lat);
+        $('#update-Longtitude').val(long);
+        $('#update-Available').val(available[1]);
+        $('#update-current').val(available[0]);
         //$('#update-typeUser select').val(type);
         $("#update-typeUser option[value="+type+"]").attr('selected', 'selected');
         //$('#userUpdateModal').modal('show');
