@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -27,13 +26,13 @@
 
     <script type="text/javascript">
     $(document).ready(function() {
-        $('#addUserform').submit(function(e) {
+        $('#addPlaceform').submit(function(e) {
             e.preventDefault();
             var values = $(this).serialize();
 
             $.ajax({
                 type: "POST",
-                url: 'script/user.inc.php?btnAddUser',
+                url: 'script/place.inc.php?btnAddPlace',
                 data: values,
                 success: function(data) {
                     if (data == "Success") {
@@ -49,12 +48,12 @@
             });
         });
 
-        $('#updateUserform').submit(function(e) {
+        $('#updatePlaceform').submit(function(e) {
             e.preventDefault();
             var values = $(this).serialize();;
             $.ajax({
                 type: "POST",
-                url: 'script/user.inc.php?btnUpdateUser',
+                url: 'script/place.inc.php?btnUpdatePlace',
                 data: values,
                 success: function(data) {
                     if (data == "Success") {
@@ -74,9 +73,9 @@
 
 </head>
 <?php
-include('script/class/user.cls.php');
-$user = new User(null,null,null,null,null,null);
-$result = $user->getAllUsers();
+include('script/class/place.cls.php');
+$place = new Place(null,null,null,null,null,null);
+$result = $place->getAllPalce();
 $none = "";
 ?>
 
@@ -112,15 +111,15 @@ $none = "";
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered userTable" id="dataTable" width="100%"
+                                <table class="table table-bordered placeTable" id="dataTable" width="100%"
                                     cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>UID</th>
+                                            <th>PID</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Telephone</th>
-                                            <th>Autorized access</th>
+                                            <th>Latitude</th>
+                                            <th>Longtitude</th>
+                                            <th>Availability</th>
                                             <th></th>
                                             <th></th>
                                         </tr>
@@ -128,22 +127,21 @@ $none = "";
                                     <tbody>
                                         <?php 
                                         if($result==false){
-                                            $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
-                                        }
-                                        else{
-                                          while($row = mysqli_fetch_assoc($result)){
+                                            $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Places Added</div>';
+                                          }else{
+                                            while($row = mysqli_fetch_assoc($result)){
                                         ?>
                                         <tr>
-                                            <td><b><?php echo $row['UID'];?></b></td>
-                                            <td><?php echo $row['nameUser'];?></td>
-                                            <td><?php echo $row['emailUser'];?></td>
-                                            <td><?php echo $row['telephoneUser'];?></td>
-                                            <td><?php echo $row['accessUser'];?></td>
-                                            <td><button type="button" id="btnViewUser" class="btn btn-primary btn-sm"
-                                                    data-toggle="modal" data-target="#userUpdateModal">Update</button>
+                                            <td><b><?php echo $row['PID'];?></b></td>
+                                            <td><?php echo $row['namePlace'];?></td>
+                                            <td><?php echo $row['latitude'];?></td>
+                                            <td><?php echo $row['longtitude'];?></td>
+                                            <td><?php echo $row['current']."/".$row['available'];?></td>
+                                            <td><button type="button" id="btnViewPlace" class="btn btn-primary btn-sm"
+                                                    data-toggle="modal" data-target="#placeUpdateModal">Update</button>
                                             </td>
                                             <td><button type="submit" class="btn btn-danger btn-sm confirm_dialog"
-                                                    onclick="if(confirm('Are You Sure!')){window.location = 'script/user.inc.php?btnDelete=&id=<?php echo $row['UID'];?>';}">
+                                                    onclick="if(confirm('Are You Sure!')){window.location = 'script/place.inc.php?btnDelete=&id=<?php echo $row['PID'];?>';}">
                                                     <i class="fas fa-trash-alt"></i></button></td>
                                         </tr>
                                         <?php }
@@ -160,7 +158,7 @@ $none = "";
                 <div>
                     <div class="col-md-4">
                         <button type="button" class="btn btn-primary waves-effect btn-block col-md-4 ml-md-5"
-                            data-toggle="modal" data-target="#addUserModal">Add new user</button>
+                            data-toggle="modal" data-target="#addPlaceModal">Add new user</button>
                     </div>
                 </div>
             </div>
@@ -178,7 +176,7 @@ $none = "";
     </a>
 
     <!--Add Modal-->
-    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="addPlaceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-notify modal-warning" role="document">
             <!--Content-->
@@ -190,10 +188,10 @@ $none = "";
 
                 <!--Body-->
                 <div class="modal-body">
-                    <form action="" id="addUserform" method="post">
+                    <form action="" id="addPlaceform" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" id="txtName" name="txtName"
-                                placeholder="Enter Username...">
+                                placeholder="Enter Placename...">
                         </div>
                         <div class="form-group">
                             <input type="email" class="form-control" id="txtEmail" name="txtEmail"
@@ -227,7 +225,7 @@ $none = "";
     </div>
 
     <!--Update Modal-->
-    <div class="modal fade" id="userUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="placeUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-notify modal-warning" role="document">
             <!--Content-->
@@ -239,7 +237,7 @@ $none = "";
 
                 <!--Body-->
                 <div class="modal-body">
-                    <form action="" method="post" id="updateUserform">
+                    <form action="" method="post" id="updatePlaceform">
                         <div class="form-group">
                             <label>User ID</label>
                             <input type="text" class="form-control" id="update-idUser" name="txtUID" readonly>
@@ -298,7 +296,7 @@ $none = "";
     <script src="js/demo/datatables-demo.js"></script>
 
     <script type="text/javascript">
-    $('.userTable tbody').on('click', '#btnViewUser', function() {
+    $('.placeTable tbody').on('click', '#btnViewPlace', function() {
         var currow = $(this).closest('tr');
         var id = currow.find('td:eq(0)').text();
         var name = currow.find('td:eq(1)').text();
@@ -311,7 +309,7 @@ $none = "";
         $('#update-emailUser').val(email);
         $('#update-telephoneUser').val(telephone);
         //$('#update-typeUser select').val(type);
-        $("#update-typeUser option[value=" + type + "]").attr('selected', 'selected');
+        $("#update-typeUser option[value="+type+"]").attr('selected', 'selected');
         //$('#userUpdateModal').modal('show');
 
     })
