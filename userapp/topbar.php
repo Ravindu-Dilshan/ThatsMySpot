@@ -1,5 +1,11 @@
 <nav class="navbar navbar-expand navbar-light bg-secondary topbar mb-4 static-top shadow">
-
+<?php
+session_start();
+$u = null;
+if(isset($_SESSION['loggedUser'])){
+    $u = $_SESSION['loggedUser'];
+}
+?>
     <!-- Sidebar Toggle (Topbar) -->
     <div  class="text-dark">
         <h6>Thats My Spot</h6>
@@ -21,9 +27,9 @@
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Settings
+                <a class="dropdown-item" href="vehicle_manage.php">
+                    <i class="fas fa-car fa-sm fa-fw mr-2 text-gray-400"></i>
+                    My Vehicles
                 </a>
                 <a class="dropdown-item" href="#">
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>

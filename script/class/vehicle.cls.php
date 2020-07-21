@@ -2,7 +2,7 @@
 require_once('database.cls.php');
 
 
-class Place extends Database
+class Vehicle extends Database
 {
 	private  $VID;
 	private  $plate;
@@ -152,6 +152,29 @@ class Place extends Database
 		}
 		
 	}
+
+	public function getByID($id)
+	{
+		$connection = $this -> DBconnect();
+		$sql = "SELECT * FROM vehicle WHERE `VID` = ?";
+		$stmt = mysqli_stmt_init($connection);
+		if(!mysqli_stmt_prepare($stmt,$sql)){
+			return -1;
+		}
+		else{
+			mysqli_stmt_bind_param($stmt,'s',$id);
+			mysqli_stmt_execute($stmt);
+			$result = mysqli_stmt_get_result($stmt);
+			if(mysqli_num_rows($result)>0){
+				return $result;
+			}
+			else{
+			return false;
+		    }
+		}
+		
+	}
+
 	public function getVehicleByPlate()
 	{
 		$connection = $this -> DBconnect();
@@ -200,7 +223,7 @@ class Place extends Database
 	}
 
 
-	public function updatePlace()
+	public function updateVehicel()
 	{
 		$connection = $this -> DBconnect();
 		$sql = "UPDATE `vehicle` SET `plate`=?,`color`=?,`type`=?,`UID`=? WHERE `VID`=?";
@@ -216,7 +239,7 @@ class Place extends Database
 		mysqli_stmt_close($stmt);
 	}
 
-	public function deletePlace()
+	public function deleteVehicle()
 	{
 		$connection = $this -> DBconnect();
 		$sql = "DELETE FROM `vehicle` WHERE VID = ?";
