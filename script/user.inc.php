@@ -56,6 +56,35 @@ elseif(isset($_GET['btnAddUser']))
   }
 }
 
+elseif(isset($_GET['btnRegister']))
+{
+  $name =$_POST['txtName'];
+  $email = $_POST['txtEmail'];
+  $tele =$_POST['txtTelephone'];
+  $code = $_POST['txtPassword'];
+  if (empty($name)) {
+    echo 'Please Enter a Username';
+    exit();
+  }
+  elseif (empty($email)) {
+    echo 'Please Enter a Email';
+    exit();
+  }
+  elseif (empty($tele)) {
+    echo 'Please Enter a Telephone Number';
+    exit();
+  }
+  elseif (empty($code)) {
+    echo 'Please Enter a Password';
+    exit();
+  }
+  else{
+    $user = new User(null,$name,$email,$code, $tele,"Customer");
+    $add = $user->addUser();
+    echo $add;
+  }
+}
+
 elseif(isset($_GET['btnDelete']))
 {
   $id =$_GET['id'];

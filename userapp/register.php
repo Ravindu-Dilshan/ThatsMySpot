@@ -17,6 +17,31 @@
 
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <script src="../utils/jquery/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#registerform').submit(function(e) {
+        e.preventDefault();
+        var values = $(this).serialize();
+        $.ajax({
+          type: "POST",
+          url: '../script/user.inc.php?btnRegister',
+          data: values,
+          success: function(data)
+          {   if(data=="Success"){
+                $("#result").removeClass('alert-danger');
+                $("#result").addClass('alert-success');
+                $("#result").html('Registered successfully');
+              }else{
+                $("#result").removeClass('alert-success');
+                $("#result").addClass('alert-danger');
+                $("#result").html(data);
+              } 
+          }
+        });
+      });
+    });
+  </script>
 
 </head>
 
@@ -44,30 +69,29 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Register</h1>
                   </div>
-                  <form class="user">
+                  <form class="user" action="" class="user" id="registerform" method="post">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Email Address">
+                      <input type="email" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Email Address" name="txtEmail">
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Name">
+                      <input type="text" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Name" name="txtName">
                     </div>
                     <div class="form-group">
-                      <input type="number" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Telephone number">
+                      <input type="number" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Telephone number" name="txtTelephone">
                     </div>
                     <div class="form-group">
                       <textarea type="long text" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Address..."></textarea>
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="" placeholder="Enter Password">
+                      <input type="password" class="form-control form-control-user" id="" placeholder="Enter Password" name="txtPassword">
                     </div>
-                    <a href="register.php" class="btn btn-primary btn-user btn-block">
-                        Register
-                    </a>
+                    <button class="btn btn-primary btn-user btn-block" id="btnLogin" name="btnLogin">Register</button>
                   </form>
                   <hr>
                   <div class="text-center">
                     <a class="small" href="login.php">Have an Account !</a>
                   </div>
+                  <div class="alert text-dark shadow float-right w-100 text-center mt-3" role="alert" id="result"></div>
                 </div>
               </div>
             </div>
@@ -90,27 +114,8 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../utils/jquery/jquery.min.js"></script>
   <script src="../utils/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->

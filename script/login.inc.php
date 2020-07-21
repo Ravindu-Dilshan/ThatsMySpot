@@ -9,7 +9,7 @@ if(isset($_GET['btnLogin']))
   $user->setPasswordUser($pw);
   $login = $user->login();
   if (empty($email)) {
-    echo 'Please Enter a Username or Email';
+    echo 'Please Enter a Email';
     exit();
   }
   elseif (empty($pw)) {

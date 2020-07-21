@@ -17,7 +17,34 @@
 
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-
+  <script src="../utils/jquery/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#loginform').submit(function(e) {
+        e.preventDefault();
+        var values = $(this).serialize();
+        $.ajax({
+          type: "POST",
+          url: '../script/login.inc.php?btnLogin',
+          data: values,
+          success: function(data)
+          {   if(data=="Success"){
+                $("#result").removeAttr('hidden');
+                $("#result").removeClass('alert-danger');
+                $("#result").addClass('alert-success');
+                $("#result").html('Submitted successfully');
+                window.location = "home.php"
+              }else{
+                $("#result").removeAttr('hidden');
+                $("#result").removeClass('alert-success');
+                $("#result").addClass('alert-danger');
+                $("#result").html(data);
+              } 
+          }
+        });
+      });
+    });
+  </script>
 </head>
 
 <body id="page-top">
@@ -44,20 +71,19 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome</h1>
                   </div>
-                  <form class="user">
+                  <form action="" class="user" id="loginform" method="post">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" class="form-control form-control-user" id="txtEmail" name="txtEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="" placeholder="Password">
+                      <input type="password" class="form-control form-control-user" id="txtPassword" name="txtPassword" placeholder="Password">
                     </div>
                     <div class="form-group">
                     </div>
-                    <a href="login.php" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </a>
+                    <button class="btn btn-primary btn-user btn-block" id="btnLogin" name="btnLogin">Login</button>
                   </form>
                   <hr>
+                  <div class="alert text-dark shadow float-right w-100 text-center mt-3" role="alert" id="result" hidden></div>
                   <div class="text-center">
                     <a class="small" href="register.php">Create an Account!</a>
                   </div>
@@ -82,27 +108,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Bootstrap core JavaScript-->
-  <script src="../utils/jquery/jquery.min.js"></script>
   <script src="../utils/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
