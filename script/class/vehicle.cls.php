@@ -2,7 +2,7 @@
 require_once('database.cls.php');
 
 
-class Place extends Database
+class Vehicle extends Database
 {
 	private  $VID;
 	private  $plate;
@@ -163,14 +163,13 @@ class Place extends Database
 		else{
 			mysqli_stmt_bind_param($stmt,'s',$this ->plate);
 			mysqli_stmt_execute($stmt);
-			mysqli_stmt_store_result($stmt);
-			$result = mysqli_stmt_num_rows($stmt);
-			if($result>0){
-				return 1;
+			$result = mysqli_stmt_get_result($stmt);
+			if(mysqli_num_rows($result)>0){
+				return $result;
 			}
 			else{
-				return 0;
-			}
+				return false;
+		    }
 		}
 		mysqli_stmt_close($stmt);
 		
