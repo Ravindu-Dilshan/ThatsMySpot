@@ -238,6 +238,7 @@ class ParkingLog extends Database
 		mysqli_stmt_close($stmt);
 	}
 
+
 /*
 	public function updatePlace()
 	{

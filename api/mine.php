@@ -15,17 +15,28 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         while($row = mysqli_fetch_assoc($result)){
                             $uid = $row['UID'];
                         }
-                        $log = array( 'INTIME' => time(),
+                        $item = array('INTIME' => time(),
                         'PLACE' => $_GET['place'],
                         'UID' => $uid);
-                        $_SESSION[$plate] = $log;
+
+                        $input = unserialize(file_get_contents('data.txt'));
+                        $tempArray = $input;
+                        $tempArray[$plate] = array();
+                        /*foreach ($tempArray as $value) {
+                           if($value['PLATE'] == $plate){
+                                echo json_encode($value['PLATE']);
+                                exit();
+                           }
+                        }*/
+                        array_push($tempArray[$plate], $item);
+                        file_put_contents('data.txt', serialize($tempArray));
 
                         $file = fopen("authentication.csv","a");
                         $line = array($plate, time() , 1);
                         fputcsv($file, $line);
                         fclose($file);
 
-                        echo json_encode($_SESSION);
+                        echo json_encode($tempArray);
                     }elseif($result==0){
                         echo "Please Register To the System";
                     }else{
@@ -38,20 +49,25 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             elseif($_GET['url'] =="vehicle_out"){
                 if(isset($_GET['plate'])){
                     $plate = $_GET['plate'];
-                    if(isset($_SESSION[$plate])){
+                    $input = unserialize(file_get_contents('data.txt'));
+                    if(isset($input[$plate])){
                         date_default_timezone_set('Asia/Colombo');
                         //$date = date('m/d/Y h:i:s a', "1595400778");
                         require_once('../script/class/parking.cls.php');
-                        $place = $_SESSION[$plate]['PLACE'];
-                        $in = date('m/d/Y h:i:s a', $_SESSION[$plate]['INTIME']);
+
+                        $place = $input[$plate][0]['PLACE'];
+                        $intime = $input[$plate][0]['INTIME'];
+                        $in = date('m/d/Y h:i:s a', $intime);
                         $out = date('m/d/Y h:i:s a', time());
-                        $amount = time() - $_SESSION[$plate]['INTIME'];
-                        $uid = $_SESSION[$plate]['UID'];
+                        $amount = time() - $intime;
+                        $uid = $input[$plate][0]['UID'];
+
                         $parking = new ParkingLog(null,$plate,$place,$in,$out,$amount,$uid);
                         $add = $parking->addPlace();
-                        unset($_SESSION[$plate]);
+                        unset($input[$plate]);
+                        file_put_contents('data.txt', serialize($input));
                         echo $add;
-                        echo json_encode($_SESSION);
+                        echo json_encode($input);
                     }else{
                         echo "not parked in";
                     }
