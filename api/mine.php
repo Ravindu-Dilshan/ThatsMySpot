@@ -5,8 +5,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     if(isset($_GET['token'])){
         if($_GET['token'] =="123456"){
             session_start();
+            require_once('../script/class/place.cls.php');
             if($_GET['url'] =="vehicle_in"){
-                if(isset($_GET['plate']) && isset($_GET['place'])){
+                if(isset($_GET['plate']) && isset($_GET['place']) && isset($_GET['PID'])){
                     $plate = $_GET['plate'];
                     require_once('../script/class/vehicle.cls.php');
                     $vehicel = new Vehicle(null,$plate,null,null,null,null);
@@ -17,6 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         }
                         $item = array('INTIME' => time(),
                         'PLACE' => $_GET['place'],
+                        'PID' => $_GET['PID'],
                         'UID' => $uid);
 
                         $input = unserialize(file_get_contents('data.txt'));
@@ -35,6 +37,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         $line = array($plate, time() , 1);
                         fputcsv($file, $line);
                         fclose($file);
+
+                        $place = new Place($_GET['PID'],null,null,null,null,null);
+                        $place->updateCounter("in");
 
                         echo json_encode($tempArray);
                     }elseif($result==0){
@@ -61,11 +66,16 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         $out = date('m/d/Y h:i:s a', time());
                         $amount = time() - $intime;
                         $uid = $input[$plate][0]['UID'];
+                        $pid = $input[$plate][0]['PID'];
 
                         $parking = new ParkingLog(null,$plate,$place,$in,$out,$amount,$uid);
                         $add = $parking->addPlace();
                         unset($input[$plate]);
                         file_put_contents('data.txt', serialize($input));
+
+                        $place = new Place($_GET['PID'],null,null,null,null,null);
+                        $place->updateCounter("out");
+
                         echo $add;
                         echo json_encode($input);
                     }else{

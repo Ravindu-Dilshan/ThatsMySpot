@@ -229,5 +229,25 @@ class Place extends Database
 		mysqli_stmt_close($stmt);
 	}
 
+	public function updateCounter($task)
+	{
+		$connection = $this -> DBconnect();
+		if($task == "out"){
+			$sql = " CALL `decreaseCounter`(?)";
+		}else{
+			$sql = " CALL `increaseCounter`(?)";
+		}
+		$stmt = mysqli_stmt_init($connection);
+		if(!mysqli_stmt_prepare($stmt,$sql)){
+			return $this ->messages(-1);
+		}
+		else{
+			mysqli_stmt_bind_param($stmt,'s',$this ->PID);
+			mysqli_stmt_execute($stmt);
+			return $this ->messages(1);
+		}
+		mysqli_stmt_close($stmt);
+	}
+
 }
  ?>
