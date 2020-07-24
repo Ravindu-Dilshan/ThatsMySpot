@@ -31,7 +31,7 @@ if(isset($_SESSION['loggedUser'])){
                     <i class="fas fa-car fa-sm fa-fw mr-2 text-gray-400"></i>
                     My Vehicles
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="payment_log.php">
                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                     Activity Log
                 </a>

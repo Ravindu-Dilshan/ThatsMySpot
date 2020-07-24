@@ -118,7 +118,7 @@ class Payment extends Database
 		$connection = $this -> DBconnect();
 		$sql = "SELECT payment.*,user.nameUser,user.emailUser,user.telephoneUser,user.accessUser,
 		parking_log.plate,parking_log.place,parking_log.in_time,parking_log.out_time 
-		FROM `payment`,user,parking_log WHERE payment.PID = parking_log.PID AND user.UID=parking_log.UID AND payment.UID = ?";
+		FROM `payment`,user,parking_log WHERE payment.PID = parking_log.PID AND user.UID=parking_log.UID AND payment.UID = ? ORDER BY payment.status ASC";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
 			return -1;
@@ -131,7 +131,7 @@ class Payment extends Database
 				return $result;
 			}
 			else{
-			return false;
+				return false;
 		    }
 		}		
 	}
