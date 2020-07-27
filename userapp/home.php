@@ -74,7 +74,7 @@ if(isset($_SESSION['loggedUser'])){
 
     <template id="profile">
         <ons-page id="Tab4">
-        <iframe src="place.php" frameborder="0" height="100%" width="100%"></iframe>
+            <?php include("profile.php");?>
         </ons-page>
     </template>
 

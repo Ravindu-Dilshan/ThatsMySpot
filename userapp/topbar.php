@@ -1,4 +1,3 @@
-<nav class="navbar navbar-expand navbar-light bg-secondary topbar mb-4 static-top shadow">
 <?php
 session_start();
 $u = null;
@@ -6,6 +5,7 @@ if(isset($_SESSION['loggedUser'])){
     $u = $_SESSION['loggedUser'];
 }
 ?>
+<nav class="navbar navbar-expand navbar-light bg-secondary topbar mb-4 static-top shadow">
     <!-- Sidebar Toggle (Topbar) -->
     <div  class="text-dark">
         <h6>Thats My Spot</h6>

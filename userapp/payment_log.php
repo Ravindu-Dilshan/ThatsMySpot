@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+session_start();
+$u = null;
+if(isset($_SESSION['loggedUser'])){
+    $u = $_SESSION['loggedUser'];
+}
+?>
 
 <head>
 
@@ -19,6 +26,78 @@
 
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+    #snackbar {
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1;
+        left: 50%;
+        bottom: 30px;
+        font-size: 17px;
+    }
+
+    #snackbar.show {
+        visibility: visible;
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @-webkit-keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadein {
+        from {
+            bottom: 0;
+            opacity: 0;
+        }
+
+        to {
+            bottom: 30px;
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes fadeout {
+        from {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+
+    @keyframes fadeout {
+        from {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        to {
+            bottom: 0;
+            opacity: 0;
+        }
+    }
+    </style>
     <script src="../utils/jquery/jquery.min.js"></script>
     <script>
     $(document).ready(function() {
@@ -34,8 +113,8 @@
                         $("#result1").removeClass('alert-danger');
                         $("#result1").addClass('alert-success');
                         $("#result1").html('Added successfully');
-                        alert("Added successfully");
-                        window.location = "payment_log.php";
+                        $('#paymentModal').modal('toggle');
+                        snackBar("Payment Successfull"); 
                     } else {
                         $("#result1").removeClass('alert-success');
                         $("#result1").addClass('alert-danger');
@@ -65,7 +144,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <?php include("topbar.php")?>
+                <?php //include("topbar.php")?>
                 <!-- End of Topbar -->
                 <?php
                 include('../script/class/payment.cls.php');
@@ -154,8 +233,8 @@
                                         <label for="cvCode">CV CODE</label>
                                         <input type="password" class="form-control" id="cvCode" placeholder="CV"
                                             required />
-                                            <input type="password" class="form-control" name="txtPID" placeholder="CV"
-                                            value="<?php echo $_GET['PID']?>" hidden/>
+                                        <input type="password" class="form-control" name="txtPID" placeholder="CV"
+                                            value="<?php echo $_GET['PID']?>" hidden />
                                     </div>
                                     <ul class="list-group list-group-horizontal my-4">
                                         <li class="list-group-item"><img src="../img/visa.png" class="img-fluid"></li>
@@ -192,7 +271,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+    <div id="snackbar"></div>
     <!-- Bootstrap core JavaScript-->
     <script src="../utils/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -201,6 +280,19 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+
+    <script>
+    function snackBar(msg) {
+        var x = document.getElementById("snackbar");
+        x.innerHTML = msg;
+        x.className = "show";
+        setTimeout(function() {
+            x.className = x.className.replace("show", "");
+            window.location = "payment_log.php";
+        }, 3000);
+        
+    }
+    </script>
 
 </body>
 

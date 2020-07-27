@@ -274,17 +274,17 @@ class User extends Database
 		}
 		mysqli_stmt_close($stmt);
 	}
-/*
-	public function getProfile($id)
+
+	public function getProfile()
 	{
 		$connection = $this -> DBconnect();
-		$sql = "SELECT * FROM user WHERE idUser = ?";
+		$sql = "SELECT * FROM `user` WHERE `UID` = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
 			return -1;
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'s',$id);
+			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
 			mysqli_stmt_execute($stmt);
 			$result = mysqli_stmt_get_result($stmt);
 			if(mysqli_num_rows($result)>0){
@@ -296,7 +296,7 @@ class User extends Database
 		}
 		
 	}
-
+/*
 	public function updateProfile($id,$name,$address,$email)
 	{
 		$connection = $this -> DBconnect();

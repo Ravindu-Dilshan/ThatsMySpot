@@ -1,6 +1,4 @@
-<div class="modal-footer">
-    <a class="btn btn-primary" href="../script/logout.inc.php?btnLogoutCustomer">Logout</a>
-</div>
+
 <!-- Page Wrapper -->
 <div id="wrapper">
 
