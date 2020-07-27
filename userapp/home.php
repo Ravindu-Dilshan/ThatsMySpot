@@ -7,6 +7,7 @@ if(isset($_SESSION['loggedUser'])){
     $u = $_SESSION['loggedUser'];
 }
 ?>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,35 +35,46 @@ if(isset($_SESSION['loggedUser'])){
 </head>
 
 <body>
-
+    <?php
+    include('../script/class/payment.cls.php');
+    $pay = new Payment(null,null,$u['UID'],null);
+    $count = $pay->getUnpaidCount();
+    ?>
+    
     <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
     <hr class="sidebar-divider">
     <ons-tabbar swipeable position="bottom" activeindex="0" modifier="top">
-        <ons-tab page="index.php" label="Locations" icon="fa-map-marker">
+        <ons-tab page="location" label="Locations" icon="fa-map-marker">
         </ons-tab>
-        <ons-tab page="lessons" label="Vehicles" icon="fa-car">
+        <ons-tab page="vehicles" label="Vehicles" icon="fa-car">
         </ons-tab>
-        <ons-tab page="courses" label="Payments" badge="1" icon="fa-money-bill">
+        <ons-tab page="payments" label="Payments" badge="<?php if ($count >0){echo $count;} ?>" icon="fa-money-bill">
         </ons-tab>
-        <ons-tab page="courses" label="Notification" badge="1" icon="fa-bell">
+        <ons-tab page="profile" label="Profile" badge="<?php if ($count >0){echo $count;} ?>" icon="fa-user">
         </ons-tab>
     </ons-tabbar>
 
-    <template id="index.php">
+    <template id="location">
         <ons-page id="Tab1">
             <?php include("place.php");?>
         </ons-page>
     </template>
 
-    <template id="lessons">
+    <template id="vehicles">
         <ons-page id="Tab2">
             <iframe src="vehicle_manage.php" frameborder="0" height="100%" width="100%"></iframe>
         </ons-page>
     </template>
 
-    <template id="courses">
+    <template id="payments">
         <ons-page id="Tab3">
             <iframe src="payment_log.php" frameborder="0" height="100%" width="100%"></iframe>
+        </ons-page>
+    </template>
+
+    <template id="profile">
+        <ons-page id="Tab4">
+        <iframe src="place.php" frameborder="0" height="100%" width="100%"></iframe>
         </ons-page>
     </template>
 

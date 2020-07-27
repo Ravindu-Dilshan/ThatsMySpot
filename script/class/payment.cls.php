@@ -219,17 +219,24 @@ class Payment extends Database
 	public function getUnpaidCount()
 	{
 		$connection = $this -> DBconnect();
-		$sql = "SELECT COUNT(PID) AS `count` FROM payment WHERE UID = ?";
+		$sql = "SELECT COUNT(PID) AS `count` FROM payment WHERE UID = ? AND status = 'Not Paid'";
 		$stmt = mysqli_stmt_init($connection);
-		$result = mysqli_stmt_get_result($stmt);
-		if(mysqli_num_rows($result)>0){
-			while($row = mysqli_fetch_assoc($result)){
-				return $row['count'];
-			}	
+		if(!mysqli_stmt_prepare($stmt,$sql)){
+			return -1;
 		}
 		else{
-			return $this ->messages(1);
-		}
+			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
+			mysqli_stmt_execute($stmt);
+			$result = mysqli_stmt_get_result($stmt);
+			if(mysqli_num_rows($result)>0){
+				while($row = mysqli_fetch_assoc($result)){
+					return $row['count'];
+				}	
+			}
+			else{
+			return false;
+		    }
+		}	
 		mysqli_stmt_close($stmt);
 	}
 
