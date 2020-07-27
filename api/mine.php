@@ -62,8 +62,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
                         $place = $input[$plate][0]['PLACE'];
                         $intime = $input[$plate][0]['INTIME'];
-                        $in = date('m/d/Y h:i:s a', $intime);
-                        $out = date('m/d/Y h:i:s a', time());
+                        $in = date('Y-m-d H:i:s', $intime);
+                        $out = date('Y-m-d H:i:s', time());
                         $amount = time() - $intime;
                         $uid = $input[$plate][0]['UID'];
                         $pid = $input[$plate][0]['PID'];

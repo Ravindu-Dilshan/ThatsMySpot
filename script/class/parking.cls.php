@@ -237,6 +237,52 @@ class ParkingLog extends Database
 		}
 		mysqli_stmt_close($stmt);
 	}
+//reporting queries
+	public function getAmountByMonth()
+	{
+		$connection = $this -> DBconnect();
+		$sql = "SELECT MONTHNAME(out_time) as month, SUM(amount) as amount FROM parking_log 
+		WHERE YEAR(out_time)= YEAR(CURDATE()) GROUP BY YEAR(out_time), MONTH(out_time),DATE(out_time)";
+		$result = mysqli_query($connection,$sql);
+		if(mysqli_num_rows($result)>0){
+				return $result;
+			}
+		else{
+			return false;
+		    }
+		
+	}
+
+	public function getCurrentMonthAmount()
+	{
+		$connection = $this -> DBconnect();
+		$sql = "SELECT MONTHNAME(out_time) as month, SUM(amount) as amount FROM parking_log WHERE MONTH(out_time)= MONTH(CURDATE()) 
+		AND YEAR(out_time)= YEAR(CURDATE()) GROUP BY YEAR(out_time), MONTH(out_time),DATE(out_time) ";
+		$result = mysqli_query($connection,$sql);
+		if(mysqli_num_rows($result)>0){
+			while($row = mysqli_fetch_assoc($result)){
+				return $row['amount'];
+			}	
+		}
+		else{
+			return false;
+		}	
+	}
+
+	public function getCurrentYearAmount()
+	{
+		$connection = $this -> DBconnect();
+		$sql = "SELECT YEAR(out_time) year, SUM(amount) as amount FROM parking_log WHERE YEAR(out_time)= YEAR(CURDATE()) GROUP BY YEAR(out_time)";
+		$result = mysqli_query($connection,$sql);
+		if(mysqli_num_rows($result)>0){
+			while($row = mysqli_fetch_assoc($result)){
+				return $row['amount'];
+			}
+		}
+		else{
+			return false;
+		    }	
+	}
 
 
 /*
