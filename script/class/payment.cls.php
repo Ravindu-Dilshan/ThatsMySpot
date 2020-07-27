@@ -215,6 +215,23 @@ class Payment extends Database
 		    }
 		}		
 	}
+//get count
+	public function getUnpaidCount()
+	{
+		$connection = $this -> DBconnect();
+		$sql = "SELECT COUNT(PID) AS `count` FROM payment WHERE UID = ?";
+		$stmt = mysqli_stmt_init($connection);
+		$result = mysqli_stmt_get_result($stmt);
+		if(mysqli_num_rows($result)>0){
+			while($row = mysqli_fetch_assoc($result)){
+				return $row['count'];
+			}	
+		}
+		else{
+			return $this ->messages(1);
+		}
+		mysqli_stmt_close($stmt);
+	}
 
 /*
 	public function deletePlace()
