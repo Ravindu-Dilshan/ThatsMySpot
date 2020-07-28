@@ -241,8 +241,8 @@ class ParkingLog extends Database
 	public function getAmountByMonth()
 	{
 		$connection = $this -> DBconnect();
-		$sql = "SELECT MONTHNAME(out_time) as month, SUM(amount) as amount FROM parking_log 
-		WHERE YEAR(out_time)= YEAR(CURDATE()) GROUP BY YEAR(out_time), MONTH(out_time),DATE(out_time)";
+		$sql = "SELECT MONTHNAME(out_time) as month, SUM(amount) as amount, COUNT(amount) as `count` 
+		FROM parking_log WHERE YEAR(out_time)= YEAR(CURDATE()) GROUP BY MONTH(out_time)";
 		$result = mysqli_query($connection,$sql);
 		if(mysqli_num_rows($result)>0){
 				return $result;
@@ -250,6 +250,29 @@ class ParkingLog extends Database
 		else{
 			return false;
 		    }
+		
+	}
+
+	public function getAmountByMonthLocation()
+	{
+		$connection = $this -> DBconnect();
+		$sql = "SELECT MONTHNAME(out_time) as month, SUM(amount) as amount, COUNT(amount) as `count`, place 
+		FROM parking_log WHERE YEAR(out_time)= YEAR(CURDATE()) AND place = ? GROUP BY MONTH(out_time), place";
+		$stmt = mysqli_stmt_init($connection);
+		if(!mysqli_stmt_prepare($stmt,$sql)){
+			return -1;
+		}
+		else{
+			mysqli_stmt_bind_param($stmt,'s',$this ->place);
+			mysqli_stmt_execute($stmt);
+			$result = mysqli_stmt_get_result($stmt);
+			if(mysqli_num_rows($result)>0){
+				return $result;
+			}
+			else{
+			return false;
+		    }
+		}
 		
 	}
 
