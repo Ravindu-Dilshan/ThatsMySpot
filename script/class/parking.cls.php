@@ -285,7 +285,7 @@ class ParkingLog
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
 		$sql = "SELECT MONTHNAME(out_time) as month, SUM(amount) as amount FROM parking_log WHERE MONTH(out_time)= MONTH(CURDATE()) 
-		AND YEAR(out_time)= YEAR(CURDATE()) GROUP BY YEAR(out_time), MONTH(out_time),DATE(out_time) ";
+		AND YEAR(out_time)= YEAR(CURDATE()) GROUP BY MONTH(out_time) ";
 		$result = mysqli_query($connection,$sql);
 		if(mysqli_num_rows($result)>0){
 			while($row = mysqli_fetch_assoc($result)){
