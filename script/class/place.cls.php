@@ -2,7 +2,7 @@
 require_once('database.cls.php');
 
 
-class Place extends Database
+class Place
 {
 	private  $PID;
 	private  $namePlace;
@@ -145,7 +145,8 @@ class Place extends Database
 
 	public function getAllPalce()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT * FROM place";
 		$result = mysqli_query($connection,$sql);
 		if(mysqli_num_rows($result)>0){
@@ -182,16 +183,17 @@ class Place extends Database
 */
 	public function addPlace()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "INSERT INTO `place`(`namePlace`, `latitude`, `longtitude`, `available`, `current`) VALUES (?,?,?,?,?)";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
+			return $db ->messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'sssss',$this ->namePlace,$this ->latitude, $this ->longtitude ,$this ->available,$this ->current);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
@@ -199,39 +201,42 @@ class Place extends Database
 
 	public function updatePlace()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "UPDATE `place` SET `namePlace`=?,`latitude`=?,`longtitude`=?,`available`=?,`current`=? WHERE `PID`=?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
+			return $db ->messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'ssssss',$this ->namePlace,$this ->latitude, $this ->longtitude ,$this ->available,$this ->current,$this ->PID);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
 
 	public function deletePlace()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "DELETE FROM `place` WHERE PID = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
+			return $db ->messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'s',$this ->PID);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
 
 	public function updateCounter($task)
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		if($task == "out"){
 			$sql = " CALL `decreaseCounter`(?)";
 		}else{
@@ -239,12 +244,12 @@ class Place extends Database
 		}
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
+			return $db ->messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'s',$this ->PID);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}

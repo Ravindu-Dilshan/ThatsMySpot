@@ -1,7 +1,22 @@
 <?php
 class Database
 {
-	protected function DBconnect()
+	private static $instance = null;
+
+	private function __construct()
+	{
+	}
+
+	public static function getInstance()
+	{
+		if (self::$instance == null)
+		{
+		self::$instance = new Database();
+		}
+		return self::$instance;
+	}
+
+	public function DBconnect()
 	{
 		$server = "localhost";
 		$user = "root";
@@ -14,7 +29,7 @@ class Database
 		return $connection;
 	}
 
-	protected function messages($i)
+	public function messages($i)
 	{
 		switch ($i) {
 			case 1:

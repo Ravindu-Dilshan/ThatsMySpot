@@ -2,7 +2,7 @@
 require_once('database.cls.php');
 
 
-class Payment extends Database
+class Payment
 {
 	private  $PID;
 	private  $amount;
@@ -99,7 +99,8 @@ class Payment extends Database
 
 	public function getAllPayments()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT payment.*,user.nameUser,user.emailUser,user.telephoneUser,user.accessUser,
 		parking_log.plate,parking_log.place,parking_log.in_time,parking_log.out_time 
 		FROM `payment`,user,parking_log WHERE payment.PID = parking_log.PID AND user.UID=parking_log.UID";
@@ -115,7 +116,8 @@ class Payment extends Database
 
 	public function getAllByUser()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT payment.*,user.nameUser,user.emailUser,user.telephoneUser,user.accessUser,
 		parking_log.plate,parking_log.place,parking_log.in_time,parking_log.out_time 
 		FROM `payment`,user,parking_log WHERE payment.PID = parking_log.PID AND user.UID=parking_log.UID AND payment.UID = ? ORDER BY payment.status ASC";
@@ -179,27 +181,29 @@ class Payment extends Database
 
 	public function updatePayment()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "UPDATE `payment` SET `status`= ? WHERE `PID`= ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
+			return $db ->messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'ss',$this ->status,$this ->PID);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
 
 	public function getPaymentAmount()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT amount FROM payment WHERE `PID` = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
+			return $db ->messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'s',$this ->PID);
@@ -218,11 +222,12 @@ class Payment extends Database
 //get count
 	public function getUnpaidCount()
 	{
-		$connection = $this -> DBconnect();
-		$sql = "SELECT COUNT(PID) AS `count` FROM payment WHERE UID = ? AND status = 'Not Paid'";
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "SELECT COUNT(PID) AS `count` FROM payment WHERE UID = ? and `status`= 'Not Paid'";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
+			return $db ->messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
