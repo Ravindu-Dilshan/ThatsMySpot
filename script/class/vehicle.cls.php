@@ -2,7 +2,7 @@
 require_once('database.cls.php');
 
 
-class Vehicle extends Database
+class Vehicle
 {
 	private  $VID;
 	private  $plate;
@@ -120,7 +120,8 @@ class Vehicle extends Database
 
 	public function getAllVehicles()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT * FROM vehicle";
 		$result = mysqli_query($connection,$sql);
 		if(mysqli_num_rows($result)>0){
@@ -133,7 +134,8 @@ class Vehicle extends Database
 	}
 	public function getAllByUser()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT * FROM vehicle WHERE `UID` = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
@@ -154,7 +156,8 @@ class Vehicle extends Database
 	}
 	public function getVehicleByPlate()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT * FROM vehicle WHERE  plate = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
@@ -177,23 +180,24 @@ class Vehicle extends Database
 
 	public function addVehicle()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "INSERT INTO `vehicle`(`plate`, `color`, `type`, `UID`) VALUES (?,?,?,?)";
 		$stmt = mysqli_stmt_init($connection);
 		$check = $this->getVehicleByPlate();
 		if($check==1){
-			return $this -> messages(2);
+			return $db -> messages(2);
 		}
 		elseif($check== -1){
-			return $this -> messages(-1);
+			return $db -> messages(-1);
 		}
 		elseif(!mysqli_stmt_prepare($stmt,$sql)){
-				return $this -> messages(-1);
+				return $db -> messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'ssss',$this ->plate,$this ->color, $this ->type ,$this ->UID);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
@@ -201,32 +205,34 @@ class Vehicle extends Database
 
 	public function updatePlace()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "UPDATE `vehicle` SET `plate`=?,`color`=?,`type`=?,`UID`=? WHERE `VID`=?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
+			return $db ->messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'sssss',$this ->plate,$this ->color, $this ->type ,$this ->UID,$this ->VID);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
 
 	public function deletePlace()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "DELETE FROM `vehicle` WHERE VID = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
+			return $db ->messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'s',$this ->VID);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}

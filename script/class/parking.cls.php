@@ -1,8 +1,7 @@
 <?php
 require_once('database.cls.php');
 
-
-class ParkingLog extends Database
+class ParkingLog
 {
 	private  $PID;
 	private  $plate;
@@ -165,7 +164,8 @@ class ParkingLog extends Database
 
 	public function getAllParking()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT parking_log.*,user.nameUser,user.telephoneUser,user.emailUser FROM `parking_log`,user WHERE parking_log.UID = user.UID";
 		$result = mysqli_query($connection,$sql);
 		if(mysqli_num_rows($result)>0){
@@ -179,7 +179,8 @@ class ParkingLog extends Database
 
 	public function getAllByUser()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT * FROM parking_log WHERE `UID` = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
@@ -224,23 +225,25 @@ class ParkingLog extends Database
 */
 	public function addPlace()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "INSERT INTO `parking_log`(`plate`, `place`, `in_time`, `out_time`, `amount`, `UID`) VALUES (?,?,?,?,?,?)";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
+			return $db ->messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'ssssss',$this ->plate,$this ->place, $this ->in ,$this ->out,$this ->amount,$this ->UID);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
 //reporting queries
 	public function getAmountByMonth()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT MONTHNAME(out_time) as month, SUM(amount) as amount, COUNT(amount) as `count` 
 		FROM parking_log WHERE YEAR(out_time)= YEAR(CURDATE()) GROUP BY MONTH(out_time)";
 		$result = mysqli_query($connection,$sql);
@@ -255,7 +258,8 @@ class ParkingLog extends Database
 
 	public function getAmountByMonthLocation()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT MONTHNAME(out_time) as month, SUM(amount) as amount, COUNT(amount) as `count`, place 
 		FROM parking_log WHERE YEAR(out_time)= YEAR(CURDATE()) AND place = ? GROUP BY MONTH(out_time), place";
 		$stmt = mysqli_stmt_init($connection);
@@ -278,7 +282,8 @@ class ParkingLog extends Database
 
 	public function getCurrentMonthAmount()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT MONTHNAME(out_time) as month, SUM(amount) as amount FROM parking_log WHERE MONTH(out_time)= MONTH(CURDATE()) 
 		AND YEAR(out_time)= YEAR(CURDATE()) GROUP BY YEAR(out_time), MONTH(out_time),DATE(out_time) ";
 		$result = mysqli_query($connection,$sql);
@@ -294,7 +299,8 @@ class ParkingLog extends Database
 
 	public function getCurrentYearAmount()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT YEAR(out_time) year, SUM(amount) as amount FROM parking_log WHERE YEAR(out_time)= YEAR(CURDATE()) GROUP BY YEAR(out_time)";
 		$result = mysqli_query($connection,$sql);
 		if(mysqli_num_rows($result)>0){

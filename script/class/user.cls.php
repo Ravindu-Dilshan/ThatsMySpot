@@ -1,6 +1,6 @@
 <?php
 require_once('database.cls.php');
-class User extends Database
+class User
 {
 
 	private  $UID;
@@ -142,7 +142,8 @@ class User extends Database
 
 	public function login()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT * FROM user WHERE (emailUser = ?)";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
@@ -162,17 +163,17 @@ class User extends Database
 					 'ACESS' => $row['accessUser']);
 					$_SESSION['loggedUser'] = $user;
 					//$_SESSION['TYPE'] = $row['accessUser'];
-					return $this -> messages(1);
+					return $db -> messages(1);
 				}
 				elseif ($pwCheck == false) {
-					return $this -> messages(3);
+					return $db -> messages(3);
 				}
 				else{
-					return $this -> messages(-1);
+					return $db -> messages(-1);
 				}
 			}
 			else{
-				return $this->messages(0);
+				return $db->messages(0);
 			}
 		}
 		
@@ -180,7 +181,8 @@ class User extends Database
 
 	private function getUserByEmail()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT * FROM user WHERE  emailUser = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
@@ -204,7 +206,8 @@ class User extends Database
 
 	public function getAllUsers()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "SELECT * FROM user";
 		$result = mysqli_query($connection,$sql);
 		if(mysqli_num_rows($result)>0){
@@ -218,25 +221,26 @@ class User extends Database
 
 	public function addUser()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "INSERT INTO `user`(`nameUser`, `emailUser`, `passwordUser`, `telephoneUser`, `accessUser`) VALUES (?,?,?,?,?)";
 		$stmt = mysqli_stmt_init($connection); 
 		$check = $this->getUserByEmail();
 		if($check==1){
-			return $this -> messages(3);
+			return $db -> messages(3);
 		}
 		elseif($check== -1){
-			return $this -> messages(-1);
+			return $db -> messages(-1);
 		}
 		elseif(!mysqli_stmt_prepare($stmt,$sql)){
-				return $this -> messages(-1);
+				return $db -> messages(-1);
 		}
 		else{
 			$hashPass = password_hash($this ->passwordUser,PASSWORD_BCRYPT);
 			$type = 'user';
 			mysqli_stmt_bind_param($stmt,'sssss',$this ->nameUser,$this ->emailUser, $hashPass ,$this ->telephone,$this ->accessUser);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
@@ -244,33 +248,35 @@ class User extends Database
 
 	public function updateUser()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "UPDATE `user` SET `nameUser`=?,`emailUser`=?,`telephoneUser`=?, accessUser=? WHERE `UID` = ?";
 		$stmt = mysqli_stmt_init($connection);
 		$check = $this->getUserByEmail();
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
+			return $db ->messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'sssss',$this ->nameUser,$this ->emailUser ,$this ->telephone,$this ->accessUser,$this ->UID);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
 
 	public function deleteUser()
 	{
-		$connection = $this -> DBconnect();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
 		$sql = "DELETE FROM `user` WHERE `UID` = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
