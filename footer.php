@@ -51,7 +51,7 @@
 
             <!--Copyright-->
             <div class="footer-copyright">
-                <div class="container-fluid">
+                <div class="container text-center">
                     © 2016 Copyright: <a href="https://www.thatsmyspot.com"> MDBootstrap.com </a>
                 </div>
             </div>
