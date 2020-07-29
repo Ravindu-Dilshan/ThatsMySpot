@@ -32,6 +32,11 @@
 include('script/class/parking.cls.php');
 $parking = new ParkingLog(null,null,null,null,null,null,Null);
 $result = $parking->getAllParking();
+if(isset($_POST['txtFrom']) && isset($_POST['txtTo'])){
+    if(!empty($_POST['txtFrom']) && !empty($_POST['txtTo'])){
+        $result = $parking->getAllParkingByDate($_POST['txtFrom'],$_POST['txtTo']);
+    } 
+}
 $none = "";
 ?>
 
@@ -63,7 +68,32 @@ $none = "";
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <form action="parking_log.php" method="post"
+                                class="float-md-right">
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <div class="btn btn-primary w-auto">
+                                            From
+                                        </div>
+                                        <input type="date" class="form-control bg-light border-0 small w-auto"
+                                            name="txtFrom">
+                                    </div>
+
+                                    <div class="input-group-append">
+                                        <div class="btn btn-primary w-auto">
+                                            to
+                                        </div>
+                                        <input type="date" class="form-control bg-light border-0 small w-auto"
+                                            name="txtTo">
+                                    </div>
+
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -112,40 +142,40 @@ $none = "";
 
                 </div>
                 <!-- /.container-fluid -->
-            <!-- End of Main Content -->
+                <!-- End of Main Content -->
+
+            </div>
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+        <!-- Bootstrap core JavaScript-->
 
-    <!-- Bootstrap core JavaScript-->
+        <script src="utils/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="utils/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="utils/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="utils/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+        <!-- Page level plugins -->
+        <script src="utils/datatables/jquery.dataTables.min.js"></script>
+        <script src="utils/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="utils/datatables/jquery.dataTables.min.js"></script>
-    <script src="utils/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>                                 
-    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
-    
-    
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/datatables-demo.js"></script>
 
 
 </body>

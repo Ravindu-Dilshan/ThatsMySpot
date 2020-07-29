@@ -177,6 +177,30 @@ class ParkingLog
 		
 	}
 
+	public function getAllParkingByDate($from,$to)
+	{
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "SELECT parking_log.*,user.nameUser,user.telephoneUser,user.emailUser FROM `parking_log`,user 
+		WHERE parking_log.UID = user.UID AND (parking_log.in_time BETWEEN ? AND ?) ORDER BY parking_log.in_time ASC";
+		$stmt = mysqli_stmt_init($connection);
+		if(!mysqli_stmt_prepare($stmt,$sql)){
+			return -1;
+		}
+		else{
+			mysqli_stmt_bind_param($stmt,'ss',$from,$to);
+			mysqli_stmt_execute($stmt);
+			$result = mysqli_stmt_get_result($stmt);
+			if(mysqli_num_rows($result)>0){
+				return $result;
+			}
+			else{
+			return false;
+		    }
+		}
+		
+	}
+
 	public function getAllByUser()
 	{
 		$db = Database::getInstance();

@@ -88,10 +88,10 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Users</a>
-                <a class="collapse-item" href="api/authentication.csv">Parking Places</a>
+                <a class="collapse-item" href="users_log.php">Users</a>
+                <a class="collapse-item" href="places_log.php">Parking Places</a>
                 <a class="collapse-item" href="parking_log.php">Authentication Log</a>
-                <a class="collapse-item" href="#">Used Times</a>
+                <a class="collapse-item" href="payment_log.php">Payment Log</a>
             </div>
         </div>
     </li>

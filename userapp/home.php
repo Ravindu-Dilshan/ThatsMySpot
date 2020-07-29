@@ -5,6 +5,8 @@ session_start();
 $u = null;
 if(isset($_SESSION['loggedUser'])){
     $u = $_SESSION['loggedUser'];
+}else{
+    header("Location:login.php");
 }
 ?>
 
