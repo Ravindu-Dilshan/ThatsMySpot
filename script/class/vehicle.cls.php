@@ -260,6 +260,21 @@ class Vehicle
 		}
 		mysqli_stmt_close($stmt);
 	}
+//report
+	public function getVehicleLog()
+	{
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "SELECT vehicle.*,user.nameUser,user.emailUser,user.telephoneUser FROM `vehicle`,`user` WHERE vehicle.UID = user.UID";
+		$result = mysqli_query($connection,$sql);
+		if(mysqli_num_rows($result)>0){
+				return $result;
+			}
+		else{
+			return false;
+		    }
+		
+	}
 
 
 	
