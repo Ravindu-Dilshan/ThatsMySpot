@@ -166,7 +166,7 @@ class User
 					return $db -> messages(1);
 				}
 				elseif ($pwCheck == false) {
-					return $db -> messages(3);
+					return $db -> messages(0);
 				}
 				else{
 					return $db -> messages(-1);
@@ -176,6 +176,30 @@ class User
 				return $db->messages(0);
 			}
 		}
+		
+	}
+
+	public function getUser()
+	{
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "SELECT * FROM user WHERE  `UID` = ?";
+		$stmt = mysqli_stmt_init($connection);
+		if(!mysqli_stmt_prepare($stmt,$sql)){
+			return -1;
+		}
+		else{
+			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
+			mysqli_stmt_execute($stmt);
+			$result = mysqli_stmt_get_result($stmt);
+			if(mysqli_num_rows($result)>0){
+				return $result;
+			}
+			else{
+				return false;
+		    }
+		}
+		mysqli_stmt_close($stmt);
 		
 	}
 
@@ -303,39 +327,40 @@ class User
 		}
 		
 	}
-/*
-	public function updateProfile($id,$name,$address,$email)
+
+	public function updateProfile()
 	{
-		$connection = $this -> DBconnect();
-		$sql = "UPDATE `user` SET `nameUser`=?,`email`=?,`address`=? WHERE idUser = ?";
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "UPDATE `user` SET `nameUser`=?,`emailUser`=?,`telephoneUser`=? WHERE `UID` = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
+			return $db ->messages(-1);
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'ssss',$name,$email,$address,$id);
+			mysqli_stmt_bind_param($stmt,'ssss',$this ->nameUser,$this ->emailUser ,$this ->telephone,$this ->UID);
 			mysqli_stmt_execute($stmt);
-			return 1;
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
 
-	private function getPassword($id)
+	private function getPassword()
 	{
-		$connection = $this -> DBconnect();
-		$sql = "SELECT password FROM user WHERE idUser = ?";
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "SELECT `passwordUser` FROM user WHERE `UID` = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
 			return -1;
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'s',$id);
+			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
 			mysqli_stmt_execute($stmt);
 			$result = mysqli_stmt_get_result($stmt);
 			if(mysqli_num_rows($result)>0){
 				$row = mysqli_fetch_assoc($result);
-				echo '<script>alert('.$row['password'].');</script>';
-				return $row['password'];
+					return $row['passwordUser'];
 				}
 			else{
 			return false;
@@ -345,31 +370,30 @@ class User
 		
 	}
 
-	public function changePw($id,$oPw,$nPw)
+	public function changePw($nPw)
 	{
-		$pw= $this->getPassword($id);
-		$connection = $this -> DBconnect();
-		$sql = "UPDATE `user` SET `password`= ? WHERE idUser = ?";
+		$pw= $this->getPassword();
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "UPDATE `user` SET `passwordUser`= ? WHERE `UID` = ?";
 		$stmt = mysqli_stmt_init($connection);
-		$pwCheck = password_verify($oPw,$pw);
-		echo '<script>alert('.$pw.');</script>';
+		$pwCheck = password_verify($this ->passwordUser,$pw);
 		if ($pwCheck == true) {
 			$hashPass = password_hash($nPw,PASSWORD_BCRYPT);
 			if(!mysqli_stmt_prepare($stmt,$sql)){
-				return -1;
+				return $db ->messages(-1);
 			}
 			else{
-				mysqli_stmt_bind_param($stmt,'ss',$hashPass,$id);
+				mysqli_stmt_bind_param($stmt,'ss',$hashPass,$this ->UID);
 				mysqli_stmt_execute($stmt);
-				return 1;
+				return $db ->messages(1);
 			}
 		}
 		else{
-			return 2;
+			return $db ->messages(-2);
 		}
 		mysqli_stmt_close($stmt);
 	}
-	*/
 
 	
 }

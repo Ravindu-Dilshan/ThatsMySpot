@@ -47,6 +47,9 @@ class Database
 			case -1:
 				return 'Something Went Wrong';
 				break;
+			case -2:
+				return 'Incorrect Password';
+				break;
 			default:
 				return 'Nothing';
 		  } 

@@ -77,9 +77,13 @@ if(isset($_SESSION['loggedUser'])){
     <template id="profile">
         <ons-page id="Tab4">
             <?php include("profile.php");?>
+            <iframe src="profile_manage.php" frameborder="0" height="750" width="100%" scrolling="no" style="overflow:show;"></iframe>
         </ons-page>
     </template>
 
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
     <!-- Bootstrap core JavaScript-->
     <script src="../utils/bootstrap/js/bootstrap.bundle.min.js"></script>

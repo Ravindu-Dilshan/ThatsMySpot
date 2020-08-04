@@ -1,5 +1,11 @@
 <?php
 require_once('class/user.cls.php');
+session_start();
+    if(isset($_SESSION['loggedUser'])){
+        $u = $_SESSION['loggedUser'];
+    }else{
+        header("Location:../login.php");
+    }
 if(isset($_GET['btnUpdateUser']))
 {
   $name =$_POST['txtName'];
@@ -112,81 +118,62 @@ elseif(isset($_GET['btnDeletePro']))
       exit();
   }
 }
-
-elseif(isset($_POST['btnUpdatePro']))
+*/
+elseif(isset($_GET['btnUpdatePro']))
 {
-  $id = $_POST['txtid'];
-  $name = $_POST['txtName'];
-  $address = $_POST['txtAddress'];
   $email = $_POST['txtEmail'];
+  $name = $_POST['txtName'];
+  $tele = $_POST['txtTelephone'];
   if (empty($name)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter a Username</div>';
+    echo 'Please Enter a Username';
     exit();
   }
   elseif (empty($email)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter a Email</div>';
+    echo 'Please Enter a Email';
     exit();
   }
-  elseif (empty($address)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter a Address</div>';
+  elseif (empty($tele)) {
+    echo 'Please Enter a Telephone number';
     exit();
   }
   else{
-    $user = new User();
-    $update = $user->updateProfile($id,$name,$address,$email);
-    if($update==1){
-      echo '<div class="alert alert-success float-right w-100 text-center" role="alert">Updated</div>';
-      exit();
-    }
-    else{
-      echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Something went wrong</div>';
-      exit();
-    }
+    $user = new User($u['UID'],$name,$email,null, $tele,null);
+    $update = $user->updateProfile();
+    echo $update;
   }
 }
-
-
-elseif(isset($_POST['btnPassword']))
+elseif(isset($_GET['btnPassword']))
 {
-  $id =$_POST['txtId'];
-  $oPW = $_POST['oldPw'];
-  $nPW = $_POST['newPw'];
-  $cPW = $_POST['cPw'];
-  $user = new User();
+  $oPW = $_POST['txtOldPW'];
+  $nPW = $_POST['txtNewPW'];
+  $cPW = $_POST['txtCPW'];
   
   if (empty($oPW)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter the existing Password</div>';
+    echo 'Please Enter the existing Password';
     exit();
   }
   elseif (empty($nPW)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter a new Password</div>';
+    echo 'Please Enter a new Password';
     exit();
   }
   elseif (empty($cPW)) {
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Please Enter the Confirm Password</div>';
+    echo 'Please Enter the Confirm Password';
     exit();
   }
   elseif($nPW != $cPW){
-    echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Password do not match</div>';
+    echo 'Password do not match';
+    exit();
+  }
+  elseif($nPW == $oPW){
+    echo 'New one cant be the old one';
     exit();
   }
   else{
-    $user = new User();
-    $update = $user->changePw($id,$oPW,$nPW);
-      if($update==1){
-      echo '<div class="alert alert-success float-right w-100 text-center" role="alert">Successfully changed</div>';
-      exit();
-      }
-      elseif($update==2){
-        echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Incorrect Password</div>';
-        exit();
-      }
-      else{
-        echo '<div class="alert alert-danger float-right w-100 text-center" role="alert">Something went wrong</div>';
-        exit();
-      }
+    $user = new User($u['UID'],null,null,$oPW, null,null);
+    $update = $user->changePw($nPW);
+    echo $update;
   }
-}*/
+}
 else{
   echo '<script>window.location = window.location+"?msg=errorLog"</script>';
   exit();

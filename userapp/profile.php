@@ -26,7 +26,7 @@
             <div>
                 <div class="col-xl-3 col-md-6 mb-4">
                     <!--<img src="../img/park.jpg" alt="" class="img-fluid"> -->
-                    <div class="card border-bottom-dark shadow-lg shadow h-100 py-2">
+                    <div class="card border-bottom-dark h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
@@ -56,7 +56,7 @@
 
                 <div class="col-xl-3 col-md-6 mb-4">
                     <!--<img src="../img/park.jpg" alt="" class="img-fluid"> -->
-                    <div class="card border-bottom-dark shadow h-100 py-2">
+                    <div class="card border-bottom-dark h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                     <a class="btn btn-group-lg btn-primary m-auto"
