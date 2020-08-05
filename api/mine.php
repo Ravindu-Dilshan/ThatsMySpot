@@ -24,12 +24,11 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         $input = unserialize(file_get_contents('data.txt'));
                         $tempArray = $input;
                         $tempArray[$plate] = array();
-                        /*foreach ($tempArray as $value) {
-                           if($value['PLATE'] == $plate){
-                                echo json_encode($value['PLATE']);
-                                exit();
-                           }
-                        }*/
+                        if(isset($input[$plate])){
+                            //print_r($input[$plate]);
+                            echo "Already Parked in";
+                            exit();
+                        }
                         array_push($tempArray[$plate], $item);
                         file_put_contents('data.txt', serialize($tempArray));
 
@@ -41,7 +40,8 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         $place = new Place($_GET['PID'],null,null,null,null,null);
                         $place->updateCounter("in");
 
-                        echo json_encode($tempArray);
+                        //echo json_encode($tempArray);
+                        echo "Success";
                     }elseif($result==0){
                         echo "Please Register To the System";
                     }else{
@@ -77,7 +77,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         $place->updateCounter("out");
 
                         echo $add;
-                        echo json_encode($input);
+                        //echo json_encode($input);
                     }else{
                         echo "not parked in";
                     }
@@ -86,7 +86,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                 }
             }
             elseif($_GET['url'] =="get_place_info"){
-                include('../script/class/place.cls.php');
+                //include('../script/class/place.cls.php');
                 $place = new Place(null,null,null,null,null,null);
                 $result = $place->getAllPalce();
                 $place_arr=array();
@@ -99,7 +99,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                             "pid" => $row['PID'],
                             "name" => $row['namePlace'],
                             "lat" => $row['latitude'],
-                            "long" => $row['longtitude'],
+                            "longt" => $row['longtitude'],
                             "available" => $row['available'],
                             "current" => $row['current']
                         );
