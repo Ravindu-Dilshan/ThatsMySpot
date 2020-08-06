@@ -1,12 +1,34 @@
 <?php
 require_once('class/user.cls.php');
-session_start();
-    if(isset($_SESSION['loggedUser'])){
-        $u = $_SESSION['loggedUser'];
-    }else{
-        header("Location:../login.php");
-    }
-if(isset($_GET['btnUpdateUser']))
+if(isset($_GET['btnRegister']))
+{
+  $name =$_POST['txtName'];
+  $email = $_POST['txtEmail'];
+  $tele =$_POST['txtTelephone'];
+  $code = $_POST['txtPassword'];
+  if (empty($name)) {
+    echo 'Please Enter a Username';
+    exit();
+  }
+  elseif (empty($email)) {
+    echo 'Please Enter a Email';
+    exit();
+  }
+  elseif (empty($tele)) {
+    echo 'Please Enter a Telephone Number';
+    exit();
+  }
+  elseif (empty($code)) {
+    echo 'Please Enter a Password';
+    exit();
+  }
+  else{
+    $user = new User(null,$name,$email,$code, $tele,"Customer");
+    $add = $user->addUser();
+    echo $add;
+  }
+}
+elseif(isset($_GET['btnUpdateUser']))
 {
   $name =$_POST['txtName'];
   $email = $_POST['txtEmail'];
@@ -62,35 +84,6 @@ elseif(isset($_GET['btnAddUser']))
   }
 }
 
-elseif(isset($_GET['btnRegister']))
-{
-  $name =$_POST['txtName'];
-  $email = $_POST['txtEmail'];
-  $tele =$_POST['txtTelephone'];
-  $code = $_POST['txtPassword'];
-  if (empty($name)) {
-    echo 'Please Enter a Username';
-    exit();
-  }
-  elseif (empty($email)) {
-    echo 'Please Enter a Email';
-    exit();
-  }
-  elseif (empty($tele)) {
-    echo 'Please Enter a Telephone Number';
-    exit();
-  }
-  elseif (empty($code)) {
-    echo 'Please Enter a Password';
-    exit();
-  }
-  else{
-    $user = new User(null,$name,$email,$code, $tele,"Customer");
-    $add = $user->addUser();
-    echo $add;
-  }
-}
-
 elseif(isset($_GET['btnDelete']))
 {
   $id =$_GET['id'];
@@ -121,6 +114,12 @@ elseif(isset($_GET['btnDeletePro']))
 */
 elseif(isset($_GET['btnUpdatePro']))
 {
+  session_start();
+    if(isset($_SESSION['loggedUser'])){
+        $u = $_SESSION['loggedUser'];
+    }else{
+        header("Location:../login.php");
+    }
   $email = $_POST['txtEmail'];
   $name = $_POST['txtName'];
   $tele = $_POST['txtTelephone'];
@@ -144,6 +143,12 @@ elseif(isset($_GET['btnUpdatePro']))
 }
 elseif(isset($_GET['btnPassword']))
 {
+  session_start();
+    if(isset($_SESSION['loggedUser'])){
+        $u = $_SESSION['loggedUser'];
+    }else{
+        header("Location:../login.php");
+    }
   $oPW = $_POST['txtOldPW'];
   $nPW = $_POST['txtNewPW'];
   $cPW = $_POST['txtCPW'];
