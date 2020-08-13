@@ -26,6 +26,7 @@ if(isset($_SESSION['loggedUser'])){
         rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+
     <!-- Material Design Bootstrap -->
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
@@ -42,7 +43,7 @@ if(isset($_SESSION['loggedUser'])){
     $pay = new Payment(null,null,$u['UID'],null);
     $count = $pay->getUnpaidCount();
     ?>
-    
+
     <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>
     <hr class="sidebar-divider">
     <ons-tabbar swipeable position="bottom" activeindex="0" modifier="top">
@@ -77,7 +78,8 @@ if(isset($_SESSION['loggedUser'])){
     <template id="profile">
         <ons-page id="Tab4">
             <?php include("profile.php");?>
-            <iframe src="profile_manage.php" frameborder="0" height="750" width="100%" scrolling="no" style="overflow:show;"></iframe>
+            <iframe src="profile_manage.php" frameborder="0" height="750" width="100%" scrolling="no"
+                style="overflow:show;"></iframe>
         </ons-page>
     </template>
 
@@ -93,6 +95,7 @@ if(isset($_SESSION['loggedUser'])){
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+
 </body>
 
 </html>
