@@ -110,7 +110,7 @@ if(isset($_SESSION['loggedUser'])){
                                 <form class="user" action="" class="user" id="updateProfileform" method="post">
                                     <?php 
                                         if($result==false){
-                                            $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
+                                            $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">Please Login</div>';
                                             echo $none;
                                         }
                                         else{

@@ -156,7 +156,9 @@ class User
 			if($row = mysqli_fetch_assoc($result)){
 				$pwCheck = password_verify($this->passwordUser,$row['passwordUser']);
 				if ($pwCheck == true) {
-					session_start();
+					if (session_status() == PHP_SESSION_NONE) {
+						session_start();
+					}
 					$user = array( 'UID' => $row['UID'],
 					 'NAME' => $row['nameUser'],
 					 'EMAIL' => $row['emailUser'],
@@ -261,7 +263,7 @@ class User
 		}
 		else{
 			$hashPass = password_hash($this ->passwordUser,PASSWORD_BCRYPT);
-			$type = 'user';
+			//$type = 'user';
 			mysqli_stmt_bind_param($stmt,'sssss',$this ->nameUser,$this ->emailUser, $hashPass ,$this ->telephone,$this ->accessUser);
 			mysqli_stmt_execute($stmt);
 			return $db ->messages(1);
@@ -269,6 +271,19 @@ class User
 		mysqli_stmt_close($stmt);
 	}
 
+	public function getLastInserted()
+	{
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "SELECT * FROM `user` ORDER BY `UID` DESC LIMIT 1";
+		$result = mysqli_query($connection,$sql);
+		if(mysqli_num_rows($result)>0){
+				return mysqli_fetch_assoc($result);
+		}
+		else{
+			return false;
+		}
+	}
 
 	public function updateUser()
 	{
