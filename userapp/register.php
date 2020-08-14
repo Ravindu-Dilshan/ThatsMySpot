@@ -91,7 +91,7 @@
                   <div class="text-center">
                     <a class="small" href="login.php">Have an Account !</a>
                   </div>
-                  <div class="alert text-dark shadow float-right w-100 text-center mt-3" role="alert" id="result"></div>
+                  <div class="alert text-dark float-right w-100 text-center mt-3" role="alert" id="result"></div>
                 </div>
               </div>
             </div>

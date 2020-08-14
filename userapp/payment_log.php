@@ -246,7 +246,7 @@ if(isset($_SESSION['loggedUser'])){
                                     <!--Footer-->
                                     <button class="btn btn-primary btn-user btn-block col-md-6 m-auto"
                                         id="btnUpdateUser" name="btnLogin">Pay</button>
-                                    <div class="alert text-dark shadow float-right w-100 text-center mt-3" role="alert"
+                                    <div class="alert text-dark float-right w-100 text-center mt-3" role="alert"
                                         id="result1">
                                 </form>
                             </div>

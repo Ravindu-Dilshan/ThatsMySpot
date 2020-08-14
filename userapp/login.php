@@ -83,7 +83,7 @@
                     <button class="btn btn-primary btn-user btn-block" id="btnLogin" name="btnLogin">Login</button>
                   </form>
                   <hr>
-                  <div class="alert text-dark shadow float-right w-100 text-center mt-3" role="alert" id="result" hidden></div>
+                  <div class="alert text-dark float-right w-100 text-center mt-3" role="alert" id="result" hidden></div>
                   <div class="text-center">
                     <a class="small" href="register.php">Create an Account!</a>
                   </div>

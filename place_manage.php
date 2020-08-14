@@ -205,7 +205,7 @@ $none = "";
                                 placeholder="Enter Parking Spot Count...">
                         </div>
                         <button class="btn btn-primary btn-user btn-block col-md-6 m-auto">Add New</button>
-                        <div class="alert text-dark shadow float-right w-100 text-center mt-3" role="alert"
+                        <div class="alert text-dark float-right w-100 text-center mt-3" role="alert"
                             id="result1">
                         </div>
                     </form>
@@ -263,7 +263,7 @@ $none = "";
                         <!--Footer-->
                         <button class="btn btn-primary btn-user btn-block col-md-6 m-auto" id="btnUpdatePlace"
                             name="btnLogin">Update</button>
-                        <div class="alert text-dark shadow float-right w-100 text-center mt-3" role="alert"
+                        <div class="alert text-dark float-right w-100 text-center mt-3" role="alert"
                             id="result2">
                     </form>
                 </div>

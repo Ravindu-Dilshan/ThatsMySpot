@@ -135,7 +135,7 @@
                                         name="btnUpdate">Update</button>
                                     <?php }
                                         }?>
-                                    <div class="alert text-dark shadow float-right w-100 text-center my-3" role="alert"
+                                    <div class="alert text-dark float-right w-100 text-center my-3" role="alert"
                                         id="result1"></div>
                                 </form>
 
@@ -158,7 +158,7 @@
                                     </div>
                                     <button class="btn btn-primary btn-user btn-block col-md-3" id="btnLogin"
                                         name="btnLogin">Change</button>
-                                    <div class="alert text-dark shadow float-right w-100 text-center my-3" role="alert"
+                                    <div class="alert text-dark float-right w-100 text-center my-3" role="alert"
                                         id="result2"></div>
                                 </form>
                                 <hr>
