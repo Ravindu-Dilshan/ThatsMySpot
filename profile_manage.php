@@ -171,7 +171,13 @@
                 <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
-
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <?php include("footer.php")?>
+                </div>
+            </footer>
+            <!-- End of Footer -->
         </div>
         <!-- End of Content Wrapper -->
 

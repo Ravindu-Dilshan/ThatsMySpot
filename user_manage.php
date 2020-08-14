@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>ThatsMySpot - Users</title>
 
     <!-- Custom fonts for this template -->
     <link href="utils/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -103,12 +103,12 @@ $none = "";
                 <div class="container-fluid">
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Users Managment</h1>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Users Infromation</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

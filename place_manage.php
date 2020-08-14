@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title></title>
+    <title>ThatsMySpot - Locations</title>
 
     <!-- Custom fonts for this template -->
     <link href="utils/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -101,12 +101,12 @@ $none = "";
                 <div class="container-fluid">
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Parking Locations Management</h1>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Parking Locations Information</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -157,7 +157,7 @@ $none = "";
                 <div>
                     <div class="col-md-4">
                         <button type="button" class="btn btn-primary waves-effect btn-block col-md-4 ml-md-5"
-                            data-toggle="modal" data-target="#addPlaceModal">Add new Place</button>
+                            data-toggle="modal" data-target="#addPlaceModal">Add new Location</button>
                     </div>
                 </div>
             </div>
@@ -182,7 +182,7 @@ $none = "";
             <div class="modal-content">
                 <!--Header-->
                 <div class="text-center bg-primary py-2">
-                    <h1 class="h4 text-gray-900 my-4">ADD NEW PLACE</h1>
+                    <h1 class="h4 text-gray-900 my-4">ADD NEW LOCATION</h1>
                 </div>
 
                 <!--Body-->
@@ -223,7 +223,7 @@ $none = "";
             <div class="modal-content">
                 <!--Header-->
                 <div class="text-center bg-primary py-2">
-                    <h1 class="h4 text-gray-900 my-4">UPDATE USER</h1>
+                    <h1 class="h4 text-gray-900 my-4">UPDATE LOCATION</h1>
                 </div>
 
                 <!--Body-->

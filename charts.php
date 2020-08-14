@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>ThatsMySpot - Charts</title>
 
     <!-- Custom fonts for this template-->
     <link href="utils/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -55,7 +55,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Usage and Earnings Overview</h1>
                     </div>
                     <?php
                           include('script/class/parking.cls.php');
@@ -89,7 +89,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Used Overall</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Usage Overall</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -154,7 +154,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary"><?php echo $row['namePlace']?> Used Overview</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"><?php echo $row['namePlace']?> Usage Overview</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -389,7 +389,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">All Used Overview</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">All Usage Overview</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">

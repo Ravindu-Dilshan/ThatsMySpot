@@ -56,7 +56,7 @@
     <li class="nav-item">
         <a class="nav-link" href="place_manage.php">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Parking Places</span>
+            <span>Parking Locations</span>
         </a>
         <!--
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -88,11 +88,11 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="users_log.php">Users</a>
-                <a class="collapse-item" href="places_log.php">Parking Places</a>
-                <a class="collapse-item" href="vehicle_log.php">Vehicle Log</a>
+                <a class="collapse-item" href="users_log.php">Users Info</a>
+                <a class="collapse-item" href="places_log.php">Parking Locations Info</a>
+                <a class="collapse-item" href="vehicle_log.php">Vehicle Info</a>
                 <a class="collapse-item" href="parking_log.php">Authentication Log</a>
-                <a class="collapse-item" href="payment_log.php">Payment Log</a>
+                <a class="collapse-item" href="payment_log.php">Payment Info</a>
             </div>
         </div>
     </li>
