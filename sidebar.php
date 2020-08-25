@@ -108,13 +108,14 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2" aria-expanded="true"
             aria-controls="collapsePages2">
-            <i class="fas fa-fw fa-folder"></i>
+            <i class="fa fa-chart-line"></i>
             <span>Forecasts</span>
         </a>
         <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="forecast_revenue.php">Revenue</a>
                 <a class="collapse-item" href="forecast_demand.php">Demand</a>
+                <a class="collapse-item" href="forecast.php">Forecast Demo</a>
             </div>
         </div>
     </li>

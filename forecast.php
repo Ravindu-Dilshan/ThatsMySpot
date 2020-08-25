@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -45,7 +46,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Parking Demand Forecast</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Revenue Forecast</h1>
                     </div>
 
                     <!-- Collapsable Card -->
@@ -53,12 +54,12 @@
                         <!-- Card Header - Accordion -->
                         <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse"
                             role="button" aria-expanded="true" aria-controls="collapseCardExample1">
-                            <h6 class="m-0 font-weight-bold text-primary">Parking Demand Forecast</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Revenue Forecast</h6>
                         </a>
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample1">
                             <div class="card-body">
-                                <img src="python//1//fore.jpg" class="img-fluid" alt="Forecast Chart">
+                                <img src="python//3//fore.jpg" class="img-fluid" alt="Forecast Chart">
                             </div>
                         </div>
                     </div>
@@ -68,12 +69,12 @@
                         <!-- Card Header - Accordion -->
                         <a href="#collapseCardExample2" class="d-block card-header py-3" data-toggle="collapse"
                             role="button" aria-expanded="true" aria-controls="collapseCardExample2">
-                            <h6 class="m-0 font-weight-bold text-primary">Parking Demand Evaluate</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Revenue Evaluate</h6>
                         </a>
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample2">
                             <div class="card-body">
-                                <img src="python//1//evaluate.jpg" class="img-fluid" alt="Evaluation Chart">
+                                <img src="python//3//evaluate.jpg" class="img-fluid" alt="Evaluation Chart">
                             </div>
                         </div>
                     </div>
@@ -83,12 +84,12 @@
                         <!-- Card Header - Accordion -->
                         <a href="#collapseCardExample3" class="d-block card-header py-3" data-toggle="collapse"
                             role="button" aria-expanded="true" aria-controls="collapseCardExample3">
-                            <h6 class="m-0 font-weight-bold text-primary">Parking Demand Data Stationary</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Revenue Data Stationary</h6>
                         </a>
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample3">
                             <div class="card-body">
-                                <img src="python//1//stationary.jpg" class="img-fluid" alt="Stationary Chart">
+                                <img src="python//3//stationary.jpg" class="img-fluid" alt="Stationary Chart">
                             </div>
                         </div>
                     </div>
@@ -98,12 +99,12 @@
                         <!-- Card Header - Accordion -->
                         <a href="#collapseCardExample4" class="d-block card-header py-3" data-toggle="collapse"
                             role="button" aria-expanded="true" aria-controls="collapseCardExample4">
-                            <h6 class="m-0 font-weight-bold text-primary">Parking Demand Data</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Revenue Data</h6>
                         </a>
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample4">
                             <div class="card-body">
-                                <img src="python//1//normal.jpg" class="img-fluid" alt="Data Chart">
+                                <img src="python//3//normal.jpg" class="img-fluid" alt="Data Chart">
                             </div>
                         </div>
                     </div>
@@ -130,9 +131,9 @@
                                         <tbody>
                                             <?php
                                             // Open the file for reading
-                                            if (file_exists ("python//1//foredata.csv") == TRUE) 
+                                            if (file_exists ("python//3//foredata.csv") == TRUE) 
                                             {
-                                              $file = fopen("python//1//foredata.csv", "r");
+                                              $file = fopen("python//3//foredata.csv", "r");
                                               // Convert each line into the local $data variable
                                               fgetcsv($file);
                                               while (($row = fgetcsv($file, 1000, ",")) !== FALSE) 
@@ -148,23 +149,22 @@
                                               ?>
                                         </tbody>
                                     </table>
-                                    <div class="d-flex"><a href="api/authentication.csv"
-                                            class="btn btn-primary btn-user col-md-5 mx-2" id="btnDownload">Download Data</a>
-                                        <a href="forecast_demand.php?train"
+                                    <div class="d-flex">
+                                        <a href="forecast.php?train"
                                             class="btn btn-primary btn-user col-md-3 mx-2" id="btnTrain">Train Data</a>
-                                        <a href="forecast_demand.php?fore"
-                                            class="btn btn-primary btn-user col-md-3 mx-2" id="btnFore">Forecast Data</a>
+                                        <a href="forecast.php?fore"
+                                            class="btn btn-primary btn-user col-md-3 mx-2" id="btnFore">Forecast
+                                            Data</a>
                                     </div>
                                     <?php
-                                    //change path to the bat file
                                     $path = 'C:/Users/RUKE69/PycharmProjects/ThatsMySpotPython/';
                                       if (isset($_GET["train"])){
-                                        exec('c:\WINDOWS\system32\cmd.exe /c START  '.$path.'reciveTrain.bat 0 1 1');
-                                        echo ('<script>location = "forecast_demand.php"</script>');
+                                        exec('c:\WINDOWS\system32\cmd.exe /c START  '.$path.'reciveTrain.bat 1 1 3');
+                                        echo ('<script>location = "forecast.php"</script>');
                                       }
                                       elseif (isset($_GET["fore"])){
-                                        exec('c:\WINDOWS\system32\cmd.exe /c START  '.$path.'reciveFore.bat 0 0 1');
-                                        echo ('<script>location = "forecast_demand.php"</script>');
+                                        exec('c:\WINDOWS\system32\cmd.exe /c START  '.$path.'reciveFore.bat 1 0 3');
+                                        echo ('<script>location = "forecast.php"</script>');
                                       }
                                     ?>
                                 </div>
@@ -196,6 +196,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
     <!-- Bootstrap core JavaScript-->
     <script src="utils/jquery/jquery.min.js"></script>
     <script src="utils/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -212,6 +213,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+
 </body>
 
 </html>

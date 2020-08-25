@@ -9,6 +9,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
             if($_GET['url'] =="vehicle_in"){
                 if(isset($_GET['plate']) && isset($_GET['place']) && isset($_GET['PID'])){
                     $plate = $_GET['plate'];
+                    $location = $_GET['place'];
                     require_once('../script/class/vehicle.cls.php');
                     $vehicel = new Vehicle(null,$plate,null,null,null,null);
                     $result = $vehicel->getVehicleByPlate(); 
@@ -33,7 +34,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         file_put_contents('data.txt', serialize($tempArray));
 
                         $file = fopen("authentication.csv","a");
-                        $line = array($plate, time() , 1);
+                        $line = array($plate, time() , 1, $location);
                         fputcsv($file, $line);
                         fclose($file);
 

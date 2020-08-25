@@ -59,8 +59,7 @@
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample1">
                             <div class="card-body">
-                                <img src="python//2//fore.jpg" class="img-fluid" alt="Forecast Chart"
-                                    style="width:1500px;height:800px;">
+                                <img src="python//2//fore.jpg" class="img-fluid" alt="Forecast Chart">
                             </div>
                         </div>
                     </div>
@@ -75,8 +74,7 @@
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample2">
                             <div class="card-body">
-                                <img src="python//2//evaluate.jpg" class="img-fluid" alt="Evaluation Chart"
-                                    style="width:1500px;height:800px;">
+                                <img src="python//2//evaluate.jpg" class="img-fluid" alt="Evaluation Chart">
                             </div>
                         </div>
                     </div>
@@ -86,13 +84,12 @@
                         <!-- Card Header - Accordion -->
                         <a href="#collapseCardExample3" class="d-block card-header py-3" data-toggle="collapse"
                             role="button" aria-expanded="true" aria-controls="collapseCardExample3">
-                            <h6 class="m-0 font-weight-bold text-primary">Revenue Data</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Revenue Data Stationary</h6>
                         </a>
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample3">
                             <div class="card-body">
-                                <img src="python//2//stationary.jpg" class="img-fluid" alt="Data Chart"
-                                    style="width:1500px;height:800px;">
+                                <img src="python//2//stationary.jpg" class="img-fluid" alt="Stationary Chart">
                             </div>
                         </div>
                     </div>
@@ -107,8 +104,7 @@
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample4">
                             <div class="card-body">
-                                <img src="python//2//normal.jpg" class="img-fluid" alt="Stationary Chart"
-                                    style="width:1500px;height:800px;">
+                                <img src="python//2//normal.jpg" class="img-fluid" alt="Data Chart">
                             </div>
                         </div>
                     </div>
@@ -135,8 +131,9 @@
                                         <tbody>
                                             <?php
                                             // Open the file for reading
-                                            if (($file = fopen("python//2//foredata.csv", "r")) !== FALSE) 
+                                            if (file_exists ("python//2//foredata.csv") == TRUE) 
                                             {
+                                              $file = fopen("python//2//foredata.csv", "r");
                                               // Convert each line into the local $data variable
                                               fgetcsv($file);
                                               while (($row = fgetcsv($file, 1000, ",")) !== FALSE) 
@@ -152,24 +149,23 @@
                                               ?>
                                         </tbody>
                                     </table>
-                                    <div class="d-flex"><a href="api/income.csv"
-                                            class="btn btn-primary btn-user col-md-5 mx-2" id="btnLogin"
-                                            name="btnLogin">Download Data</a>
+                                    <div class="d-flex">
+                                        <a href="api/income.csv" class="btn btn-primary btn-user col-md-5 mx-2"
+                                            id="btnDownload">Download Data</a>
                                         <a href="forecast_revenue.php?train"
-                                            class="btn btn-primary btn-user col-md-3 mx-2" id="btnLogin"
-                                            name="btnLogin">Train Data</a>
+                                            class="btn btn-primary btn-user col-md-3 mx-2" id="btnTrain">Train Data</a>
                                         <a href="forecast_revenue.php?fore"
-                                            class="btn btn-primary btn-user col-md-3 mx-2" id="btnLogin"
-                                            name="btnLogin">Forecast Data</a>
+                                            class="btn btn-primary btn-user col-md-3 mx-2" id="btnFore">Forecast
+                                            Data</a>
                                     </div>
                                     <?php
-                                    $path = 'C:/Users/RUKE69/PycharmProjects/ThatsMySpotPython';
+                                    $path = 'C:/Users/RUKE69/PycharmProjects/ThatsMySpotPython/';
                                       if (isset($_GET["train"])){
-                                        exec('c:\WINDOWS\system32\cmd.exe /c START  C:/Users/RUKE69/PycharmProjects/ThatsMySpotPython/reciveTrain.bat 1 1 2');
+                                        exec('c:\WINDOWS\system32\cmd.exe /c START  '.$path.'reciveTrain.bat 1 1 2');
                                         echo ('<script>location = "forecast_revenue.php"</script>');
                                       }
                                       elseif (isset($_GET["fore"])){
-                                        exec('c:\WINDOWS\system32\cmd.exe /c START  C:/Users/RUKE69/PycharmProjects/ThatsMySpotPython/reciveFore.bat 1 1 2');
+                                        exec('c:\WINDOWS\system32\cmd.exe /c START  '.$path.'reciveFore.bat 1 1 2');
                                         echo ('<script>location = "forecast_revenue.php"</script>');
                                       }
                                     ?>
