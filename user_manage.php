@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -87,6 +86,11 @@ $none = "";
 
         <!-- Sidebar -->
         <?php include("sidebar.php")?>
+        <?php
+        if($u['ACESS'] != "Admin"){
+          echo "<script>location = 'index.php'</script>";
+        }
+        ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->

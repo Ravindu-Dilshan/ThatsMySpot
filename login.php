@@ -36,7 +36,7 @@
                         $("#result").removeClass('alert-danger');
                         $("#result").addClass('alert-success');
                         $("#result").html('Submitted successfully');
-                        window.location = "user_manage.php"
+                        window.location = "index.php"
                     } else {
                         $("#result").removeClass('alert-success');
                         $("#result").addClass('alert-danger');
