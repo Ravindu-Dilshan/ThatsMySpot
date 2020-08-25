@@ -192,7 +192,7 @@ class Vehicle
 			mysqli_stmt_execute($stmt);
 			$result = mysqli_stmt_get_result($stmt);
 			if(mysqli_num_rows($result)>0){
-				return $result;
+				return 1;
 			}
 			else{
 				return false;
@@ -209,7 +209,7 @@ class Vehicle
 		$sql = "INSERT INTO `vehicle`(`plate`, `color`, `type`, `UID`) VALUES (?,?,?,?)";
 		$stmt = mysqli_stmt_init($connection);
 		$check = $this->getVehicleByPlate();
-		if($check==1){
+		if($check == 1){
 			return $db -> messages(2);
 		}
 		elseif($check== -1){
@@ -242,6 +242,20 @@ class Vehicle
 			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
+	}
+
+	public function getLastInserted()
+	{
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "SELECT * FROM `vehicle` ORDER BY `VID` DESC LIMIT 1";
+		$result = mysqli_query($connection,$sql);
+		if(mysqli_num_rows($result)>0){
+				return mysqli_fetch_assoc($result);
+		}
+		else{
+			return false;
+		}
 	}
 
 	public function deleteVehicle()

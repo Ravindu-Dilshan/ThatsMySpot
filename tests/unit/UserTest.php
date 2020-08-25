@@ -1,5 +1,5 @@
 <?php
-session_start();
+/* session_start();
 require_once(__DIR__.'/../../script/class/user.cls.php');
 use PHPUnit\Framework\TestCase;
 
@@ -38,6 +38,17 @@ class UserTest extends TestCase
         $this->assertEquals("Manager",$row['accessUser']);
     }
     public function test_view(){
+        $user = new User(null,null,null,null,null,null);
+        $user->setUID($user->getLastInserted()['UID']);
+        $result = $user->getUser();
+        $row = mysqli_fetch_assoc($result);
+        $this->assertTrue($row>0);
+        $this->assertEquals("updatedname",$row['nameUser']);
+        $this->assertEquals("updatedEmail",$row['emailUser']);
+        $this->assertEquals("775212365",$row['telephoneUser']);
+        $this->assertEquals("Manager",$row['accessUser']);
+    }
+    public function test_viewAll(){
         $users = new User(null,null,null,null,null,null);
         $result = $users->getAllusers();
         $this->assertTrue(mysqli_fetch_assoc($result)>0);
@@ -48,4 +59,4 @@ class UserTest extends TestCase
         $add = $user->deleteUser();
         $this->assertEquals("Success",$add);
     }
-}
+} */

@@ -181,6 +181,20 @@ class Place
 		
 	}
 */
+	public function getLastInserted()
+	{
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "SELECT * FROM `place` ORDER BY `PID` DESC LIMIT 1";
+		$result = mysqli_query($connection,$sql);
+		if(mysqli_num_rows($result)>0){
+				return mysqli_fetch_assoc($result);
+		}
+		else{
+			return false;
+		}
+	}
+	
 	public function addPlace()
 	{
 		$db = Database::getInstance();
