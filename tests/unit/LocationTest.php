@@ -1,6 +1,6 @@
 <?php
-/* session_start();
-require_once(__DIR__.'/../../script/class/place.cls.php');
+/*session_start();
+ require_once(__DIR__.'/../../script/class/place.cls.php');
 use PHPUnit\Framework\TestCase;
 
 class PlaceTest extends TestCase
@@ -46,4 +46,4 @@ class PlaceTest extends TestCase
         $add = $place->deletePlace();
         $this->assertEquals("Success",$add);
     } 
-} */
+}  */

@@ -1,6 +1,6 @@
 <?php
-/* session_start();
-require_once(__DIR__.'/../../script/class/vehicle.cls.php');
+//session_start();
+/* require_once(__DIR__.'/../../script/class/vehicle.cls.php');
 use PHPUnit\Framework\TestCase;
 
 class VehicleTest extends TestCase
@@ -52,4 +52,4 @@ class VehicleTest extends TestCase
         $add = $vehicle->deleteVehicle();
         $this->assertEquals("Success",$add);
     } 
-}*/
+} */

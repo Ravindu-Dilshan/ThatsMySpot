@@ -1,6 +1,6 @@
 <?php
-/* session_start();
-require_once(__DIR__.'/../../script/class/user.cls.php');
+//session_start();
+/* require_once(__DIR__.'/../../script/class/user.cls.php');
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -58,5 +58,5 @@ class UserTest extends TestCase
         $user->setUID($user->getLastInserted()['UID']);
         $add = $user->deleteUser();
         $this->assertEquals("Success",$add);
-    }
-} */
+    } 
+}*/
