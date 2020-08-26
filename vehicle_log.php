@@ -28,13 +28,6 @@
     <script src="utils/jquery/jquery.min.js"></script>
 
 </head>
-<?php
-include('script/class/vehicle.cls.php');
-$vehicle = new Vehicle(null,null,null,null,null);
-$result = $vehicle->getVehicleLog();
-$none = "";
-?>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -81,27 +74,14 @@ $none = "";
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
-                                        if($result==false){
-                                            $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Vehicles Added</div>';
-                                        }
-                                        else{
-                                          while($row = mysqli_fetch_assoc($result)){
-                                        ?>
-                                        <tr>
-                                            <td><b><?php echo $row['VID'];?></b></td>
-                                            <td><?php echo $row['plate'];?></td>
-                                            <td><?php echo $row['color'];?></td>
-                                            <td><?php echo $row['type'];?></td>
-                                            <td><?php echo $row['nameUser']."(".$row['UID'].")";?></td>
-                                            <td><?php echo $row['emailUser'];?></td>
-                                            <td><?php echo $row['telephoneUser'];?></td>
-                                        </tr>
-                                        <?php }
-                                        }?>
+                                    <?php
+                                    include('script/view/vehicle.view.php');
+                                    $user = new VehicleView();
+                                    $result = $user->viewVehicleLog();
+                                    echo $result;
+                                    ?>
                                     </tbody>
                                 </table>
-                                <?php echo $none; ?>
                             </div>
                         </div>
                     </div>

@@ -9,15 +9,7 @@ class Vehicle
 	private  $color;
 	private  $type;
 	private  $UID;
-
-	public function __construct($VID,$plate,$color,$type,$UID)
-	{
-		$this->VID = $VID;
-		$this->plate = $plate;
-		$this->color = $color;
-		$this->type = $type;
-		$this->UID = $UID;
-	}	
+	
 	/**
 	 * Get the value of VID
 	 */ 
@@ -117,8 +109,8 @@ class Vehicle
 
 		return $this;
 	}
-
-	public function getAllVehicles()
+//CHECK
+	protected function getAllVehicles()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -132,7 +124,7 @@ class Vehicle
 		    }
 		
 	}
-	public function getAllByUser()
+	protected function getAllByUser()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -155,7 +147,7 @@ class Vehicle
 		
 	}
 
-	public function getByID($id)
+	protected function getByID()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -165,7 +157,7 @@ class Vehicle
 			return $db ->messages(-1);
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'s',$id);
+			mysqli_stmt_bind_param($stmt,'s',$this->VID);
 			mysqli_stmt_execute($stmt);
 			$result = mysqli_stmt_get_result($stmt);
 			if(mysqli_num_rows($result)>0){
@@ -177,8 +169,8 @@ class Vehicle
 		}
 		
 	}
-
-	public function getVehicleByPlate()
+//TODO
+	protected function getVehicleByPlate()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -192,7 +184,7 @@ class Vehicle
 			mysqli_stmt_execute($stmt);
 			$result = mysqli_stmt_get_result($stmt);
 			if(mysqli_num_rows($result)>0){
-				return 1;
+				return $result;
 			}
 			else{
 				return false;
@@ -202,14 +194,14 @@ class Vehicle
 		
 	}
 
-	public function addVehicle()
+	protected function addVehicle()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
 		$sql = "INSERT INTO `vehicle`(`plate`, `color`, `type`, `UID`) VALUES (?,?,?,?)";
 		$stmt = mysqli_stmt_init($connection);
 		$check = $this->getVehicleByPlate();
-		if($check == 1){
+		if($check != false){
 			return $db -> messages(2);
 		}
 		elseif($check== -1){
@@ -227,7 +219,7 @@ class Vehicle
 	}
 
 
-	public function updateVehicel()
+	protected function updateVehicel()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -258,7 +250,7 @@ class Vehicle
 		}
 	}
 
-	public function deleteVehicle()
+	protected function deleteVehicle()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -275,7 +267,7 @@ class Vehicle
 		mysqli_stmt_close($stmt);
 	}
 //report
-	public function getVehicleLog()
+	protected function getVehicleLog()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();

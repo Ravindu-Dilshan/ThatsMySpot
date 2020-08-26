@@ -168,57 +168,13 @@ if(isset($_SESSION['loggedUser'])){
                 <!-- Topbar -->
                 <?php //include("topbar.php")?>
                 <!-- End of Topbar -->
-                <?php
-                include('../script/class/vehicle.cls.php');
-                $vehicle = new Vehicle(null,null,null,null,$u['UID']);
-                $result = $vehicle->getAllByUser();
-                $none = "";
-                if($result==false){
-                    $none = '<div class="alert alert-danger float-right w-100 text-center mt-5"  role="alert">No Vehicles Added</div>';
-                  }else{
-                    while($row = mysqli_fetch_assoc($result)){
-                ?>
                 <!-- Begin Page Content -->
-                <div>
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <!--<img src="../img/park.jpg" alt="" class="img-fluid"> -->
-                        <div class="card border-left-dark shadow h-100 py-2">
-                            <div class="card-body vehicleView">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="UPtype">
-                                            <?php echo $row['type'];?>
-                                        </div>
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Plate
-                                            Number:</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="UPplate">
-                                            <?php echo $row['plate']?>
-                                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1"
-                                                id="UPcolor"><?php echo $row['color']?></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa fa-car fa-4x"></i>
-                                    </div>
-                                </div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mt-2">
-                                        <a type="button" id="btnViewVehicel" class="btn btn-primary btn-sm"
-                                            href="vehicle_manage.php?VID=<?php echo $row['VID']?>">Update</a>
-                                            <!-- find a way to remove on click -->
-                                        <button type="submit" class="btn btn-danger btn-sm confirm_dialog"
-                                            onclick="if(confirm('Are You Sure!')){window.location = '../script/vehicle.inc.php?btnDelete=&id=<?php echo $row['VID'];?>';}">
-                                            <i class="fas fa-trash-alt"></i></button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php }
-                                        }?>
-                </div>
-                <?php echo $none; ?>
+                <?php
+                include('../script/view/vehicle.view.php');
+                $vehicle = new VehicleView();
+                $result = $vehicle->viewVehicles($u['UID']);
+                echo $result;
+                ?>
                 <div>
                     <div class="col-md-4">
                         <button type="button" class="btn btn-primary waves-effect btn-block mb-4" data-toggle="modal"
@@ -273,12 +229,9 @@ if(isset($_SESSION['loggedUser'])){
     </div>
     <?php
     if(isset($_GET['VID'])){
-        $result = $vehicle->getByID($_GET['VID']);
-        if($result==false){
-            echo 'Wrong ID';
-        }else{
-            while($row = mysqli_fetch_assoc($result)){
-                if($row['UID']==$u['UID']){?>
+    $row = $vehicle->viewVehicle($_GET['VID']);
+    if(is_array($row)){
+    ?>
     <!--Update Modal-->
     <div class="modal fade" id="vehicleUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
@@ -322,8 +275,8 @@ if(isset($_SESSION['loggedUser'])){
     </div>
 
     <?php
-                }
-            }
+    }else{
+        echo $row;
         }
     }?>
     <!-- Scroll to Top Button-->

@@ -1,5 +1,6 @@
 <?php
-require_once('class/vehicle.cls.php');
+require_once('controller/vehicle.control.php');
+$vehicle = new VehicleController();
 if(isset($_GET['btnUpdateVehicle']))
 {
   $type =$_POST['txtType'];
@@ -21,8 +22,7 @@ if(isset($_GET['btnUpdateVehicle']))
     exit();
   }
   else{
-    $vehicle = new Vehicle($VID,$plate,$color,$type, $UID);
-    $update = $vehicle->updateVehicel();
+    $update = $vehicle->updateVehicleInfo($VID,$plate,$color,$type, $UID);
     echo $update;
   }
 }
@@ -47,8 +47,7 @@ elseif(isset($_GET['btnAddVehicle']))
     exit();
   }
   else{
-    $vehicle = new Vehicle(null,$plate,$color,$type, $UID);
-    $add = $vehicle->addVehicle();
+    $add = $vehicle->createVehicle($plate,$color,$type, $UID);
     echo $add;
   }
 }
@@ -56,8 +55,7 @@ elseif(isset($_GET['btnAddVehicle']))
 elseif(isset($_GET['btnDelete']))
 {
   $id =$_GET['id'];
-  $vehicle = new Vehicle($id,null,null,null,null);
-  $delete = $vehicle->deleteVehicle();
+  $delete = $vehicle->delete($id);
   echo '<script>window.location = "../userapp/vehicle_manage.php?'.$delete.'"</script>';
 }
 /*
