@@ -205,6 +205,7 @@ if(isset($_SESSION['loggedUser'])){
                                     <div class="col mt-2">
                                         <a type="button" id="btnViewVehicel" class="btn btn-primary btn-sm"
                                             href="vehicle_manage.php?VID=<?php echo $row['VID']?>">Update</a>
+                                            <!-- find a way to remove on click -->
                                         <button type="submit" class="btn btn-danger btn-sm confirm_dialog"
                                             onclick="if(confirm('Are You Sure!')){window.location = '../script/vehicle.inc.php?btnDelete=&id=<?php echo $row['VID'];?>';}">
                                             <i class="fas fa-trash-alt"></i></button>

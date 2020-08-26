@@ -56,7 +56,7 @@ if(isset($_SESSION['loggedUser'])){
         </ons-tab>
         <ons-tab page="payments" label="Payments" badge="<?php if ($count >0){echo $count;} ?>" icon="fa-money-bill">
         </ons-tab>
-        <ons-tab page="profile" label="Profile" badge="<?php if ($count >0){echo $count;} ?>" icon="fa-user">
+        <ons-tab page="profile" label="Profile" icon="fa-user">
         </ons-tab>
     </ons-tabbar>
 
