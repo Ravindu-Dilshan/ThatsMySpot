@@ -9,16 +9,6 @@ class User
 	private  $passwordUser;
 	private  $accessUser;
 	private  $telephone;
-
-	public function __construct($UID,$nameUser,$emailUser,$passwordUser,$telephone,$accessUser)
-	{
-		$this->UID = $UID;
-		$this->nameUser = $nameUser;
-		$this->emailUser = $emailUser;
-		$this->passwordUser = $passwordUser;
-		$this->accessUser = $accessUser;
-		$this->telephone = $telephone;
-	}
 	
 	/**
 	 * Get the value of UID
@@ -140,7 +130,7 @@ class User
 		return $this;
 	}
 
-	public function login()
+	protected function login()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -181,7 +171,7 @@ class User
 		
 	}
 
-	public function getUser()
+	protected function getUser()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -230,7 +220,7 @@ class User
 		
 	}
 
-	public function getAllUsers()
+	protected function getAllUsers()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -245,7 +235,7 @@ class User
 		
 	}
 
-	public function addUser()
+	protected function addUser()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -271,7 +261,7 @@ class User
 		mysqli_stmt_close($stmt);
 	}
 
-	public function getLastInserted()
+	protected function getLastInserted()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -285,7 +275,7 @@ class User
 		}
 	}
 
-	public function updateUser()
+	protected function updateUser()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -303,7 +293,7 @@ class User
 		mysqli_stmt_close($stmt);
 	}
 
-	public function deleteUser()
+	protected function deleteUser()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -320,7 +310,7 @@ class User
 		mysqli_stmt_close($stmt);
 	}
 
-	public function getProfile()
+	protected function getProfile()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -343,7 +333,7 @@ class User
 		
 	}
 
-	public function updateProfile()
+	protected function updateProfile()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -385,7 +375,7 @@ class User
 		
 	}
 
-	public function changePw($nPw)
+	protected function changePw($nPw)
 	{
 		$pw= $this->getPassword();
 		$db = Database::getInstance();

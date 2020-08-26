@@ -1,5 +1,6 @@
 <?php
-require_once('class/user.cls.php');
+require_once('controller/user.control.php');
+$user = new UserController();
 if(isset($_GET['btnRegister']))
 {
   $name =$_POST['txtName'];
@@ -23,8 +24,7 @@ if(isset($_GET['btnRegister']))
     exit();
   }
   else{
-    $user = new User(null,$name,$email,$code, $tele,"Customer");
-    $add = $user->addUser();
+    $add = $user->createUser($name,$email,$code, $tele,"Customer");
     echo $add;
   }
 }
@@ -78,8 +78,7 @@ elseif(isset($_GET['btnAddUser']))
     exit();
   }
   else{
-    $user = new User(null,$name,$email,$code, $tele,$access);
-    $add = $user->addUser();
+    $add = $user->createUser($name,$email,$code, $tele,$access);
     echo $add;
   }
 }
