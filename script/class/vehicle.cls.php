@@ -209,7 +209,7 @@ class Vehicle
 		$sql = "INSERT INTO `vehicle`(`plate`, `color`, `type`, `UID`) VALUES (?,?,?,?)";
 		$stmt = mysqli_stmt_init($connection);
 		$check = $this->getVehicleByPlate();
-		if($check == 1){
+		if($check != false){
 			return $db -> messages(2);
 		}
 		elseif($check== -1){
