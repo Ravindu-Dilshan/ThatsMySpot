@@ -192,7 +192,7 @@ class Vehicle
 			mysqli_stmt_execute($stmt);
 			$result = mysqli_stmt_get_result($stmt);
 			if(mysqli_num_rows($result)>0){
-				return 1;
+				return $result;
 			}
 			else{
 				return false;
