@@ -61,7 +61,7 @@
                     <!-- Content Row -->
                     <div class="row">
                         <?php
-                          include('script/class/parking.cls.php');
+                          include('script/model/parking.cls.php');
                           $parking = new ParkingLog(null,null,null,null,null,null,Null);
                           $monthAmount = $parking->getCurrentMonthAmount();
                           $yearAmount = $parking->getCurrentYearAmount();
@@ -128,7 +128,7 @@
 
                     <div class="row">
                         <?php
-                        include('script/class/place.cls.php');
+                        include('script/model/place.cls.php');
                         $place = new Place(null,null,null,null,null,null);
                         $result = $place->getAllPalce();
                         $none = "";

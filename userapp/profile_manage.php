@@ -8,6 +8,7 @@ if(isset($_SESSION['loggedUser'])){
     $u = $_SESSION['loggedUser'];
 }
 ?>
+
 <head>
 
     <meta charset="utf-8">
@@ -43,11 +44,11 @@ if(isset($_SESSION['loggedUser'])){
                         $("#result1").addClass('alert-success');
                         $("#result1").html('Updated successfully');
                         refresh()
-                        
+
                     } else {
                         $("#result1").removeClass('alert-success');
                         $("#result1").addClass('alert-danger');
-                        $("#result1").html(data); 
+                        $("#result1").html(data);
                     }
                 }
             });
@@ -87,10 +88,9 @@ if(isset($_SESSION['loggedUser'])){
         <!-- Sidebar -->
         <!-- End of Sidebar -->
         <?php
-        include('../script/class/user.cls.php');
-        $user = new User($u['UID'],null,null,null,null,null);
-        $result = $user->getUser();
-        $none = "";
+        include('../script/view/user.view.php');
+        $user = new UserView();
+        $row = $user->viewUser($u['UID']);
         ?>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -109,12 +109,7 @@ if(isset($_SESSION['loggedUser'])){
                             <div class="px-0 pb-4">
                                 <form class="user" action="" class="user" id="updateProfileform" method="post">
                                     <?php 
-                                        if($result==false){
-                                            $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">Please Login</div>';
-                                            echo $none;
-                                        }
-                                        else{
-                                          while($row = mysqli_fetch_assoc($result)){
+                                        if(is_array($row)){
                                         ?>
                                     <div class="form-group">
                                         <label>Name</label>
@@ -135,7 +130,9 @@ if(isset($_SESSION['loggedUser'])){
                                     </div>
                                     <button class="btn btn-primary btn-user btn-block col-md-3" id="btnUpdate"
                                         name="btnUpdate">Update</button>
-                                    <?php }
+                                    <?php
+                                        }else{
+                                            echo $row;
                                         }?>
                                     <div class="alert text-dark float-right w-100 text-center my-3" role="alert"
                                         id="result1"></div>
@@ -199,7 +196,7 @@ if(isset($_SESSION['loggedUser'])){
     function refresh() {
         setTimeout(function() {
             window.location = "profile_manage.php";
-        }, 3000);  
+        }, 3000);
     }
     </script>
 

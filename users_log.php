@@ -28,13 +28,6 @@
     <script src="utils/jquery/jquery.min.js"></script>
 
 </head>
-<?php
-include('script/class/user.cls.php');
-$users = new User(null,null,null,null,null,null);
-$result = $users->getAllusers();
-$none = "";
-?>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -79,25 +72,14 @@ $none = "";
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
-                                        if($result==false){
-                                            $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
-                                        }
-                                        else{
-                                          while($row = mysqli_fetch_assoc($result)){
-                                        ?>
-                                        <tr>
-                                            <td><b><?php echo $row['UID'];?></b></td>
-                                            <td><?php echo $row['nameUser'];?></td>
-                                            <td><?php echo $row['emailUser'];?></td>
-                                            <td><?php echo $row['telephoneUser'];?></td>
-                                            <td><?php echo $row['accessUser'];?></td>
-                                        </tr>
-                                        <?php }
-                                        }?>
+                                    <?php
+                                    include('script/view/user.view.php');
+                                    $user = new UserView();
+                                    $result = $user->viewUsersLog();
+                                    echo $result;
+                                    ?>
                                     </tbody>
                                 </table>
-                                <?php echo $none; ?>
                             </div>
                         </div>
                     </div>

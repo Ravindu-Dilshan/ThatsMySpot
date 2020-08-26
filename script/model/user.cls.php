@@ -51,21 +51,21 @@ class User
 	}
 
 	/**
-	 * Get the value of emaiUser
+	 * Get the value of emailUser
 	 */ 
 	public function getEmailUser()
 	{
-		return $this->emaiUser;
+		return $this->emailUser;
 	}
 
 	/**
-	 * Set the value of emaiUser
+	 * Set the value of emailUser
 	 *
 	 * @return  self
 	 */ 
-	public function setEmailUser($emaiUser)
+	public function setEmailUser($emailUser)
 	{
-		$this->emaiUser = $emaiUser;
+		$this->emailUser = $emailUser;
 
 		return $this;
 	}
@@ -130,7 +130,7 @@ class User
 		return $this;
 	}
 
-	protected function login()
+	public function login()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -165,7 +165,7 @@ class User
 				}
 			}
 			else{
-				return $db->messages(0);
+				return $this->emailUser;//$db->messages(0);
 			}
 		}
 		
@@ -261,7 +261,7 @@ class User
 		mysqli_stmt_close($stmt);
 	}
 
-	protected function getLastInserted()
+	public function getLastInserted()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();

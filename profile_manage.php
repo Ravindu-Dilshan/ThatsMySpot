@@ -82,10 +82,9 @@
         <?php include("sidebar.php")?>
         <!-- End of Sidebar -->
         <?php
-        include('script/class/user.cls.php');
-        $user = new User($u['UID'],null,null,null,null,null);
-        $result = $user->getUser();
-        $none = "";
+        include('script/view/user.view.php');
+        $user = new UserView();
+        $row = $user->viewUser($u['UID']);
         ?>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -107,12 +106,7 @@
                             <div class="px-0 pb-4">
                                 <form class="user" action="" class="user" id="updateProfileform" method="post">
                                     <?php 
-                                        if($result==false){
-                                            $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">Please Login</div>';
-                                            echo $none;
-                                        }
-                                        else{
-                                          while($row = mysqli_fetch_assoc($result)){
+                                        if(is_array($row)){
                                         ?>
                                     <div class="form-group">
                                         <label>Name</label>
@@ -133,7 +127,9 @@
                                     </div>
                                     <button class="btn btn-primary btn-user btn-block col-md-3" id="btnUpdate"
                                         name="btnUpdate">Update</button>
-                                    <?php }
+                                    <?php
+                                        }else{
+                                            echo $row;
                                         }?>
                                     <div class="alert text-dark float-right w-100 text-center my-3" role="alert"
                                         id="result1"></div>

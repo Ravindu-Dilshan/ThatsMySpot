@@ -24,8 +24,7 @@ if(isset($_GET['btnRegister']))
     exit();
   }
   else{
-    $add = $user->createUser($name,$email,$code, $tele,"Customer");
-    echo $add;
+    echo $user->createUser($name,$email,$code, $tele,"Customer");
   }
 }
 elseif(isset($_GET['btnUpdateUser']))
@@ -48,9 +47,7 @@ elseif(isset($_GET['btnUpdateUser']))
     exit();
   }
   else{
-    $user = new User($id,$name,$email,null, $tele,$access);
-    $update = $user->updateUser();
-    echo $update;
+    echo $user->updateUserInfo($id,$name,$email,$tele,$access);
   }
 }
 
@@ -78,16 +75,14 @@ elseif(isset($_GET['btnAddUser']))
     exit();
   }
   else{
-    $add = $user->createUser($name,$email,$code, $tele,$access);
-    echo $add;
+    echo $user->createUser($name,$email,$code, $tele,$access);
   }
 }
 
 elseif(isset($_GET['btnDelete']))
 {
   $id =$_GET['id'];
-  $user = new User($id,null,null,null,null,null);
-  $delete = $user->deleteUser();
+  $delete = $user->delete($id);
   echo '<script>window.location = "../user_manage.php?'.$delete.'"</script>';
 }
 /*
@@ -135,8 +130,7 @@ elseif(isset($_GET['btnUpdatePro']))
     exit();
   }
   else{
-    $user = new User($u['UID'],$name,$email,null, $tele,null);
-    $update = $user->updateProfile();
+    $update = $user->updateProfileInfo($u['UID'],$name,$email, $tele);
     echo $update;
   }
 }
@@ -173,8 +167,7 @@ elseif(isset($_GET['btnPassword']))
     exit();
   }
   else{
-    $user = new User($u['UID'],null,null,$oPW, null,null);
-    $update = $user->changePw($nPW);
+    $update = $user->changePassword($u['UID'],$oPW,$nPW);
     echo $update;
   }
 }

@@ -58,7 +58,7 @@
                         <h1 class="h3 mb-0 text-gray-800">Usage and Earnings Overview</h1>
                     </div>
                     <?php
-                          include('script/class/parking.cls.php');
+                          include('script/model/parking.cls.php');
                           $parking = new ParkingLog(null,null,null,null,null,null,Null);
                     ?>
                   <!-- Content Row -->
@@ -102,7 +102,7 @@
                     </div>
                     <?php
                         $namePlaceArray = array();
-                        include('script/class/place.cls.php');
+                        include('script/model/place.cls.php');
                         $place = new Place(null,null,null,null,null,null);
                         $result = $place->getAllPalce();
                         $none = "";

@@ -13,7 +13,7 @@
             <!-- Topbar -->
             <!-- End of Topbar -->
             <?php
-                include('../script/class/place.cls.php');
+                include('../script/model/place.cls.php');
                 $place = new Place(null,null,null,null,null,null);
                 $result = $place->getAllPalce();
                 $none = "";

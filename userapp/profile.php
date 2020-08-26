@@ -13,15 +13,13 @@
             <!-- Topbar -->
             <!-- End of Topbar -->
             <?php
-                include('../script/class/user.cls.php');
-                $user = new User($u['UID'],null,null,null,null,null);
-                $result = $user->getProfile();
-                $none = "";
-                if($result==false){
-                    $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">None</div>';
-                  }else{
-                    while($row = mysqli_fetch_assoc($result)){
-                ?>
+            include('../script/view/user.view.php');
+            $user = new UserView();
+            $row = $user->viewUser($u['UID']);
+            ?>
+            <?php 
+            if(is_array($row)){
+            ?>
             <!-- Begin Page Content -->
             <div>
                 <div class="col-xl-3 col-md-6 mb-4">
@@ -51,16 +49,17 @@
                         </div>
                     </div>
                 </div>
-                <?php }
-                                        }?>
-
+                <?php
+                }else{
+                    echo $row;
+                }?>
                 <div class="col-xl-3 col-md-6 mb-4">
                     <!--<img src="../img/park.jpg" alt="" class="img-fluid"> -->
                     <div class="card border-bottom-dark h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
-                                    <a class="btn btn-group-lg btn-primary m-auto"
-                                        href="../script/logout.inc.php?btnLogoutCustomer">Logout</a>
+                                <a class="btn btn-group-lg btn-primary m-auto"
+                                    href="../script/logout.inc.php?btnLogoutCustomer">Logout</a>
                             </div>
                         </div>
                     </div>
