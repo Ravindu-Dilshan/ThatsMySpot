@@ -42,6 +42,7 @@ if(isset($_SESSION['loggedUser'])){
 
 <body>
     <?php
+    //this is the end
     include('../script/class/payment.cls.php');
     $pay = new Payment(null,null,$u['UID'],null);
     $count = $pay->getUnpaidCount();
