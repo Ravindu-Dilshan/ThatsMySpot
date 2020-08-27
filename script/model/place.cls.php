@@ -132,7 +132,7 @@ class Place
 	}
 	
 
-	public function getAllPalce()
+	protected function getAllPalce()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -184,7 +184,7 @@ class Place
 		}
 	}
 	
-	public function addPlace()
+	protected function addPlace()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -202,7 +202,7 @@ class Place
 	}
 
 
-	public function updatePlace()
+	protected function updatePlace()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -219,7 +219,7 @@ class Place
 		mysqli_stmt_close($stmt);
 	}
 
-	public function deletePlace()
+	protected function deletePlace()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -236,7 +236,7 @@ class Place
 		mysqli_stmt_close($stmt);
 	}
 
-	public function updateCounter($task)
+	protected function updateCounter($task)
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();

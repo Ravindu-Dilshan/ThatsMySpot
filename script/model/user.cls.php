@@ -130,7 +130,7 @@ class User
 		return $this;
 	}
 
-	public function login()
+	protected function login()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();

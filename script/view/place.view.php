@@ -96,5 +96,8 @@ class PlaceView extends Place
 		return $data;
 	}
 
+	public function viewPlaceRaw(){
+		return $this->getAllPalce();
+	}
 }
  ?>

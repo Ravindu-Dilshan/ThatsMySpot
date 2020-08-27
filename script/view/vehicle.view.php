@@ -88,6 +88,19 @@ class VehicleView extends Vehicle
 		  $data = mysqli_fetch_assoc($result);
 		}
 		return $data;
+    }
+    
+    public function viewByPlate($plate){
+		$this->setPlate($plate);
+		$result = $this->getVehicleByPlate();
+		$data = null;
+        if($result==false){
+			$data = 'Please Register To the System';
+		}
+		else{
+		  $data = mysqli_fetch_assoc($result);
+		}
+		return $data;
 	}
 
 }

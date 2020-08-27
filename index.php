@@ -61,10 +61,10 @@
                     <!-- Content Row -->
                     <div class="row">
                         <?php
-                          include('script/model/parking.cls.php');
-                          $parking = new ParkingLog(null,null,null,null,null,null,Null);
-                          $monthAmount = $parking->getCurrentMonthAmount();
-                          $yearAmount = $parking->getCurrentYearAmount();
+                          include('script/view/parking.view.php');
+                          $parking = new ParkingLogView();
+                          $monthAmount = $parking->viewCurrentAmount(False);
+                          $yearAmount = $parking->viewCurrentAmount(True);
                           ?>
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -128,9 +128,9 @@
 
                     <div class="row">
                         <?php
-                        include('script/model/place.cls.php');
-                        $place = new Place(null,null,null,null,null,null);
-                        $result = $place->getAllPalce();
+                        include('script/view/place.view.php');
+                        $place = new PlaceView();
+                        $result = $place->viewPlaceRaw();
                         $none = "";
                         if($result==false){
                           $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Places Added</div>';

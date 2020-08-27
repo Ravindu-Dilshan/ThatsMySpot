@@ -87,7 +87,7 @@ class Payment
 		return $this;
 	}
 
-	public function getAllPayments()
+	protected function getAllPayments()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -104,7 +104,7 @@ class Payment
 		
 	}
 
-	public function getAllByUser()
+	protected function getAllByUser()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -169,7 +169,7 @@ class Payment
 	}
 */
 
-	public function updatePayment()
+	protected function updatePayment()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -186,7 +186,7 @@ class Payment
 		mysqli_stmt_close($stmt);
 	}
 
-	public function getPaymentAmount()
+	protected function getPaymentAmount()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -210,7 +210,7 @@ class Payment
 		}		
 	}
 //get count
-	public function getUnpaidCount()
+	protected function getUnpaidCount()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();

@@ -11,18 +11,7 @@ class ParkingLog
 	private  $amount;
 	private  $UID;
 
-	public function __construct($PID,$plate,$place,$in,$out,$amount,$UID)
-	{
-		$this->PID = $PID;
-		$this->plate = $plate;
-		$this->place = $place;
-		$this->in = $in;
-		$this->out = $out;
-		$this->amount = $amount;
-		$this->UID = $UID;
-	}	
-
-		/**
+	/**
 	 * Get the value of PID
 	 */ 
 	public function getPID()
@@ -162,7 +151,7 @@ class ParkingLog
 			return $this;
 	}
 
-	public function getAllParking()
+	protected function getAllParking()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -177,7 +166,7 @@ class ParkingLog
 		
 	}
 
-	public function getAllParkingByDate($from,$to)
+	protected function getAllParkingByDate($from,$to)
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -200,8 +189,8 @@ class ParkingLog
 		}
 		
 	}
-
-	public function getAllByUser()
+//CHECK
+	protected function getAllByUser()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -247,7 +236,7 @@ class ParkingLog
 		
 	}
 */
-	public function addPlace()
+	protected function addParkignLog()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -264,7 +253,7 @@ class ParkingLog
 		mysqli_stmt_close($stmt);
 	}
 //reporting queries
-	public function getAmountByMonth()
+	protected function getAmountByMonth()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -280,7 +269,7 @@ class ParkingLog
 		
 	}
 
-	public function getAmountByMonthLocation()
+	protected function getAmountByMonthLocation()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -304,7 +293,7 @@ class ParkingLog
 		
 	}
 
-	public function getCurrentMonthAmount()
+	protected function getCurrentMonthAmount()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -321,7 +310,7 @@ class ParkingLog
 		}	
 	}
 
-	public function getCurrentYearAmount()
+	protected function getCurrentYearAmount()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();

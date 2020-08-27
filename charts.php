@@ -58,8 +58,8 @@
                         <h1 class="h3 mb-0 text-gray-800">Usage and Earnings Overview</h1>
                     </div>
                     <?php
-                          include('script/model/parking.cls.php');
-                          $parking = new ParkingLog(null,null,null,null,null,null,Null);
+                          include('script/view/parking.view.php');
+                          $parking = new ParkingLogView();
                     ?>
                   <!-- Content Row -->
 
@@ -102,9 +102,9 @@
                     </div>
                     <?php
                         $namePlaceArray = array();
-                        include('script/model/place.cls.php');
-                        $place = new Place(null,null,null,null,null,null);
-                        $result = $place->getAllPalce();
+                        include('script/view/place.view.php');
+                        $place = new PlaceView();
+                        $result = $place->viewPlaceRaw();
                         $none = "";
                         if($result==false){
                           $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No values Added</div>';
@@ -117,8 +117,7 @@
                           </script>
                           <?php
                               array_push($namePlaceArray,$row['namePlace']);
-                              $parking = new ParkingLog(null,null,$row['namePlace'],null,null,null,Null);
-                              $result2 = $parking->getAmountByMonthLocation();
+                              $result2 = $parking->viewAmountByMonthLocation($row['namePlace']);
                               if($result2==false){
                                 $none = '';
                               }else{
@@ -352,7 +351,7 @@
                         var amount = []; 
                         var count = [];
                         <?php
-                        $result = $parking -> getAmountByMonth();
+                        $result = $parking ->viewAmountByMonth();
                         $none = "";
                         if ($result == false) {
                             $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Places Added</div>';

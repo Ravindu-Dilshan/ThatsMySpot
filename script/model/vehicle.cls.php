@@ -169,7 +169,7 @@ class Vehicle
 		}
 		
 	}
-//TODO
+//TODO - check in mine.php api
 	protected function getVehicleByPlate()
 	{
 		$db = Database::getInstance();

@@ -5,18 +5,16 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     if(isset($_GET['token'])){
         if($_GET['token'] =="123456"){
             session_start();
-            require_once('../script/class/place.cls.php');
+            require_once('../script/controller/place.control.php');
             if($_GET['url'] =="vehicle_in"){
                 if(isset($_GET['plate']) && isset($_GET['place']) && isset($_GET['PID'])){
                     $plate = $_GET['plate'];
                     $location = $_GET['place'];
-                    require_once('../script/class/vehicle.cls.php');
-                    $vehicel = new Vehicle(null,$plate,null,null,null,null);
-                    $result = $vehicel->getVehicleByPlate(); 
-                    if($result!=false){
-                        while($row = mysqli_fetch_assoc($result)){
-                            $uid = $row['UID'];
-                        }
+                    require_once('../script/view/vehicle.view.php');
+                    $vehicel = new VehicleView();
+                    $row = $vehicel->viewByPlate($plate); 
+                    if(is_array($row)){
+                        $uid = $row['UID'];
                         $item = array('INTIME' => time(),
                         'PLACE' => $_GET['place'],
                         'PID' => $_GET['PID'],
@@ -38,15 +36,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         fputcsv($file, $line);
                         fclose($file);
 
-                        $place = new Place($_GET['PID'],null,null,null,null,null);
-                        $place->updateCounter("in");
+                        $place = new PlaceController();
+                        $place->updatePlaceCurrent($_GET['PID'],"in");
 
                         //echo json_encode($tempArray);
                         echo "Success";
-                    }elseif($result==0){
-                        echo "Please Register To the System";
                     }else{
-                        echo "db error";
+                        echo $row;
                     }
                 }else{
                     echo "no plate or place";
@@ -59,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                     if(isset($input[$plate])){
                         date_default_timezone_set('Asia/Colombo');
                         //$date = date('m/d/Y h:i:s a', "1595400778");
-                        require_once('../script/class/parking.cls.php');
+                        require_once('../script/controller/parking.control.php');
 
                         $place = $input[$plate][0]['PLACE'];
                         $intime = $input[$plate][0]['INTIME'];
@@ -69,14 +65,14 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         $uid = $input[$plate][0]['UID'];
                         $pid = $input[$plate][0]['PID'];
 
-                        $parking = new ParkingLog(null,$plate,$place,$in,$out,$amount,$uid);
-                        $add = $parking->addPlace();
-                        unset($input[$plate]);
-                        file_put_contents('data.txt', serialize($input));
-
-                        $place = new Place($_GET['PID'],null,null,null,null,null);
-                        $place->updateCounter("out");
-
+                        $parking = new ParkingLogController();
+                        $add = $parking->createParkingLog($plate,$place,$in,$out,$amount,$uid);
+                        if($add = "Success"){
+                            unset($input[$plate]);
+                            file_put_contents('data.txt', serialize($input));
+                            $place = new PlaceController();
+                            $place->updatePlaceCurrent($_GET['PID'],"out");
+                        }
                         echo $add;
                         //echo json_encode($input);
                     }else{
@@ -87,9 +83,9 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                 }
             }
             elseif($_GET['url'] =="get_place_info"){
-                //include('../script/class/place.cls.php');
-                $place = new Place(null,null,null,null,null,null);
-                $result = $place->getAllPalce();
+                require_once('../script/view/place.view.php');
+                $place = new PlaceView();
+                $result = $place->viewPlaceRaw();
                 $place_arr=array();
                 $place_arr["records"]=array();
                 if($result==false){
