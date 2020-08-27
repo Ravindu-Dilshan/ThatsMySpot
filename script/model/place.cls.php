@@ -10,17 +10,6 @@ class Place
 	private  $longtitude;
 	private  $available;
 	private  $current;
-
-	public function __construct($PID,$namePlace,$latitude,$longtitude,$available,$current)
-	{
-		$this->PID = $PID;
-		$this->namePlace = $namePlace;
-		$this->latitude = $latitude;
-		$this->longtitude = $longtitude;
-		$this->available = $available;
-		$this->current = $current;
-	}
-
 	
 	/**
 	 * Get the value of PID

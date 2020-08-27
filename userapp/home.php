@@ -42,9 +42,9 @@ if(isset($_SESSION['loggedUser'])){
 
 <body>
     <?php
-    include('../script/model/payment.cls.php');
-    $pay = new Payment(null,null,$u['UID'],null);
-    $count = $pay->getUnpaidCount();
+    include('../script/view/payment.view.php');
+    $pay = new PaymentView();
+    $count = $pay->viewUnpaidCount($u['UID']);
     ?>
 
     <script src="https://unpkg.com/ionicons@4.4.6/dist/ionicons.js"></script>

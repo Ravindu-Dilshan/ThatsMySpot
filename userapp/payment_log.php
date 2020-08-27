@@ -146,57 +146,14 @@ if(isset($_SESSION['loggedUser'])){
                 <!-- Topbar -->
                 <?php //include("topbar.php")?>
                 <!-- End of Topbar -->
-                <?php
-                include('../script/class/payment.cls.php');
-                $payment = new Payment(null,null,$u['UID'],null);
-                $result = $payment->getAllByUser();
-                $none = "";
-                if($result==false){
-                    $none = '<div class="alert alert-danger float-right w-100 text-center mt-5"  role="alert">No Activity</div>';
-                  }else{
-                    while($row = mysqli_fetch_assoc($result)){
-                ?>
                 <!-- Begin Page Content -->
-                <div>
-                    <div class="col-xl-3 col-md-6 mb-4">
-                        <!--<img src="../img/park.jpg" alt="" class="img-fluid"> -->
-                        <div class="card border-left-dark shadow h-100 py-2">
-                            <div class="card-body vehicleView">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="UPtype">
-                                            <?php echo $row['in_time'];?>
-                                        </div>
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <?php echo $row['place']?></div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="UPplate">
-                                            <?php echo $row['plate']?>
-                                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1"
-                                                id="UPcolor">Rs.<?php echo $row['amount']?>
-                                                <span class="badge <?php if($row['status'] == 'Not Paid'){echo 'badge-danger';}
-                                                else{echo 'badge-success';}?>"><?php echo $row['status']?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fa fa-money-bill fa-4x"></i>
-                                    </div>
-                                </div>
-                                <?php if($row['status'] == 'Not Paid'){?>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mt-2">
-                                        <a type="button" class="btn btn-primary btn-sm"
-                                            href="payment_log.php?PID=<?php echo $row['PID']?>">Pay</a>
-                                    </div>
-                                </div>
-                                <?php }?>
-                            </div>
-                        </div>
-                    </div>
-                    <?php }
-                                        }?>
+                <?php
+                include('../script/view/payment.view.php');
+                $payment = new PaymentView();
+                $result = $payment->viewPaymentsByUser($u['UID']);
+                echo $result;
+                ?>
                 </div>
-                <?php echo $none; ?>
                 <!-- /.container-fluid -->
                 <?php
                 if(isset($_GET['PID'])){?>

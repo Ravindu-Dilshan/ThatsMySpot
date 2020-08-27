@@ -4,7 +4,7 @@ require_once(dirname(__DIR__).'/model/vehicle.cls.php');
 
 class VehicleView extends Vehicle
 {
-	public function viewVehicles($id){
+	public function viewVehiclesByUser($id){
 		$this->setUID($id);
 		$result = $this->getAllByUser();
 		$data = null;

@@ -1,268 +1,110 @@
 <?php
-require_once('database.cls.php');
-
-
-class Payment
+require_once(dirname(__DIR__).'./model/payment.cls.php');
+class PaymentView extends Payment
 {
-	private  $PID;
-	private  $amount;
-	private  $UID;
-	private  $status;
-
-	public function __construct($PID,$amount,$UID,$status)
-	{
-		$this->PID = $PID;
-		$this->amount = $amount;
-		$this->UID = $UID;
-		$this->status = $status;
-	}	
-
-		/**
-	 * Get the value of PID
-	 */ 
-	public function getPID()
-	{
-		return $this->PID;
+	public function viewPaymentsByUser($id){
+		$this->setUID($id);
+		$result = $this->getAllByUser();
+		$data = null;
+        if($result==false){
+            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
+        }
+        else{
+            while($row = mysqli_fetch_assoc($result)){
+			$badge = "";
+			$button = "";
+			if($row['status'] == 'Not Paid'){$badge ='badge-danger';
+			$button = '<div class="row no-gutters align-items-center">
+				<div class="col mt-2">
+					<a type="button" class="btn btn-primary btn-sm"
+					href="payment_log.php?PID='.$row['PID'].'">Pay</a>
+				</div>
+			</div>';}
+			else{$badge = 'badge-success';}
+			$data = $data.'
+			<div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <!--<img src="../img/park.jpg" alt="" class="img-fluid"> -->
+                        <div class="card border-left-dark shadow h-100 py-2">
+                            <div class="card-body vehicleView">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="UPtype">
+                                            '.$row['in_time'].'
+                                        </div>
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            '.$row['place'].'</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="UPplate">
+                                            '.$row['plate'].'
+                                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1"
+                                                id="UPcolor">Rs.'.$row['amount'].'
+                                                <span class="badge '.$badge .'">'.$row['status'].'</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa fa-money-bill fa-4x"></i>
+                                    </div>
+                                </div>
+                                '.$button.'
+                            </div>
+                        </div>
+                    </div>';
+ 			}
+		}
+		return $data;
 	}
 
-	/**
-	 * Set the value of PID
-	 *
-	 * @return  self
-	 */ 
-	public function setPID($PID)
-	{
-		$this->PID = $PID;
-
-		return $this;
+	public function viewPaymentsLog(){
+		$result = $this->getAllPayments();
+		$data = null;
+        if($result==false){
+            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
+        }
+        else{
+            while($row = mysqli_fetch_assoc($result)){
+			$data = $data.'
+			<tr>
+				<td><b>'.$row['PID'].'</b></td>
+				<td>'.$row['amount'].'</td>
+				<td>'.$row['nameUser']."(".$row['UID'].")".'</td>
+				<td>'.$row['telephoneUser'].'</td>
+				<td>'.$row['emailUser'].'</td>
+				<td>'.$row['place'].'</td> 
+				<td>'.$row['plate'].'</td> 
+				<td>'.$row['in_time'].'</td>
+				<td>'.$row['out_time'].'</td>
+				<td>'.$row['status'].'</td> 
+			</tr>';
+ 			}
+		}
+		return $data;
 	}
 
-	/**
-	 * Get the value of amount
-	 */ 
-	public function getAmount()
-	{
-		return $this->amount;
-	}
-
-	/**
-	 * Set the value of amount
-	 *
-	 * @return  self
-	 */ 
-	public function setAmount($amount)
-	{
-		$this->amount = $amount;
-
-		return $this;
-	}
-
-	/**
-	 * Get the value of UID
-	 */ 
-	public function getUID()
-	{
-			return $this->UID;
-	}
-
-	/**
-	 * Set the value of UID
-	 *
-	 * @return  self
-	 */ 
-	public function setUID($UID)
-	{
-			$this->UID = $UID;
-
-			return $this;
-	}
-
-	/**
-	 * Get the value of status
-	 */ 
-	public function getStatus()
-	{
-		return $this->status;
-	}
-
-	/**
-	 * Set the value of status
-	 *
-	 * @return  self
-	 */ 
-	public function setStatus($status)
-	{
-		$this->status = $status;
-
-		return $this;
-	}
-
-	public function getAllPayments()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "SELECT payment.*,user.nameUser,user.emailUser,user.telephoneUser,user.accessUser,
-		parking_log.plate,parking_log.place,parking_log.in_time,parking_log.out_time 
-		FROM `payment`,user,parking_log WHERE payment.PID = parking_log.PID AND user.UID=parking_log.UID";
-		$result = mysqli_query($connection,$sql);
-		if(mysqli_num_rows($result)>0){
-				return $result;
-			}
-		else{
-			return false;
-		    }
-		
-	}
-
-	public function getAllByUser()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "SELECT payment.*,user.nameUser,user.emailUser,user.telephoneUser,user.accessUser,
-		parking_log.plate,parking_log.place,parking_log.in_time,parking_log.out_time 
-		FROM `payment`,user,parking_log WHERE payment.PID = parking_log.PID AND user.UID=parking_log.UID AND payment.UID = ? ORDER BY payment.status ASC";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
+	public function viewAmount($id){
+		$this->setPID($id);
+		$result = $this->getPaymentAmount();
+		$data = null;
+        if($result==false){
+			$data = 'Error Getting Amount';
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			if(mysqli_num_rows($result)>0){
-				return $result;
-			}
-			else{
-				return false;
-		    }
-		}		
-	}
-/*
-	public function searchPlace($search)
-	{
-		$connection = $this -> DBconnect();
-		$sql = "SELECT * FROM place WHERE namePack LIKE ? OR discription LIKE ? OR pricePack LIKE ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
+		  $data = $result;
 		}
-		else{
-			$search = '%'.$search."%";
-			mysqli_stmt_bind_param($stmt,'sss',$search,$search,$search);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			if(mysqli_num_rows($result)>0){
-				return $result;
-			}
-			else{
-			return false;
-		    }
-		}
-		
-	}
-*/
-/*
-	public function addPlace()
-	{
-		$connection = $this -> DBconnect();
-		$sql = "INSERT INTO `parking_log`(`plate`, `place`, `in_time`, `out_time`, `amount`, `UID`) VALUES (?,?,?,?,?,?)";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
-		}
-		else{
-			mysqli_stmt_bind_param($stmt,'ssssss',$this ->plate,$this ->place, $this ->in ,$this ->out,$this ->amount,$this ->UID);
-			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
-		}
-		mysqli_stmt_close($stmt);
-	}
-*/
-
-	public function updatePayment()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "UPDATE `payment` SET `status`= ? WHERE `PID`= ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $db ->messages(-1);
-		}
-		else{
-			mysqli_stmt_bind_param($stmt,'ss',$this ->status,$this ->PID);
-			mysqli_stmt_execute($stmt);
-			return $db ->messages(1);
-		}
-		mysqli_stmt_close($stmt);
+		return $data;
 	}
 
-	public function getPaymentAmount()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "SELECT amount FROM payment WHERE `PID` = ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $db ->messages(-1);
+	public function viewUnpaidCount($id){
+		$this->setUID($id);
+		$result = $this->getUnpaidCount();
+		$data = null;
+        if($result==false){
+			$data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">Please Login</div>';
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'s',$this ->PID);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			if(mysqli_num_rows($result)>0){
-				while($row = mysqli_fetch_assoc($result)){
-					return $row['amount'];
-				}	
-			}
-			else{
-			return false;
-		    }
-		}		
-	}
-//get count
-	public function getUnpaidCount()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "SELECT COUNT(PID) AS `count` FROM payment WHERE UID = ? and `status`= 'Not Paid'";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $db ->messages(-1);
+		  $data = $result;
 		}
-		else{
-			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			if(mysqli_num_rows($result)>0){
-				while($row = mysqli_fetch_assoc($result)){
-					return $row['count'];
-				}	
-			}
-			else{
-			return false;
-		    }
-		}	
-		mysqli_stmt_close($stmt);
+		return $data;
 	}
-
-/*
-	public function deletePlace()
-	{
-		$connection = $this -> DBconnect();
-		$sql = "DELETE FROM `place` WHERE PID = ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
-		}
-		else{
-			mysqli_stmt_bind_param($stmt,'s',$this ->PID);
-			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
-		}
-		mysqli_stmt_close($stmt);
-	}
-*/
-
-
 }
  ?>

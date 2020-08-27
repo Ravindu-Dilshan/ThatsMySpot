@@ -1,23 +1,13 @@
 <?php
 require_once('database.cls.php');
-
-
 class Payment
 {
 	private  $PID;
 	private  $amount;
 	private  $UID;
-	private  $status;
+	private  $status;	
 
-	public function __construct($PID,$amount,$UID,$status)
-	{
-		$this->PID = $PID;
-		$this->amount = $amount;
-		$this->UID = $UID;
-		$this->status = $status;
-	}	
-
-		/**
+	/**
 	 * Get the value of PID
 	 */ 
 	public function getPID()

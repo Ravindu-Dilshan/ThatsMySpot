@@ -1,12 +1,13 @@
 <?php
-require_once('class/payment.cls.php');
+require_once('controller/payment.control.php');
+require_once('view/payment.view.php');
+$payment = new PaymentController();
+$paymentView = new PaymentView();
 if(isset($_GET['btnUpdateStatus']))
 {
   $PID =$_POST['txtPID'];
-  $payment = new Payment($PID,null,null,"paid");
-  $update = $payment->updatePayment();
-
-  $amount = $payment->getPaymentAmount();
+  $update = $payment->updatePaymentStatus($PID,"paid");
+  $amount = $paymentView->viewAmount($PID);
   if($amount != false){
     $file = fopen("../api/income.csv","a");
     $line = array($PID, time() , $amount);

@@ -1,6 +1,6 @@
 <?php
-require_once('class/place.cls.php');
-
+require_once('controller/place.control.php');
+$place = new PlaceController();
 if(isset($_GET['btnUpdatePlace']))
 {
   $PID =$_POST['txtPID'];
@@ -26,10 +26,8 @@ if(isset($_GET['btnUpdatePlace']))
     exit();
   }
   else{
-    $place = new Place($PID,$name,$lat,$long,$avaliable,$current);
-    $update = $place->updatePlace();
+    $update = $place->updatePlaceInfo($PID,$name,$lat,$long,$avaliable,$current);
     echo $update;
-
   }
 }
 
@@ -57,8 +55,7 @@ elseif(isset($_GET['btnAddPlace']))
     exit();
   }
   else{
-    $place = new Place(null,$name,$lat,$long,$avaliable,0);
-    $add = $place->addPlace();
+    $add = $place->createPlace($name,$lat,$long,$avaliable,0);
     echo $add;
 }
 }
@@ -67,8 +64,7 @@ elseif(isset($_GET['btnAddPlace']))
 elseif(isset($_GET['btnDelete']))
 {
   $id =$_GET['id'];
-  $place = new Place($id,null,null,null,null,null);
-  $delete = $place->deletePlace();
+  $delete = $place->delete($id);
   echo '<script>window.location = "../place_manage.php?'.$delete.'"</script>';
 }
 else{

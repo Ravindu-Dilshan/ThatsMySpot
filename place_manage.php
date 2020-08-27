@@ -71,13 +71,6 @@
     </script>
 
 </head>
-<?php
-include('script/class/place.cls.php');
-$place = new Place(null,null,null,null,null,null);
-$result = $place->getAllPalce();
-$none = "";
-?>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -124,30 +117,14 @@ $none = "";
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
-                                        if($result==false){
-                                            $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Places Added</div>';
-                                          }else{
-                                            while($row = mysqli_fetch_assoc($result)){
-                                        ?>
-                                        <tr>
-                                            <td><b><?php echo $row['PID'];?></b></td>
-                                            <td><?php echo $row['namePlace'];?></td>
-                                            <td><?php echo $row['latitude'];?></td>
-                                            <td><?php echo $row['longtitude'];?></td>
-                                            <td><?php echo $row['current']."/".$row['available'];?></td>
-                                            <td><button type="button" id="btnViewPlace" class="btn btn-primary btn-sm"
-                                                    data-toggle="modal" data-target="#placeUpdateModal">Update</button>
-                                            </td>
-                                            <td><button type="submit" class="btn btn-danger btn-sm confirm_dialog"
-                                                    onclick="if(confirm('Are You Sure!')){window.location = 'script/place.inc.php?btnDelete=&id=<?php echo $row['PID'];?>';}">
-                                                    <i class="fas fa-trash-alt"></i></button></td>
-                                        </tr>
-                                        <?php }
-                                        }?>
+                                    <?php
+                                    include('script/view/place.view.php');
+                                    $place = new PlaceView();
+                                    $result = $place->viewPlaces();
+                                    echo $result;
+                                    ?>
                                     </tbody>
                                 </table>
-                                <?php echo $none; ?>
                             </div>
                         </div>
                     </div>

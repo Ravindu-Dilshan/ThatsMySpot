@@ -1,271 +1,99 @@
 <?php
-require_once('database.cls.php');
-
-
-class Place
+require_once(dirname(__DIR__).'./model/place.cls.php');
+class PlaceView extends Place
 {
-	private  $PID;
-	private  $namePlace;
-	private  $latitude;
-	private  $longtitude;
-	private  $available;
-	private  $current;
-
-	public function __construct($PID,$namePlace,$latitude,$longtitude,$available,$current)
-	{
-		$this->PID = $PID;
-		$this->namePlace = $namePlace;
-		$this->latitude = $latitude;
-		$this->longtitude = $longtitude;
-		$this->available = $available;
-		$this->current = $current;
+	public function viewPlaces(){
+		$result = $this->getAllPalce();
+		$data = null;
+        if($result==false){
+            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
+        }
+        else{
+            while($row = mysqli_fetch_assoc($result)){
+			$data = $data.'
+			<tr>
+				<td><b>'.$row['PID'].'</b></td>
+				<td>'.$row['namePlace'].'</td>
+				<td>'.$row['latitude'].'</td>
+				<td>'.$row['longtitude'].'</td>
+				<td>'.$row['current']."/".$row['available'].'</td>
+				<td><button type="button" id="btnViewPlace" class="btn btn-primary btn-sm"
+						data-toggle="modal" data-target="#placeUpdateModal">Update</button>
+				</td>
+				<td><button type="submit" class="btn btn-danger btn-sm confirm_dialog"
+						onclick="if(confirm(\'Are You Sure!\')){window.location = \'script/place.inc.php?btnDelete=&id='.$row['PID'].'\';}">
+						<i class="fas fa-trash-alt"></i></button></td>
+			</tr>';
+ 			}
+		}
+		return $data;
 	}
 
-	
-	/**
-	 * Get the value of PID
-	 */ 
-	public function getPID()
-	{
-		return $this->PID;
-	}
-
-	/**
-	 * Set the value of PID
-	 *
-	 * @return  self
-	 */ 
-	public function setPID($PID)
-	{
-		$this->PID = $PID;
-
-		return $this;
-	}
-
-	/**
-	 * Get the value of namePlace
-	 */ 
-	public function getNamePlace()
-	{
-		return $this->namePlace;
-	}
-
-	/**
-	 * Set the value of namePlace
-	 *
-	 * @return  self
-	 */ 
-	public function setNamePlace($namePlace)
-	{
-		$this->namePlace = $namePlace;
-
-		return $this;
-	}
-
-	/**
-	 * Get the value of latitude
-	 */ 
-	public function getLatitude()
-	{
-		return $this->latitude;
-	}
-
-	/**
-	 * Set the value of latitude
-	 *
-	 * @return  self
-	 */ 
-	public function setLatitude($latitude)
-	{
-		$this->latitude = $latitude;
-
-		return $this;
-	}
-
-	/**
-	 * Get the value of longtitude
-	 */ 
-	public function getLongtitude()
-	{
-		return $this->longtitude;
-	}
-
-	/**
-	 * Set the value of longtitude
-	 *
-	 * @return  self
-	 */ 
-	public function setLongtitude($longtitude)
-	{
-		$this->longtitude = $longtitude;
-
-		return $this;
-	}
-
-	/**
-	 * Get the value of available
-	 */ 
-	public function getAvailable()
-	{
-		return $this->available;
-	}
-
-	/**
-	 * Set the value of available
-	 *
-	 * @return  self
-	 */ 
-	public function setAvailable($available)
-	{
-		$this->available = $available;
-
-		return $this;
-	}
-
-	/**
-	 * Get the value of current
-	 */ 
-	public function getCurrent()
-	{
-		return $this->current;
-	}
-
-	/**
-	 * Set the value of current
-	 *
-	 * @return  self
-	 */ 
-	public function setCurrent($current)
-	{
-		$this->current = $current;
-
-		return $this;
-	}
-	
-
-	public function getAllPalce()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "SELECT * FROM place";
-		$result = mysqli_query($connection,$sql);
-		if(mysqli_num_rows($result)>0){
-				return $result;
+	public function viewPlaceForUser(){
+		$result = $this->getAllPalce();
+		$data = null;
+        if($result==false){
+            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Places Added</div>';
+        }
+        else{
+            while($row = mysqli_fetch_assoc($result)){
+			$badge = "";
+			if($row['current'] == $row['available'] || $row['current'] >= $row['available']){
+				$badge = '<div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Not Available
+				</div>';
+			}else{
+				$badge = '<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Available
+				</div>';
 			}
-		else{
-			return false;
-		    }
-		
-	}
-/*
-	public function searchPlace($search)
-	{
-		$connection = $this -> DBconnect();
-		$sql = "SELECT * FROM place WHERE namePack LIKE ? OR discription LIKE ? OR pricePack LIKE ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
+			$data = $data.'
+			<div class="col-xl-3 col-md-6 mb-4">
+                    <!--<img src="../img/park.jpg" alt="" class="img-fluid"> -->
+                    <div class="card border-left-dark shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">'.$row['namePlace'].'
+                                    </div>
+                                    '.$badge.'
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        '.$row['current']."/".$row['available'].'</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa fa-map-marker fa-4x"></i>
+                                </div>
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mt-2">
+                                    <a class="h8 btn btn-group btn-dark text-white"
+                                        href="https://map.google.com/maps?q='.$row['latitude'].','.$row['longtitude'].'">Location</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+ 			}
 		}
-		else{
-			$search = '%'.$search."%";
-			mysqli_stmt_bind_param($stmt,'sss',$search,$search,$search);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			if(mysqli_num_rows($result)>0){
-				return $result;
-			}
-			else{
-			return false;
-		    }
-		}
-		
-	}
-*/
-	public function getLastInserted()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "SELECT * FROM `place` ORDER BY `PID` DESC LIMIT 1";
-		$result = mysqli_query($connection,$sql);
-		if(mysqli_num_rows($result)>0){
-				return mysqli_fetch_assoc($result);
-		}
-		else{
-			return false;
-		}
-	}
-	
-	public function addPlace()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "INSERT INTO `place`(`namePlace`, `latitude`, `longtitude`, `available`, `current`) VALUES (?,?,?,?,?)";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $db ->messages(-1);
-		}
-		else{
-			mysqli_stmt_bind_param($stmt,'sssss',$this ->namePlace,$this ->latitude, $this ->longtitude ,$this ->available,$this ->current);
-			mysqli_stmt_execute($stmt);
-			return $db ->messages(1);
-		}
-		mysqli_stmt_close($stmt);
+		return $data;
 	}
 
-
-	public function updatePlace()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "UPDATE `place` SET `namePlace`=?,`latitude`=?,`longtitude`=?,`available`=?,`current`=? WHERE `PID`=?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $db ->messages(-1);
+	public function viewPlaceLog(){
+		$result = $this->getAllPalce();
+		$data = null;
+        if($result==false){
+            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
+        }
+        else{
+            while($row = mysqli_fetch_assoc($result)){
+			$data = $data.'
+			<tr>
+				<td><b>'.$row['PID'].'</b></td>
+				<td>'.$row['namePlace'].'</td>
+				<td>'."(".$row['latitude'].", ".$row['longtitude'].")".'</td>
+				<td>'.$row['current']."/".$row['available'].'</td>
+			</tr>';
+ 			}
 		}
-		else{
-			mysqli_stmt_bind_param($stmt,'ssssss',$this ->namePlace,$this ->latitude, $this ->longtitude ,$this ->available,$this ->current,$this ->PID);
-			mysqli_stmt_execute($stmt);
-			return $db ->messages(1);
-		}
-		mysqli_stmt_close($stmt);
-	}
-
-	public function deletePlace()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "DELETE FROM `place` WHERE PID = ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $db ->messages(-1);
-		}
-		else{
-			mysqli_stmt_bind_param($stmt,'s',$this ->PID);
-			mysqli_stmt_execute($stmt);
-			return $db ->messages(1);
-		}
-		mysqli_stmt_close($stmt);
-	}
-
-	public function updateCounter($task)
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		if($task == "out"){
-			$sql = " CALL `decreaseCounter`(?)";
-		}else{
-			$sql = " CALL `increaseCounter`(?)";
-		}
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $db ->messages(-1);
-		}
-		else{
-			mysqli_stmt_bind_param($stmt,'s',$this ->PID);
-			mysqli_stmt_execute($stmt);
-			return $db ->messages(1);
-		}
-		mysqli_stmt_close($stmt);
+		return $data;
 	}
 
 }

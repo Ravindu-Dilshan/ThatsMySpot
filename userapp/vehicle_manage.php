@@ -172,7 +172,7 @@ if(isset($_SESSION['loggedUser'])){
                 <?php
                 include('../script/view/vehicle.view.php');
                 $vehicle = new VehicleView();
-                $result = $vehicle->viewVehicles($u['UID']);
+                $result = $vehicle->viewVehiclesByUser($u['UID']);
                 echo $result;
                 ?>
                 <div>
