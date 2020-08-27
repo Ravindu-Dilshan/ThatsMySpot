@@ -236,7 +236,7 @@
     var months = [];
     var amount = []; 
     <?php
-    $result = $parking -> getAmountByMonth();
+    $result = $parking -> viewAmountByMonth();
     $none = "";
     if ($result == false) {
         $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Places Added</div>';
