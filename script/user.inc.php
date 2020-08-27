@@ -23,6 +23,10 @@ if(isset($_GET['btnRegister']))
     echo 'Please Enter a Password';
     exit();
   }
+  elseif (strlen($code)<6) {
+    echo 'Password Need at least 6 Characters';
+    exit();
+  }
   else{
     echo $user->createUser($name,$email,$code, $tele,"Customer");
   }
@@ -72,6 +76,10 @@ elseif(isset($_GET['btnAddUser']))
   }
   elseif (empty($code)) {
     echo 'Please Enter a Password';
+    exit();
+  }
+  elseif (strlen($code)<6) {
+    echo 'Password Need at least 6 Characters';
     exit();
   }
   else{
@@ -164,6 +172,10 @@ elseif(isset($_GET['btnPassword']))
   }
   elseif($nPW == $oPW){
     echo 'New one cant be the old one';
+    exit();
+  }
+  elseif (strlen($nPW)<6) {
+    echo 'Password Too Short';
     exit();
   }
   else{

@@ -21,17 +21,17 @@
                 ?>
             </div>
             <!-- /.container-fluid -->
-
+            <div class="text-center m-2">
+            <a class="rounded" href="home.php">
+                <i class="fa fa-refresh"></i>
+            </a>
+        </div>
         </div>
         <!-- End of Main Content -->
 
         <!-- Footer -->
         <!-- End of Footer -->
-        <div class="text-center m-2">
-            <a class="rounded" href="home.php">
-                <i class="fa fa-refresh"></i>
-            </a>
-        </div>
+        
     </div>
     <!-- End of Content Wrapper -->
 
