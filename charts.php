@@ -107,7 +107,7 @@
                         $result = $place->viewPlaceRaw();
                         $none = "";
                         if($result==false){
-                          $none = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No values Added</div>';
+                          $none = '<div class="alert alert-danger text-center mt-4" role="alert">No Data Currently Available</div>';
                         }else{
                           while($row = mysqli_fetch_assoc($result)){?>
                           <script>

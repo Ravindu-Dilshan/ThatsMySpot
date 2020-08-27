@@ -7,7 +7,7 @@ class PaymentView extends Payment
 		$result = $this->getAllByUser();
 		$data = null;
         if($result==false){
-            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
+            $data = '<div class="alert alert-success text-center mt-5 mx-3" role="alert">Yay !!! No More Payments</div>';
         }
         else{
             while($row = mysqli_fetch_assoc($result)){
@@ -59,7 +59,10 @@ class PaymentView extends Payment
 		$result = $this->getAllPayments();
 		$data = null;
         if($result==false){
-            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
+            $data = '
+					<tr>
+					<td colspan="10"><div class="alert alert-danger w-100 text-center m-auto" role="alert">No Payments Added to View</div></td>
+					</tr>';
         }
         else{
             while($row = mysqli_fetch_assoc($result)){
@@ -99,7 +102,7 @@ class PaymentView extends Payment
 		$result = $this->getUnpaidCount();
 		$data = null;
         if($result==false){
-			$data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">Please Login</div>';
+			$data = 'Error';
 		}
 		else{
 		  $data = $result;

@@ -9,7 +9,10 @@ class ParkingLogView extends ParkingLog
         }
 		$data = null;
         if($result==false){
-            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
+            $data = '
+					<tr>
+					<td colspan="9"><div class="alert alert-danger w-100 text-center m-auto" role="alert">No Parking Logs Added to View</div></td>
+					</tr>';
         }
         else{
             while($row = mysqli_fetch_assoc($result)){
@@ -44,7 +47,7 @@ class ParkingLogView extends ParkingLog
             $result = $this->getCurrentYearAmount();
         }
         if($result==false){
-			$data = 'Error Getting Amount';
+			$data = 'Error Getting Amount (No Data)';
 		}
 		else{
 		  $data = $result;

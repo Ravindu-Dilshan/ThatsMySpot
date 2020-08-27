@@ -9,7 +9,7 @@ class VehicleView extends Vehicle
 		$result = $this->getAllByUser();
 		$data = null;
         if($result==false){
-            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Vehicles Added</div>';
+            $data = '<div class="alert alert-danger text-center m-4" role="alert">No Vehicles Added</div>';
         }
         else{
             while($row = mysqli_fetch_assoc($result)){
@@ -58,7 +58,9 @@ class VehicleView extends Vehicle
 		$result = $this->getVehicleLog();
 		$data = null;
         if($result==false){
-            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Vehicles Added</div>';
+            $data = '<tr>
+                    <td colspan="7"><div class="alert alert-danger w-100 text-center m-auto" role="alert">No Vehicles Added to View</div></td>
+                    </tr>';
         }
         else{
             while($row = mysqli_fetch_assoc($result)){
@@ -82,7 +84,7 @@ class VehicleView extends Vehicle
 		$result = $this->getByID();
 		$data = null;
         if($result==false){
-			$data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">Wrong ID</div>';
+			$data = '<div class="alert alert-danger text-center m-3" role="alert">Wrong ID</div>';
 		}
 		else{
 		  $data = mysqli_fetch_assoc($result);

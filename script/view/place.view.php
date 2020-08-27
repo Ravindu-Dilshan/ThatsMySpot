@@ -6,7 +6,10 @@ class PlaceView extends Place
 		$result = $this->getAllPalce();
 		$data = null;
         if($result==false){
-            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
+            $data = '
+					<tr>
+					<td colspan="8"><div class="alert alert-danger w-100 text-center m-auto" role="alert">No Locations Added to View</div></td>
+					</tr>';
         }
         else{
             while($row = mysqli_fetch_assoc($result)){
@@ -33,7 +36,7 @@ class PlaceView extends Place
 		$result = $this->getAllPalce();
 		$data = null;
         if($result==false){
-            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Places Added</div>';
+            $data = '<div class="alert alert-danger text-center m-4" role="alert">No Places Added</div>';
         }
         else{
             while($row = mysqli_fetch_assoc($result)){
@@ -80,7 +83,10 @@ class PlaceView extends Place
 		$result = $this->getAllPalce();
 		$data = null;
         if($result==false){
-            $data = '<div class="alert alert-danger float-right w-100 text-center mt-4" role="alert">No Users Added</div>';
+            $data = '
+					<tr>
+					<td colspan="4"><div class="alert alert-danger w-100 text-center m-auto" role="alert">No Locations Added to View</div></td>
+					</tr>';
         }
         else{
             while($row = mysqli_fetch_assoc($result)){
