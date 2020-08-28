@@ -109,5 +109,17 @@ class PaymentView extends Payment
 		}
 		return $data;
 	}
+
+	public function lastRow(){
+		$result = $this->getLastInserted();
+		$data = null;
+        if($result==false){
+			$data = 'Error';
+		}
+		else{
+		  $data = $result;
+		}
+		return $data;
+	}
 }
  ?>

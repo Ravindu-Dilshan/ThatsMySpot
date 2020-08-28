@@ -236,7 +236,7 @@ class Vehicle
 		mysqli_stmt_close($stmt);
 	}
 
-	public function getLastInserted()
+	protected function getLastInserted()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();

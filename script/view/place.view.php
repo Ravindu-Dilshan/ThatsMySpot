@@ -105,5 +105,17 @@ class PlaceView extends Place
 	public function viewPlaceRaw(){
 		return $this->getAllPalce();
 	}
+
+	public function lastRow(){
+		$result = $this->getLastInserted();
+		$data = null;
+        if($result==false){
+			$data = 'Error';
+		}
+		else{
+		  $data = $result;
+		}
+		return $data;
+	}
 }
  ?>

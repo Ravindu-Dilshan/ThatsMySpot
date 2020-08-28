@@ -170,7 +170,7 @@ class Place
 		
 	}
 */
-	public function getLastInserted()
+	protected function getLastInserted()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();

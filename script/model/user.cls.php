@@ -178,7 +178,7 @@ class User
 		$sql = "SELECT * FROM user WHERE  `UID` = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
+			return $db -> messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
@@ -202,7 +202,7 @@ class User
 		$sql = "SELECT * FROM user WHERE  emailUser = ?";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
+			return $db -> messages(-1);
 		}
 		else{
 			mysqli_stmt_bind_param($stmt,'s',$this ->emailUser);
@@ -261,7 +261,7 @@ class User
 		mysqli_stmt_close($stmt);
 	}
 
-	public function getLastInserted()
+	protected function getLastInserted()
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
@@ -309,7 +309,7 @@ class User
 		}
 		mysqli_stmt_close($stmt);
 	}
-
+/*
 	protected function getProfile()
 	{
 		$db = Database::getInstance();
@@ -331,7 +331,7 @@ class User
 		    }
 		}
 		
-	}
+	}*/
 
 	protected function updateProfile()
 	{
