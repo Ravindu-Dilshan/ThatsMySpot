@@ -42,6 +42,10 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         //echo json_encode($tempArray);
                         echo "Success";
                     }else{
+                        $file = fopen("unauthorized.csv","a");
+                        $line = array($plate, time() , 1, $location);
+                        fputcsv($file, $line);
+                        fclose($file);
                         echo $row;
                     }
                 }else{
