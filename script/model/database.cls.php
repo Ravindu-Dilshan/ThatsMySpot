@@ -18,10 +18,11 @@ class Database
 
 	public function DBconnect()
 	{
-		$server = "localhost";
-		$user = "root";
-		$password = "";
-		$database = "thats_my_spot";
+		$config = simplexml_load_file(dirname(__DIR__)."./model/config.xml");
+		$server = $config->server;
+		$user = $config->user;
+		$password = $config->pw;
+		$database = $config->db;
 		$connection = mysqli_connect($server,$user,$password,$database);
 		if(!$connection){
 			echo '<h4>Connection error</h4>'.$connection->connect_error;

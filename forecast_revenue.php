@@ -159,7 +159,8 @@
                                             Data</a>
                                     </div>
                                     <?php
-                                    $path = 'C:/Users/RUKE69/PycharmProjects/ThatsMySpotPython/';
+                                    $config = simplexml_load_file("./script/model/config.xml");
+                                    $path = trim($config->python);
                                       if (isset($_GET["train"])){
                                         exec('c:\WINDOWS\system32\cmd.exe /c START  '.$path.'reciveTrain.bat 1 1 2');
                                         echo ('<script>location = "forecast_revenue.php"</script>');
