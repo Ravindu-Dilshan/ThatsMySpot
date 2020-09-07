@@ -109,7 +109,7 @@ class PaymentView extends Payment
 		}
 		return $data;
 	}
-
+/*
 	public function lastRow(){
 		$result = $this->getLastInserted();
 		$data = null;
@@ -120,6 +120,6 @@ class PaymentView extends Payment
 		  $data = $result;
 		}
 		return $data;
-	}
+	}*/
 }
  ?>

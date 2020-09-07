@@ -190,6 +190,7 @@ class ParkingLog
 		
 	}
 //CHECK
+/*
 	protected function getAllByUser()
 	{
 		$db = Database::getInstance();
@@ -211,7 +212,7 @@ class ParkingLog
 		    }
 		}
 		
-	}
+	}*/
 /*
 	public function searchPlace($search)
 	{
@@ -324,6 +325,20 @@ class ParkingLog
 		else{
 			return false;
 		    }	
+	}
+
+	protected function getLastInserted()
+	{
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "SELECT * FROM `parking_log` ORDER BY `PID` DESC LIMIT 1";
+		$result = mysqli_query($connection,$sql);
+		if(mysqli_num_rows($result)>0){
+				return mysqli_fetch_assoc($result);
+		}
+		else{
+			return false;
+		}
 	}
 
 

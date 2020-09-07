@@ -110,6 +110,7 @@ class Vehicle
 		return $this;
 	}
 //CHECK
+/*
 	protected function getAllVehicles()
 	{
 		$db = Database::getInstance();
@@ -124,6 +125,7 @@ class Vehicle
 		    }
 		
 	}
+	*/
 	protected function getAllByUser()
 	{
 		$db = Database::getInstance();

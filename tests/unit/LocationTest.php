@@ -1,49 +1,109 @@
 <?php
-/*session_start();
-require_once(__DIR__.'/../../script/model/place.cls.php');
+//session_start();
+/*require_once(__DIR__.'/../../script/controller/place.control.php');
+require_once(__DIR__.'/../../script/view/place.view.php');
 use PHPUnit\Framework\TestCase;
 
 class PlaceTest extends TestCase
 {
-	private  $name = "testName";
-	private  $latitude = "80.11111111";
-	private  $longtitude = "36.22222222";
-	private  $available = "20";
-	private  $current = "0";
+	private static $controller = null;
+    private static $view = null;
 
     public function test_add(){
-        $place = new Place(null,$this ->name,$this ->latitude, $this ->longtitude ,$this ->available,$this ->current);
-        $add = $place->addPlace();
-        $this->assertEquals("Success",$add);
-        $row = $place->getLastInserted();
-        $this->assertEquals($this->name,$row['namePlace']);
-        $this->assertEquals($this->latitude,$row['latitude']);
-        $this->assertEquals($this->longtitude,$row['longtitude']);
-        $this->assertEquals($this->available,$row['available']);
-        $this->assertEquals($this->current,$row['current']);
+        $placeController = $this::getController();
+        $placeView = $this::getView();
+        $result = $placeController->createPlace("JAFFNA", "80.12345600", "30.12345600", "100", "0");//give UID registered UID
+        $this->assertEquals("Success",$result);
+        $row = $placeView->lastRow();
+        $this->assertEquals("JAFFNA",$row['namePlace']);
+        $this->assertEquals("80.12345600",$row['latitude']);
+        $this->assertEquals("30.12345600",$row['longtitude']);
+        $this->assertEquals("100",$row['available']);
+        $this->assertEquals("0",$row['current']);
     }
 
     public function test_update(){
-        $place = new Place(null,"updateName","90.12345611","36.12121212","20","10");
-        $place->setPID($place->getLastInserted()['PID']);
-        $update = $place->updatePlace();
-        $this->assertEquals("Success",$update);
-        $row = $place->getLastInserted();
-        $this->assertEquals("updateName",$row['namePlace']);
-        $this->assertEquals("90.12345611",$row['latitude']);
-        $this->assertEquals("36.12121212",$row['longtitude']);
-        $this->assertEquals("20",$row['available']);
-        $this->assertEquals("10",$row['current']);
+        $placeController = $this::getController();
+        $placeView = $this::getView();
+        $row = $placeView->lastRow();
+        $PID = $row['PID'];
+        $result = $placeController->updatePlaceInfo($PID,"JAFFNAUP", "90.12345600", "40.12345600", "150", "50");
+        $row = $placeView->lastRow();
+        $this->assertEquals("JAFFNAUP",$row['namePlace']);
+        $this->assertEquals("90.12345600",$row['latitude']);
+        $this->assertEquals("40.12345600",$row['longtitude']);
+        $this->assertEquals("150",$row['available']);
+        $this->assertEquals("50",$row['current']);
+    }
+    public function test_update_counter(){
+        $placeController = $this::getController();
+        $placeView = $this::getView();
+        $row = $placeView->lastRow();       
+        $PID = $row['PID'];
+        $current = $row['current'];
+        $result = $placeController->updatePlaceCurrent($PID,"in");
+        $row = $placeView->lastRow();
+        $this->assertEquals($current+1,$row['current']);
+        $result = $placeController->updatePlaceCurrent($PID,"out");
+        $row = $placeView->lastRow();
+        $this->assertEquals($current,$row['current']);
     }
     public function test_viewAll(){
-        $place = new Place(null,null,null,null,null,null);
-        $result = $place->getAllPalce();
+        $placeView = $this::getView();
+        $result = $placeView->viewPlaces();
+        $this->assertFalse(is_null($result));
+    }
+    public function test_viewRaw(){
+        $placeView = $this::getView();
+        $result = $placeView->viewPlaceRaw();
         $this->assertTrue(mysqli_fetch_assoc($result)>0);
     }
+    public function test_viewAllLog(){
+        $placeView = $this::getView();
+        $result = $placeView->viewPlaceLog();
+        $this->assertFalse(is_null($result));
+    }
+    public function test_viewAllUser(){
+        $placeView = $this::getView();
+        $result = $placeView->viewPlaceForUser();
+        $this->assertFalse(is_null($result));
+    }
     public function test_delete(){
-        $place = new Place(null,null,null,null,null,null);
-        $place->setPID($place->getLastInserted()['PID']);
-        $add = $place->deletePlace();
-        $this->assertEquals("Success",$add);
-    } 
-} */
+        $placeController = $this::getController();
+        $placeView = $this::getView();
+        $row = $placeView->lastRow();
+        $result = $placeController->delete($row['PID']);
+        $this->assertEquals("Success",$result);
+    }
+    public function test_getSet(){
+        $u = $this::getView();
+        $u->setPID("1");
+        $this->assertEquals("1",$u->getPID());
+        $u->setNamePlace("TEST");
+        $this->assertEquals("TEST",$u->getNamePlace());
+        $u->setLatitude("40.12345600");
+        $this->assertEquals("40.12345600",$u->getLatitude());
+        $u->setLongtitude("50.12345600");
+        $this->assertEquals("50.12345600",$u->getLongtitude());
+        $u->setAvailable("100");
+        $this->assertEquals("100",$u->getAvailable());
+        $u->setCurrent("10");
+        $this->assertEquals("10",$u->getCurrent());
+    }
+    public static function getController()
+	{
+		if (self::$controller == null)
+		{
+		self::$controller = new PlaceController();
+		}
+		return self::$controller;
+    }
+    public static function getView()
+	{
+		if (self::$view == null)
+		{
+		self::$view = new PlaceView();
+		}
+		return self::$view;
+	}
+}*/

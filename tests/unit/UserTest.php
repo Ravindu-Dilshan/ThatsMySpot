@@ -1,5 +1,5 @@
 <?php
-session_start();
+/*session_start();
 require_once(__DIR__.'/../../script/controller/user.control.php');
 require_once(__DIR__.'/../../script/view/user.view.php');
 use PHPUnit\Framework\TestCase;
@@ -118,4 +118,4 @@ class UserTest extends TestCase
 		}
 		return self::$view;
 	}
-}
+}*/

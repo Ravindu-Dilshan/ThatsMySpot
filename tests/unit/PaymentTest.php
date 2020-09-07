@@ -1,41 +1,68 @@
 <?php
 //session_start();
-/* require_once(__DIR__.'/../../script/class/payment.cls.php');
+/*require_once(__DIR__.'/../../script/controller/payment.control.php');
+require_once(__DIR__.'/../../script/view/payment.view.php');
 use PHPUnit\Framework\TestCase;
 
 class PaymentTest extends TestCase
 {
-    //give valid datafrom the database
-    private  $PID = "38";
-	private  $amount = "2";
-	private  $UID = "21";
-	private  $status = "paid";
+    private static $controller = null;
+    private static $view = null;
 
     public function test_update(){
-        $payment = new Payment($this->PID,null,null,$this->status);
-        $update = $payment->updatePayment();
-        $this->assertEquals("Success",$update);
+        $paymentController = $this::getController();
+        $paymentView = $this::getView();
+        $result = $paymentController->updatePaymentStatus("38","Paid");//give PID a valid PID
+        $this->assertEquals("Success",$result);
     }
     public function test_getAmount(){
-        $payment = new Payment($this->PID,null,null,null);
-        $result = $payment->getPaymentAmount();
-        $this->assertEquals($this->amount,$result);
+        $paymentView = $this::getView();
+        $result = $paymentView->viewAmount("38");
+        $this->assertEquals("2",$result);
     }
-    public function test_viewAll(){
-        $payment = new Payment(null,null,null,null);
-        $result = $payment->getAllPayments();
-        $this->assertTrue(mysqli_fetch_assoc($result)>0);
+    public function test_viewAllLog(){
+        $paymentView = $this::getView();
+        $result = $paymentView->viewPaymentsLog();
+        $this->assertFalse(is_null($result));
     }
-    public function test_viewAllbyUser(){
-        $payment = new Payment(null,null,$this->UID,null);
-        $result = $payment->getAllByUser();
-        $row = mysqli_fetch_assoc($result);
-        $this->assertTrue($row>0);
-        $this->assertEquals($this->UID,$row['UID']);
+    public function test_viewAllUser(){
+        $paymentView = $this::getView();
+        $result = $paymentView->viewPaymentsByUser("1");
+        $this->assertFalse(is_null($result));
     }
+
     public function test_count(){
-        $payment = new Payment(null,null,$this->UID,null);
-        $result = $payment->getUnpaidCount();
+        $paymentView = $this::getView();
+        $result = $paymentView->viewUnpaidCount("1");
         $this->assertTrue($result!=null);
     }
-} */
+
+    public function test_getSet(){
+        $u = $this::getView();
+        $u->setPID("1");
+        $this->assertEquals("1",$u->getPID());
+        $u->setAmount("1000");
+        $this->assertEquals("1000",$u->getAmount());
+        $u->setUID("1");
+        $this->assertEquals("1",$u->getUID());
+        $u->setStatus("PAID");
+        $this->assertEquals("PAID",$u->getStatus());
+    }
+
+    public static function getController()
+	{
+		if (self::$controller == null)
+		{
+		self::$controller = new PaymentController();
+		}
+		return self::$controller;
+    }
+    public static function getView()
+	{
+		if (self::$view == null)
+		{
+		self::$view = new PaymentView();
+		}
+		return self::$view;
+	}
+}*/
