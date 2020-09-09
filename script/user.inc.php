@@ -47,7 +47,7 @@ elseif(isset($_GET['btnUpdateUser']))
     exit();
   }
   elseif (empty($tele)) {
-    echo 'Please Enter a Address';
+    echo 'Please Enter a Telephone Number';
     exit();
   }
   else{

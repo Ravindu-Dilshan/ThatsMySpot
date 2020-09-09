@@ -3,7 +3,7 @@
 //$date = date('m/d/Y h:i:s a', "1595400778");
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
     if(isset($_GET['token'])){
-        if($_GET['token'] =="123456"){
+        if($_GET['token'] =="ade17b70fea88010-f26911ea-adc1ba11-4a048ca1-b011cc5232420242ac120002"){
             session_start();
             require_once('../script/controller/place.control.php');
             if($_GET['url'] =="vehicle_in"){

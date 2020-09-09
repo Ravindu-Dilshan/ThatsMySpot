@@ -8,7 +8,8 @@ $(document).ready(function() {
       "paging": false,
       "info": false,
       buttons: [
-          'pdf'
+          'pdf',
+	  'csv'	
       ],
   } );
 });
