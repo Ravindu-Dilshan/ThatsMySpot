@@ -104,6 +104,24 @@ class Payment
 		
 	}
 
+	protected function getAllSettlePayments()
+	{
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "SELECT payment.amount,payment.UID,user.nameUser,user.emailUser,
+		parking_log.plate,parking_log.place,settlement.txn,settlement.merID,settlement.PID
+		FROM `payment`,user,parking_log,settlement WHERE payment.PID = parking_log.PID AND user.UID=parking_log.UID AND payment.PID=settlement.PID";
+		$result = mysqli_query($connection,$sql);
+		if(mysqli_num_rows($result)>0){
+				return $result;
+			}
+		else{
+			return false;
+		    }
+		
+	}
+
+
 	protected function getAllByUser()
 	{
 		$db = Database::getInstance();
@@ -151,23 +169,24 @@ class Payment
 		
 	}
 */
-/*
-	public function addPlace()
+
+	public function addSettlement($txn,$merID)
 	{
-		$connection = $this -> DBconnect();
-		$sql = "INSERT INTO `parking_log`(`plate`, `place`, `in_time`, `out_time`, `amount`, `UID`) VALUES (?,?,?,?,?,?)";
+		$db = Database::getInstance();
+		$connection = $db->DBconnect();
+		$sql = "INSERT INTO `settlement`(`PID`, `txn`, `merID`) VALUES (?,?,?)";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
+			return $db ->messages(-1);
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'ssssss',$this ->plate,$this ->place, $this ->in ,$this ->out,$this ->amount,$this ->UID);
+			mysqli_stmt_bind_param($stmt,'sss',$this ->PID,$txn,$merID);
 			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
+			return $db ->messages(1);
 		}
 		mysqli_stmt_close($stmt);
 	}
-*/
+
 
 	protected function updatePayment()
 	{

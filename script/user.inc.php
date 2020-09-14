@@ -15,8 +15,8 @@ if(isset($_GET['btnRegister']))
     echo 'Please Enter a Email';
     exit();
   }
-  elseif (empty($tele)) {
-    echo 'Please Enter a Telephone Number';
+  elseif (empty($tele) || strlen($tele) < 10) {
+    echo 'Please Enter a valid Telephone Number';
     exit();
   }
   elseif (empty($code)) {
@@ -46,8 +46,8 @@ elseif(isset($_GET['btnUpdateUser']))
     echo 'Please Enter a Email';
     exit();
   }
-  elseif (empty($tele)) {
-    echo 'Please Enter a Telephone Number';
+  elseif (empty($tele) || strlen($tele) < 10) {
+    echo 'Please Enter a vaild Telephone Number';
     exit();
   }
   else{
@@ -70,8 +70,8 @@ elseif(isset($_GET['btnAddUser']))
     echo 'Please Enter a Email';
     exit();
   }
-  elseif (empty($tele)) {
-    echo 'Please Enter a Telephone Number';
+  elseif (empty($tele) || strlen($tele) < 10) {
+    echo 'Please Enter a valid Telephone Number';
     exit();
   }
   elseif (empty($code)) {
@@ -133,8 +133,8 @@ elseif(isset($_GET['btnUpdatePro']))
     echo 'Please Enter a Email';
     exit();
   }
-  elseif (empty($tele)) {
-    echo 'Please Enter a Telephone number';
+  elseif (empty($tele)|| strlen($tele) < 10) {
+    echo 'Please Enter a valid Telephone number';
     exit();
   }
   else{

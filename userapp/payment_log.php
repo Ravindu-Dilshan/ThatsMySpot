@@ -169,26 +169,26 @@ if(isset($_SESSION['loggedUser'])){
                                 <form action="" method="post" id="payform">
                                     <div class="form-group">
                                         <label for="cvCode">CARD NUMBER</label>
-                                        <input type="text" class="form-control" id="cardNumber"
+                                        <input type="text" class="form-control" id="cardNumber" name="card_number"
                                             placeholder="Valid Card Number" required autofocus />
                                     </div>
                                     <div class="form-group">
                                         <label for="cvCode">EXPIRE DATE</label>
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="number" class="form-control" id="cardNumber"
+                                                <input type="number" class="form-control" id="cardNumber" name="card_exp_year"
                                                     placeholder="YYYY" required autofocus />
                                             </div>
                                             <div class="col-4">
-                                                <input type="number" class="form-control" id="cardNumber"
+                                                <input type="number" class="form-control" id="cardNumber" name="card_exp_month"
                                                     placeholder="MM" min="1" max="12" required autofocus />
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="form-group">
-                                        <label for="cvCode">CV CODE</label>
-                                        <input type="password" class="form-control" id="cvCode" placeholder="CV"
+                                        <label for="cvCode">CVV CODE</label>
+                                        <input type="password" class="form-control" id="cvCode" placeholder="CVV" name="card_cvv"
                                             required />
                                         <input type="password" class="form-control" name="txtPID" placeholder="CV"
                                             value="<?php echo $_GET['PID']?>" hidden />

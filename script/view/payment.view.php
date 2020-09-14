@@ -84,6 +84,33 @@ class PaymentView extends Payment
 		return $data;
 	}
 
+
+	public function viewPaymentSettle(){
+		$result = $this->getAllSettlePayments();
+		$data = null;
+        if($result==false){
+            $data = '
+					<tr>
+					<td colspan="10"><div class="alert alert-danger w-100 text-center m-auto" role="alert">No Payments Added to View</div></td>
+					</tr>';
+        }
+        else{
+            while($row = mysqli_fetch_assoc($result)){
+			$data = $data.'
+			<tr>
+				<td><b>'.$row['PID'].'</b></td>
+				<td>'.$row['amount'].'</td>
+				<td>'.$row['emailUser'].'</td>
+				<td>'.$row['place'].'</td> 
+				<td>'.$row['txn'].'</td> 
+				<td>'.$row['merID'].'</td>
+				<td><a class="collapse-item" href="https://login.test.netbanx.com" target="_blank">View</a></td> 
+			</tr>';
+ 			}
+		}
+		return $data;
+	}
+
 	public function viewAmount($id){
 		$this->setPID($id);
 		$result = $this->getPaymentAmount();

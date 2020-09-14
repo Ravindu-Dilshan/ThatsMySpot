@@ -75,6 +75,13 @@
         -->
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="payment_manage.php">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Payment</span>
+        </a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 

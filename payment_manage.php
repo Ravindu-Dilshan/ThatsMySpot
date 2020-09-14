@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ThatsMySpot - Payment Logs</title>
+    <title>ThatsMySpot - Users</title>
 
     <!-- Custom fonts for this template -->
     <link href="utils/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -51,12 +51,12 @@
                 <div class="container-fluid">
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Payments</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Users</h1>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Payment Information</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Users Infromation</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -65,23 +65,20 @@
                                     <thead>
                                         <tr>
                                             <th>PID</th>
-                                            <th>Amount(Rs.)</th>
-                                            <th>User</th>
-                                            <th>Telephone</th>
+                                            <th>Amount</th>
                                             <th>Email</th>
-                                            <th>Facility</th>
-                                            <th>Plate Number</th>
-                                            <th>In time</th>
-                                            <th>Out time</th>
-                                            <th>Status</th>  
+                                            <th>Place</th>
+                                            <th>TXN Code</th>
+                                            <th>Bill ID</th>
+                                            <th>View</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                        include('script/view/payment.view.php');
-                                        $user = new PaymentView();
-                                        $result = $user->viewPaymentsLog();
-                                        echo $result;
+                                    include('script/view/payment.view.php');
+                                    $payment = new PaymentView();
+                                    $result = $payment->viewPaymentSettle();
+                                    echo $result;
                                     ?>
                                     </tbody>
                                 </table>
