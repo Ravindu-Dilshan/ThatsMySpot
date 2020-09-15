@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ThatsMySpots - Dashboard</title>
+    <title>ThatsMySpots - Forecast Demo</title>
 
     <!-- Custom fonts for this template-->
     <link href="utils/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -59,7 +59,7 @@
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample1">
                             <div class="card-body">
-                                <img src="python//3//fore.jpg" class="img-fluid" alt="Forecast Chart">
+                                <img src="python//dataset_3//fore.jpg" class="img-fluid" alt="Forecast Chart">
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample2">
                             <div class="card-body">
-                                <img src="python//3//evaluate.jpg" class="img-fluid" alt="Evaluation Chart">
+                                <img src="python//dataset_3//evaluate.jpg" class="img-fluid" alt="Evaluation Chart">
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample3">
                             <div class="card-body">
-                                <img src="python//3//stationary.jpg" class="img-fluid" alt="Stationary Chart">
+                                <img src="python//dataset_3//stationary.jpg" class="img-fluid" alt="Stationary Chart">
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
                         <!-- Card Content - Collapse -->
                         <div class="collapse show" id="collapseCardExample4">
                             <div class="card-body">
-                                <img src="python//3//normal.jpg" class="img-fluid" alt="Data Chart">
+                                <img src="python//dataset_3//normal.jpg" class="img-fluid" alt="Data Chart">
                             </div>
                         </div>
                     </div>
@@ -131,9 +131,9 @@
                                         <tbody>
                                             <?php
                                             // Open the file for reading
-                                            if (file_exists ("python//3//foredata.csv") == TRUE) 
+                                            if (file_exists ("python//dataset_3//foredata.csv") == TRUE) 
                                             {
-                                              $file = fopen("python//3//foredata.csv", "r");
+                                              $file = fopen("python//dataset_3//foredata.csv", "r");
                                               // Convert each line into the local $data variable
                                               fgetcsv($file);
                                               while (($row = fgetcsv($file, 1000, ",")) !== FALSE) 
@@ -160,11 +160,11 @@
                                     $config = simplexml_load_file("./script/model/config.xml");
                                     $path = trim($config->python);
                                       if (isset($_GET["train"])){
-                                        exec('c:\WINDOWS\system32\cmd.exe /c START  '.$path.'reciveTrain.bat 1 1 3');
+                                        exec('c:\WINDOWS\system32\cmd.exe /c START  '.$path.'reciveTrain.bat 1 1 dataset_3');
                                         echo ('<script>location = "forecast.php"</script>');
                                       }
                                       elseif (isset($_GET["fore"])){
-                                        exec('c:\WINDOWS\system32\cmd.exe /c START  '.$path.'reciveFore.bat 1 0 3');
+                                        exec('c:\WINDOWS\system32\cmd.exe /c START  '.$path.'reciveFore.bat 1 0 dataset_3');
                                         echo ('<script>location = "forecast.php"</script>');
                                       }
                                     ?>

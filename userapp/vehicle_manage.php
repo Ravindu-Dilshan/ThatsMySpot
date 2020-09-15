@@ -15,7 +15,7 @@ if(isset($_SESSION['loggedUser'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title></title>
 
     <!-- Custom fonts for this template-->
     <link href="../utils/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

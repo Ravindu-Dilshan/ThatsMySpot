@@ -104,6 +104,7 @@ class PaymentView extends Payment
 				<td>'.$row['place'].'</td> 
 				<td>'.$row['txn'].'</td> 
 				<td>'.$row['merID'].'</td>
+				<td>'.$row['date'].'</td>
 				<td><a class="collapse-item" href="https://login.test.netbanx.com" target="_blank">View</a></td> 
 			</tr>';
  			}

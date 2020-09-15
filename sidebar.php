@@ -126,7 +126,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="forecast_revenue.php">Revenue</a>
                 <a class="collapse-item" href="forecast_demand.php">Demand</a>
-                <a class="collapse-item" href="forecast.php">Forecast Demo</a>
+                <a class="collapse-item" href="forecast.php" hidden>Forecast Demo</a>
+                <a class="collapse-item" href="forecast_original_data.php" hidden>Original Data Demo</a>
             </div>
         </div>
     </li>

@@ -1,4 +1,4 @@
-plate,timestamp,counter,location
+plate,timestamp,amount,location
 ASD1234,1595405022,1,Mahargama
 ASD1234,1595405023,1,Colombo
 ASD1234,1595405023,1,Colombo
@@ -131,7 +131,6 @@ ASD1234,1595413447,1,Nugegoda
 DAMN123,1595413456,1,Colombo
 DAMN123,1595573050,1,Colombo
 ASD1234,1595573492,1,Colombo
-,,,
 ASD1234,1595934275,1,Mahargama
 ASD1234,1596009960,1,Nugegoda
 ASD1234,1596608728,1,Mahargama

@@ -108,8 +108,8 @@ class Payment
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
-		$sql = "SELECT payment.amount,payment.UID,user.nameUser,user.emailUser,
-		parking_log.plate,parking_log.place,settlement.txn,settlement.merID,settlement.PID
+		$sql = "SELECT payment.amount,payment.UID,user.emailUser,
+		settlement.date,parking_log.place,settlement.txn,settlement.merID,settlement.PID
 		FROM `payment`,user,parking_log,settlement WHERE payment.PID = parking_log.PID AND user.UID=parking_log.UID AND payment.PID=settlement.PID";
 		$result = mysqli_query($connection,$sql);
 		if(mysqli_num_rows($result)>0){
@@ -170,17 +170,17 @@ class Payment
 	}
 */
 
-	public function addSettlement($txn,$merID)
+	public function addSettlement($txn,$merID,$date)
 	{
 		$db = Database::getInstance();
 		$connection = $db->DBconnect();
-		$sql = "INSERT INTO `settlement`(`PID`, `txn`, `merID`) VALUES (?,?,?)";
+		$sql = "INSERT INTO `settlement`(`PID`, `txn`, `merID`,`date`) VALUES (?,?,?,?)";
 		$stmt = mysqli_stmt_init($connection);
 		if(!mysqli_stmt_prepare($stmt,$sql)){
 			return $db ->messages(-1);
 		}
 		else{
-			mysqli_stmt_bind_param($stmt,'sss',$this ->PID,$txn,$merID);
+			mysqli_stmt_bind_param($stmt,'ssss',$this ->PID,$txn,$merID,$date);
 			mysqli_stmt_execute($stmt);
 			return $db ->messages(1);
 		}

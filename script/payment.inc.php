@@ -25,7 +25,7 @@ $paysafeAccountNumber = '1001807740';
 // The currencyBaseUnitsMultipler should in turn match the currencyCode.
 // Since the API accepts only integer values, the currencyBaseUnitMultiplier is used convert the decimal amount into the accepted base units integer value.
 $currencyCode = 'LKR'; // for example: CAD
-$currencyBaseUnitsMultiplier = '1'; // for example: 100
+$currencyBaseUnitsMultiplier = '100'; // for example: 100
 require_once('../api/paysafe/source/paysafe.php');
 use Paysafe\PaysafeApiClient;
 use Paysafe\Environment;
@@ -36,12 +36,12 @@ if (isset($_GET['btnUpdateStatus'])) {
 	try {
     $PID =$_POST['txtPID'];
     $amount = $paymentView->viewAmount($PID);
-    $amount = number_format(($amount * $currencyBaseUnitsMultiplier), 0, '.', '');
+    $currency = number_format(($amount * $currencyBaseUnitsMultiplier), 0, '.', '');
     $merchantRef = $PID.'-'.time();
     if($amount != false){
 		$auth = $client->cardPaymentService()->authorize(new Authorization(array(
 			 'merchantRefNum' => $merchantRef,
-			 'amount' => $amount,
+			 'amount' => $currency,
 			 'settleWithAuth' => true,
 			 'card' => array(
 				  'cardNum' => $_POST['card_number'],
@@ -53,13 +53,17 @@ if (isset($_GET['btnUpdateStatus'])) {
 			 ),
 			 'billingDetails' => array(
 				  'zip' => 'M5H 2N2'
-		))));
+    ))));
+    $update = $payment->createSettlement($PID,$auth->id,$merchantRef,date('Y-m-d', time()));
+    if($update == "Success"){
     $update = $payment->updatePaymentStatus($PID,"paid");
     $file = fopen("../api/income.csv","a");
     $line = array($PID, time() , $amount);
     fputcsv($file, $line);
     fclose($file);
-    $update = $payment->createSettlement($PID,$auth->id,$merchantRef);
+    }else{
+      echo 'Settlement error';
+    }
     }                    
     echo $update;
 	} catch (Paysafe\PaysafeException $e) {

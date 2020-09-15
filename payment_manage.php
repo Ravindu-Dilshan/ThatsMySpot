@@ -70,6 +70,7 @@
                                             <th>Place</th>
                                             <th>TXN Code</th>
                                             <th>Bill ID</th>
+                                            <th>Date</th>
                                             <th>View</th>
                                         </tr>
                                     </thead>

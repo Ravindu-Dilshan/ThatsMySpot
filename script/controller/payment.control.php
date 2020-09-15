@@ -8,9 +8,9 @@ class PaymentController extends Payment
 		return $this->updatePayment();
 	}
 
-	public function createSettlement($PID,$txn,$merID){
+	public function createSettlement($PID,$txn,$merID,$date){
 		$this->setPID($PID);
-		return $this->addSettlement($txn,$merID);
+		return $this->addSettlement($txn,$merID,$date);
 	}
 }
  ?>
