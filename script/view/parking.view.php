@@ -1,4 +1,5 @@
 <?php
+/*This handles all the parking log views*/
 require_once(dirname(__DIR__).'./model/parking.cls.php');
 class ParkingLogView extends ParkingLog
 {

@@ -1,5 +1,5 @@
 <?php
-$paysafeApiKeyId = 'test_thatsmyspot';
+/*$paysafeApiKeyId = 'test_thatsmyspot';
 $paysafeApiKeySecret = 'B-qa2-0-5f5f1a4f-0-302c02144b58cdd5c1675ce10cb829719dc345dcbf88910702142cd68e173350aa95f4d22d4b0c600909cabbd650';
 $paysafeAccountNumber = '1001807740';
 //https://login.test.netbanx.com
@@ -16,7 +16,7 @@ use Paysafe\CardPayments\Settlement;
 use Paysafe\CardPayments\ReFund;
 use Paysafe\CardPayments\Verification;
 	$client = new PaysafeApiClient($paysafeApiKeyId, $paysafeApiKeySecret, Environment::TEST, $paysafeAccountNumber);
-	try {
+	try {*/
 		/*$response = $client->cardPaymentService()->settlement(new Settlement(array(
             'merchantRefNum' => "e0cb42e1-82e6-4b7c-9a40-e61eb97c201f",
             'authorizationID' => '87-1600076913'.' '
@@ -44,6 +44,7 @@ use Paysafe\CardPayments\Verification;
 $response = $client->cardPaymentService()->getVerifications(new Verification(array(
     'merchantRefNum' => "67-1600079500"
 )));*/
+/*
 $client->cardPaymentService()->approveHeldAuth(new Authorization(array(
     'id' => '1741ac83-3556-4392-9980-64eaa0eae4aa'
 )));
@@ -64,5 +65,5 @@ $client->cardPaymentService()->approveHeldAuth(new Authorization(array(
 		//for debug only, these errors should be properly handled before production
 		var_dump($e->getMessage());
 	}
-
+*/
 ?>

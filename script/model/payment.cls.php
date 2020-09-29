@@ -145,31 +145,7 @@ class Payment
 		    }
 		}		
 	}
-/*
-	public function searchPlace($search)
-	{
-		$connection = $this -> DBconnect();
-		$sql = "SELECT * FROM place WHERE namePack LIKE ? OR discription LIKE ? OR pricePack LIKE ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
-		}
-		else{
-			$search = '%'.$search."%";
-			mysqli_stmt_bind_param($stmt,'sss',$search,$search,$search);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			if(mysqli_num_rows($result)>0){
-				return $result;
-			}
-			else{
-			return false;
-		    }
-		}
-		
-	}
-*/
-
+	//after payment insert the settlement
 	public function addSettlement($txn,$merID,$date)
 	{
 		$db = Database::getInstance();
@@ -186,7 +162,6 @@ class Payment
 		}
 		mysqli_stmt_close($stmt);
 	}
-
 
 	protected function updatePayment()
 	{
@@ -228,7 +203,7 @@ class Payment
 		    }
 		}		
 	}
-//get count
+	//get count of the unpaid payments
 	protected function getUnpaidCount()
 	{
 		$db = Database::getInstance();
@@ -253,25 +228,5 @@ class Payment
 		}	
 		mysqli_stmt_close($stmt);
 	}
-
-/*
-	public function deletePlace()
-	{
-		$connection = $this -> DBconnect();
-		$sql = "DELETE FROM `place` WHERE PID = ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
-		}
-		else{
-			mysqli_stmt_bind_param($stmt,'s',$this ->PID);
-			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
-		}
-		mysqli_stmt_close($stmt);
-	}
-*/
-
-
 }
  ?>

@@ -1,4 +1,5 @@
 <?php
+/*This control all the parking interactions*/
 require_once(dirname(__DIR__).'./model/parking.cls.php');
 class ParkingLogController extends ParkingLog
 {

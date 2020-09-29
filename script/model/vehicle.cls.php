@@ -109,23 +109,6 @@ class Vehicle
 
 		return $this;
 	}
-//CHECK
-/*
-	protected function getAllVehicles()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "SELECT * FROM vehicle";
-		$result = mysqli_query($connection,$sql);
-		if(mysqli_num_rows($result)>0){
-				return $result;
-			}
-		else{
-			return false;
-		    }
-		
-	}
-	*/
 	protected function getAllByUser()
 	{
 		$db = Database::getInstance();

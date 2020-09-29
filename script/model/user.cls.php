@@ -309,29 +309,6 @@ class User
 		}
 		mysqli_stmt_close($stmt);
 	}
-/*
-	protected function getProfile()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "SELECT * FROM `user` WHERE `UID` = ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $db ->messages(-1);
-		}
-		else{
-			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			if(mysqli_num_rows($result)>0){
-				return $result;
-			}
-			else{
-			return false;
-		    }
-		}
-		
-	}*/
 
 	protected function updateProfile()
 	{

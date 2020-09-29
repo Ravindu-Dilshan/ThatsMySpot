@@ -1,4 +1,5 @@
 <?php
+/*This control all the user interactions*/
 require_once(dirname(__DIR__).'./model/user.cls.php');
 class UserController extends User
 {

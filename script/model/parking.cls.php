@@ -165,7 +165,6 @@ class ParkingLog
 		    }
 		
 	}
-
 	protected function getAllParkingByDate($from,$to)
 	{
 		$db = Database::getInstance();
@@ -189,54 +188,6 @@ class ParkingLog
 		}
 		
 	}
-//CHECK
-/*
-	protected function getAllByUser()
-	{
-		$db = Database::getInstance();
-		$connection = $db->DBconnect();
-		$sql = "SELECT * FROM parking_log WHERE `UID` = ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
-		}
-		else{
-			mysqli_stmt_bind_param($stmt,'s',$this ->UID);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			if(mysqli_num_rows($result)>0){
-				return $result;
-			}
-			else{
-			return false;
-		    }
-		}
-		
-	}*/
-/*
-	public function searchPlace($search)
-	{
-		$connection = $this -> DBconnect();
-		$sql = "SELECT * FROM place WHERE namePack LIKE ? OR discription LIKE ? OR pricePack LIKE ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
-		}
-		else{
-			$search = '%'.$search."%";
-			mysqli_stmt_bind_param($stmt,'sss',$search,$search,$search);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			if(mysqli_num_rows($result)>0){
-				return $result;
-			}
-			else{
-			return false;
-		    }
-		}
-		
-	}
-*/
 	protected function addParkignLog()
 	{
 		$db = Database::getInstance();
@@ -326,7 +277,7 @@ class ParkingLog
 			return false;
 		    }	
 	}
-
+	//get last inserted row
 	protected function getLastInserted()
 	{
 		$db = Database::getInstance();
@@ -340,42 +291,5 @@ class ParkingLog
 			return false;
 		}
 	}
-
-
-/*
-	public function updatePlace()
-	{
-		$connection = $this -> DBconnect();
-		$sql = "UPDATE `place` SET `namePlace`=?,`latitude`=?,`longtitude`=?,`available`=?,`current`=? WHERE `PID`=?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
-		}
-		else{
-			mysqli_stmt_bind_param($stmt,'ssssss',$this ->namePlace,$this ->latitude, $this ->longtitude ,$this ->available,$this ->current,$this ->PID);
-			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
-		}
-		mysqli_stmt_close($stmt);
-	}
-*/
-/*
-	public function deletePlace()
-	{
-		$connection = $this -> DBconnect();
-		$sql = "DELETE FROM `place` WHERE PID = ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return $this ->messages(-1);
-		}
-		else{
-			mysqli_stmt_bind_param($stmt,'s',$this ->PID);
-			mysqli_stmt_execute($stmt);
-			return $this ->messages(1);
-		}
-		mysqli_stmt_close($stmt);
-	}
-*/
-
 }
  ?>

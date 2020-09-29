@@ -1,4 +1,5 @@
 <?php
+/*This control all the location interactions*/
 require_once(dirname(__DIR__).'./model/place.cls.php');
 class PlaceController extends Place
 {

@@ -1,4 +1,5 @@
 <?php
+/*This handles all the payment views*/
 require_once(dirname(__DIR__).'./model/payment.cls.php');
 class PaymentView extends Payment
 {

@@ -1,11 +1,14 @@
 <?php
-//date_default_timezone_set('Asia/Colombo');
-//$date = date('m/d/Y h:i:s a', "1595400778");
+/*
+This handles the requests from the ANPR system 
+and do the backend processes
+*/
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
     if(isset($_GET['token'])){
         if($_GET['token'] =="ade17b70fea88010-f26911ea-adc1ba11-4a048ca1-b011cc5232420242ac120002"){
             session_start();
             require_once('../script/controller/place.control.php');
+            //set vehicle entering from the parking
             if($_GET['url'] =="vehicle_in"){
                 if(isset($_GET['plate']) && isset($_GET['place']) && isset($_GET['PID'])){
                     $plate = $_GET['plate'];
@@ -19,29 +22,27 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                         'PLACE' => $_GET['place'],
                         'PID' => $_GET['PID'],
                         'UID' => $uid);
-
+                        //current parked vehicles
                         $input = unserialize(file_get_contents('data.txt'));
                         $tempArray = $input;
                         $tempArray[$plate] = array();
                         if(isset($input[$plate])){
-                            //print_r($input[$plate]);
                             echo "Already Parked in";
                             exit();
                         }
                         array_push($tempArray[$plate], $item);
                         file_put_contents('data.txt', serialize($tempArray));
-
+                        //add to authenication log
                         $file = fopen("authentication.csv","a");
                         $line = array($plate, time() , 1, $location);
                         fputcsv($file, $line);
                         fclose($file);
-
+                        //insert to parking log
                         $place = new PlaceController();
                         $place->updatePlaceCurrent($_GET['PID'],"in");
-
-                        //echo json_encode($tempArray);
                         echo "Success";
                     }else{
+                        //add to unauthorized log
                         $file = fopen("unauthorized.csv","a");
                         $line = array($plate, time() , 1, $location);
                         fputcsv($file, $line);
@@ -52,13 +53,13 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                     echo "no plate or place";
                 }
             }
+            //set vehicle exiting from the parking
             elseif($_GET['url'] =="vehicle_out"){
                 if(isset($_GET['plate'])){
                     $plate = $_GET['plate'];
                     $input = unserialize(file_get_contents('data.txt'));
                     if(isset($input[$plate])){
                         date_default_timezone_set('Asia/Colombo');
-                        //$date = date('m/d/Y h:i:s a', "1595400778");
                         require_once('../script/controller/parking.control.php');
 
                         $place = $input[$plate][0]['PLACE'];
@@ -78,7 +79,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                             $place->updatePlaceCurrent($_GET['PID'],"out");
                         }
                         echo $add;
-                        //echo json_encode($input);
                     }else{
                         echo "not parked in";
                     }
@@ -86,6 +86,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
                     echo "no plate";
                 }
             }
+            //return all the location info to the ANPR system
             elseif($_GET['url'] =="get_place_info"){
                 require_once('../script/view/place.view.php');
                 $place = new PlaceView();

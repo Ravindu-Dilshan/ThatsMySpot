@@ -1,4 +1,5 @@
 <?php
+/*This handles all the user views*/
 require_once(dirname(__DIR__).'/model/user.cls.php');
 class UserView extends User
 {

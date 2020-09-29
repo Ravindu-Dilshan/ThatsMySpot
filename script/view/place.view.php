@@ -1,4 +1,5 @@
 <?php
+/*This handles all the location views*/
 require_once(dirname(__DIR__).'./model/place.cls.php');
 class PlaceView extends Place
 {

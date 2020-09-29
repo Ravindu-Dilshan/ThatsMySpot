@@ -146,30 +146,6 @@ class Place
 		    }
 		
 	}
-/*
-	public function searchPlace($search)
-	{
-		$connection = $this -> DBconnect();
-		$sql = "SELECT * FROM place WHERE namePack LIKE ? OR discription LIKE ? OR pricePack LIKE ?";
-		$stmt = mysqli_stmt_init($connection);
-		if(!mysqli_stmt_prepare($stmt,$sql)){
-			return -1;
-		}
-		else{
-			$search = '%'.$search."%";
-			mysqli_stmt_bind_param($stmt,'sss',$search,$search,$search);
-			mysqli_stmt_execute($stmt);
-			$result = mysqli_stmt_get_result($stmt);
-			if(mysqli_num_rows($result)>0){
-				return $result;
-			}
-			else{
-			return false;
-		    }
-		}
-		
-	}
-*/
 	protected function getLastInserted()
 	{
 		$db = Database::getInstance();
@@ -235,7 +211,7 @@ class Place
 		}
 		mysqli_stmt_close($stmt);
 	}
-
+	//increase decrease availability
 	protected function updateCounter($task)
 	{
 		$db = Database::getInstance();

@@ -1,7 +1,6 @@
 <?php
+/*This handles all the vehicle views*/
 require_once(dirname(__DIR__).'/model/vehicle.cls.php');
-
-
 class VehicleView extends Vehicle
 {
 	public function viewVehiclesByUser($id){

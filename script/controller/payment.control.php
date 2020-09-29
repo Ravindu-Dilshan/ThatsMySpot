@@ -1,4 +1,5 @@
 <?php
+/*This control all the payment interactions*/
 require_once(dirname(__DIR__).'./model/payment.cls.php');
 class PaymentController extends Payment
 {

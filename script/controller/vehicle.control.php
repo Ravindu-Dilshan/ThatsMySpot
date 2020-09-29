@@ -1,4 +1,5 @@
 <?php
+/*This control all the vehicle interactions*/
 require_once(dirname(__DIR__).'/model/vehicle.cls.php');
 class VehicleController extends Vehicle
 {

@@ -18,6 +18,7 @@ class Database
 
 	public function DBconnect()
 	{
+		//read values from file
 		$config = simplexml_load_file(dirname(__DIR__)."./model/config.xml");
 		$server = $config->server;
 		$user = $config->user;
@@ -29,7 +30,7 @@ class Database
 		}
 		return $connection;
 	}
-
+	//Error Messages
 	public function messages($i)
 	{
 		switch ($i) {

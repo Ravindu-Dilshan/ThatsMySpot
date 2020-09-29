@@ -32,7 +32,7 @@
 include('script/view/parking.view.php');
 $parking = new ParkingLogView();
 $result = $parking->viewParkingLog(False,null,null);
-if(isset($_POST['txtFrom']) && isset($_POST['txtTo'])){
+if(isset($_POST['txtFrom']) && isset($_POST['txtTo'])){//get by date range
     if(!empty($_POST['txtFrom']) && !empty($_POST['txtTo'])){
         $result = $parking->viewParkingLog(True,$_POST['txtFrom'],$_POST['txtTo']);
     } 
