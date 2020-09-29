@@ -169,7 +169,7 @@ if(isset($_SESSION['loggedUser'])){
                                 <form action="" method="post" id="payform">
                                     <div class="form-group">
                                         <label for="cvCode">CARD NUMBER</label>
-                                        <input type="text" class="form-control" id="cardNumber" name="card_number"
+                                        <input type="number" class="form-control" id="cardNumber" name="card_number"
                                             placeholder="Valid Card Number" required autofocus />
                                     </div>
                                     <div class="form-group">

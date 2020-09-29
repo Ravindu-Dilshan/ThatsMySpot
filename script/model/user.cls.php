@@ -165,7 +165,7 @@ class User
 				}
 			}
 			else{
-				return $this->emailUser;//$db->messages(0);
+				return $db->messages(0);
 			}
 		}
 		
