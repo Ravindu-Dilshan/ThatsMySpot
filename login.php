@@ -20,7 +20,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="css/demo.css" rel="stylesheet" type="text/css">
     <script src="utils/jquery/jquery.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
@@ -94,7 +94,13 @@
                         </div>
                     </div>
 
-
+                    <div class="col-lg-1 m-auto demo"><button class="btn btn-secondary btn-user btn-block" id="btnDemo" name="btnLogin">Demo</button></div>
+                    <script>
+                        $('#btnDemo').click(function(){
+                            $('#txtEmail').val('admin@gmail.com');
+                            $('#txtPassword').val('123456');
+                        });
+                    </script>
                 </div>
                 <!-- /.container-fluid -->
 

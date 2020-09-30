@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link href="css/demo.css" rel="stylesheet" type="text/css">
     <title>ThatsMySpot - Locations</title>
 
     <!-- Custom fonts for this template -->
@@ -132,7 +132,7 @@
                 </div>
                 <!-- /.container-fluid -->
                 <div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-2">
                         <button type="button" class="btn btn-primary waves-effect btn-block col-md-4 ml-md-5"
                             data-toggle="modal" data-target="#addPlaceModal">Add new Location</button>
                     </div>
@@ -186,6 +186,15 @@
                             id="result1">
                         </div>
                     </form>
+                    <div class="col-lg-3 mx-auto demo mb-2"><button class="btn btn-secondary btn-user btn-block" id="btnDemo">Demo</button></div>
+                    <script>
+                        $('#btnDemo').click(function(){
+                            $('#txtName').val('Jaffna');
+                            $('#txtLat').val('9.6615');
+                            $('#txtLong').val('80.0255');
+                            $('#txtAvailable').val('25');
+                        });
+                    </script>
                 </div>
                 <!--/.Content-->
             </div>

@@ -14,7 +14,7 @@
   <!-- Custom fonts for this template-->
   <link href="../utils/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+  <link href="../css/demo.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
   <script src="../utils/jquery/jquery.min.js"></script>
@@ -71,19 +71,19 @@
                   </div>
                   <form class="user" action="" class="user" id="registerform" method="post">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Email Address" name="txtEmail">
+                      <input type="email" class="form-control form-control-user" id="demoEmail" aria-describedby="emailHelp" placeholder="Enter Email Address" name="txtEmail">
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Name" name="txtName">
+                      <input type="text" class="form-control form-control-user" id="demoName" aria-describedby="emailHelp" placeholder="Enter Name" name="txtName">
                     </div>
                     <div class="form-group">
-                      <input type="number" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Telephone number" name="txtTelephone">
+                      <input type="number" class="form-control form-control-user" id="demoTelephone" aria-describedby="emailHelp" placeholder="Enter Telephone number" name="txtTelephone">
                     </div>
                     <div class="form-group">
-                      <textarea type="long text" class="form-control form-control-user" id="" aria-describedby="emailHelp" placeholder="Enter Address..."></textarea>
+                      <textarea type="long text" class="form-control form-control-user" id="demoAddress" aria-describedby="emailHelp" placeholder="Enter Address..."></textarea>
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="" placeholder="Enter Password" name="txtPassword">
+                      <input type="password" class="form-control form-control-user" id="demoPassword" placeholder="Enter Password" name="txtPassword">
                     </div>
                     <button class="btn btn-primary btn-user btn-block" id="btnLogin" name="btnLogin">Register</button>
                   </form>
@@ -96,7 +96,16 @@
               </div>
             </div>
 
-
+            <div class="col-lg-1 mx-auto demo mb-2"><button class="btn btn-secondary btn-user btn-block" id="btnDemo">Demo</button></div>
+            <script>
+                $('#btnDemo').click(function(){
+                    $('#demoEmail').val('test@gmail.com');
+                    $('#demoName').val('Test User');
+                    $('#demoTelephone').val('0112345678');
+                    $('#demoAddress').val('22/22 that street, Maharagama');
+                    $('#demoPassword').val('123456');
+                });
+            </script>
         </div>
         <!-- /.container-fluid -->
 

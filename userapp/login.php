@@ -14,7 +14,7 @@
   <!-- Custom fonts for this template-->
   <link href="../utils/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+  <link href="../css/demo.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin-2.min.css" rel="stylesheet">
   <script src="../utils/jquery/jquery.min.js"></script>
@@ -90,6 +90,13 @@
                 </div>
               </div>
             </div>
+            <div class="col-lg-1 m-auto demo"><button class="btn btn-secondary btn-user btn-block" id="btnDemo">Demo</button></div>
+            <script>
+                $('#btnDemo').click(function(){
+                    $('#txtEmail').val('test@gmail.com');
+                    $('#txtPassword').val('123456');
+                });
+            </script>
 
 
         </div>

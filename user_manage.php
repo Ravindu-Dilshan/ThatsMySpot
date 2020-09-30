@@ -18,7 +18,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="css/demo.css" rel="stylesheet" type="text/css">
     <!-- Custom styles for this page -->
     <link href="utils/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -138,7 +138,7 @@
                 </div>
                 <!-- /.container-fluid -->
                 <div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-2">
                         <button type="button" class="btn btn-primary waves-effect btn-block col-md-4 ml-md-5"
                             data-toggle="modal" data-target="#addUserModal">Add new user</button>
                     </div>
@@ -200,6 +200,15 @@
                             id="result1">
                         </div>
                     </form>
+                    <div class="col-lg-3 mx-auto demo mb-2"><button class="btn btn-secondary btn-user btn-block" id="btnDemo">Demo</button></div>
+                    <script>
+                        $('#btnDemo').click(function(){
+                            $('#txtName').val('Demo User');
+                            $('#txtEmail').val('demo@gmail.com');
+                            $('#txtPassword').val('123456');
+                            $('#txtTelephone').val('0112458796');
+                        });
+                    </script>
                 </div>
                 <!--/.Content-->
             </div>

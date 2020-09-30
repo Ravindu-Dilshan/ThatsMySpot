@@ -19,6 +19,7 @@ if(isset($_SESSION['loggedUser'])){
 
     <!-- Custom fonts for this template-->
     <link href="../utils/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/demo.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -222,6 +223,14 @@ if(isset($_SESSION['loggedUser'])){
                             id="result1">
                         </div>
                     </form>
+                    <div class="col-lg-1 mx-auto demo mb-2"><button class="btn btn-secondary btn-user btn-block" id="btnDemo">Demo</button></div>
+                    <script>
+                        $('#btnDemo').click(function(){
+                            $('#txtType').val('Nissan BYG');
+                            $('#txtPlate').val('29A15390');
+                            $('#txtColor').val('Red');
+                        });
+                    </script>
                 </div>
                 <!--/.Content-->
             </div>

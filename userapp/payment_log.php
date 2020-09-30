@@ -26,7 +26,7 @@ if(isset($_SESSION['loggedUser'])){
 
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link href="../css/demo.css" rel="stylesheet" type="text/css">
     <style>
     #snackbar {
         visibility: hidden;
@@ -176,11 +176,11 @@ if(isset($_SESSION['loggedUser'])){
                                         <label for="cvCode">EXPIRE DATE</label>
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="number" class="form-control" id="cardNumber" name="card_exp_year"
+                                                <input type="number" class="form-control" id="cardYear" name="card_exp_year"
                                                     placeholder="YYYY" required autofocus />
                                             </div>
                                             <div class="col-4">
-                                                <input type="number" class="form-control" id="cardNumber" name="card_exp_month"
+                                                <input type="number" class="form-control" id="cardMonth" name="card_exp_month"
                                                     placeholder="MM" min="1" max="12" required autofocus />
                                             </div>
                                         </div>
@@ -206,6 +206,15 @@ if(isset($_SESSION['loggedUser'])){
                                     <div class="alert text-dark float-right w-100 text-center mt-3" role="alert"
                                         id="result1">
                                 </form>
+                                <div class="col-lg-1 mx-auto demo mb-2"><a class="btn btn-secondary btn-user btn-block" id="btnDemo">Demo</a></div>
+                                <script>
+                                    $('#btnDemo').click(function(){
+                                        $('#cardNumber').val('4515031000000005');
+                                        $('#cvCode').val('123');
+                                        $('#cardMonth').val('4');
+                                        $('#cardYear').val('2021');
+                                    });
+                                </script>
                             </div>
                             <!--/.Content-->
                         </div>
